@@ -27,6 +27,7 @@ define([
             defaultMode: config.defaultMapClickMode
         },
         startup: function() {
+            this.registeredEventHandlers = {};
             this.initView();
         },
         initView: function() {
@@ -59,7 +60,8 @@ define([
             this.map = new Map('map', config.mapOptions);
 
             this.map.on('load', lang.hitch(this, 'initLayers'));
-            this.map.on('layers-add-result', lang.hitch(this, 'initWidgets'));
+
+            this.registeredEventHandlers.mapLayersAddResult = this.map.on('layers-add-result', lang.hitch(this, 'initWidgets'));
 
             // issue to fix: if using custom basemap, you need to load the basemap widget now or map::load will never fire
 
@@ -159,6 +161,8 @@ define([
             array.forEach(widgets, function(widget, i) {
                 this.widgetLoader(widget, i);
             }, this);
+
+            this.registeredEventHandlers.mapLayersAddResult.remove();
         },
         togglePane: function(id) {
             if (!this[id]) {
