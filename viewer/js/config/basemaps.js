@@ -6,93 +6,40 @@ define([
     return {
         map: true,
         //must be either 'agol' or 'custom'
-        mode: 'agol',
+        mode: 'custom',
         title: 'Basemaps',
         // must match one of the basemap keys below
-        mapStartBasemap: 'streets',
+        mapStartBasemap: 'msuCampus',
         //basemaps to show in menu. define in basemaps object below and reference by name here
         // TODO Is this array necessary when the same keys are explicitly included/excluded below?
-        basemapsToShow: ['streets', 'satellite', 'hybrid', 'topo', 'lightGray', 'gray', 'national-geographic', 'osm', 'oceans'],
+        basemapsToShow: ['msuCampus','msuAerial'],
 
         // define all valid custom basemaps here. Object of Basemap objects. For custom basemaps, the key name and basemap id must match.
         basemaps: {
-
-            // agol basemaps
-            streets: {
-                title: 'Streets'
+            msuAerial   : {
+                title  : '2010 Aerial',
+                basemap: new Basemap ( {
+                        id    : 'msuAerial',
+                        layers: [
+                            new BasemapLayer ( { url: 'http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer' } ),
+                            new BasemapLayer ( { url: 'http://prod.gis.msu.edu/arcgis/rest/services/basemap/aerial/MapServer' } )
+                        ]
+                    }
+                )
             },
-            satellite: {
-                title: 'Satellite'
-            },
-            hybrid: {
-                title: 'Hybrid'
-            },
-            topo: {
-                title: 'Topo'
-            },
-            gray: {
-                title: 'Gray'
-            },
-            oceans: {
-                title: 'Oceans'
-            },
-            'national-geographic': {
-                title: 'Nat Geo'
-            },
-            osm: {
-                title: 'Open Street Map'
+            msuCampus   : {
+                title  : 'Campus',
+                basemap: new Basemap ( {
+                        id    : 'msuCampus',
+                        layers: [ new BasemapLayer ( { url: 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer' } ),
+                            new BasemapLayer ( { url: 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer' } ),
+                            new BasemapLayer ( { url: 'https://fis.ipf.msu.edu/arcgis/rest/services/Basemaps/Basemap/MapServer', isReference: false } ),
+                            new BasemapLayer ( { url: 'https://fis.ipf.msu.edu/arcgis/rest/services/Basemaps/DetailedBasemap/MapServer' } ),
+                            new BasemapLayer ( { url: 'http://fis.ipf.msu.edu/arcgis/rest/services/Basemaps/BasemapLabels/MapServer' } )
+                        ]
+                    }
+                )
             }
-
-            // examples of custom basemaps
-            /*
-            streets: {
-                title: 'Streets',
-                basemap: new Basemap({
-                    id: 'streets',
-                    layers: [new BasemapLayer({
-                        url: 'http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
-                    })]
-                })
-            },
-            satellite: {
-                title: 'Satellite',
-                basemap: new Basemap({
-                    id: 'satellite',
-                    layers: [new BasemapLayer({
-                        url: 'http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
-                    })]
-                })
-            },
-            hybrid: {
-                title: 'Hybrid',
-                basemap: new Basemap({
-                    id: 'hybrid',
-                    layers: [new BasemapLayer({
-                        url: 'http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
-                    }), new BasemapLayer({
-                        url: 'http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer',
-                        isReference: true,
-                        displayLevels: [0, 1, 2, 3, 4, 5, 6, 7]
-                    }), new BasemapLayer({
-                        url: 'http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer',
-                        isReference: true,
-                        displayLevels: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
-                    })]
-                })
-            },
-            lightGray: {
-                title: 'Light Gray Canvas',
-                basemap: new Basemap({
-                    id: 'lightGray',
-                    layers: [new BasemapLayer({
-                        url: 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer'
-                    }), new BasemapLayer({
-                        url: 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer',
-                        isReference: true
-                    })]
-                })
-            }
-            */
         }
     };
 });
