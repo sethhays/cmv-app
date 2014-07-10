@@ -66,6 +66,7 @@ define([
             }
             if (config.operationalLayers && config.operationalLayers.length > 0) {
                 this.map.on('layers-add-result', lang.hitch(this, 'initWidgets'));
+                this.registeredEventHandlers.mapLayersAddResult = this.map.on('layers-add-result', lang.hitch(this, 'initWidgets'));
             } else {
                 this.initWidgets();
             }
