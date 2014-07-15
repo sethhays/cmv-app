@@ -143,46 +143,266 @@ define([
 		// The 'options' object is passed as the layers options for constructor. Title will be used in the legend only. id's must be unique and have no spaces.
 		// 3 'mode' options: MODE_SNAPSHOT = 0, MODE_ONDEMAND = 1, MODE_SELECTION = 2
 		operationalLayers: [{
-			type: 'feature',
-			url: 'http://services1.arcgis.com/g2TonOxuRkIqSOFx/arcgis/rest/services/MeetUpHomeTowns/FeatureServer/0',
-			title: 'STLJS Meetup Home Towns',
-			options: {
-				id: 'meetupHometowns',
-				opacity: 1.0,
-				visible: true,
-				outFields: ['*'],
-				infoTemplate: new InfoTemplate('Hometown', '${*}'),
-				mode: 0
-			},
-			editorLayerInfos: {
-				disableGeometryUpdate: false
-			}
-		}, {
-			type: 'dynamic',
-			url: 'http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/PublicSafety/PublicSafetyOperationalLayers/MapServer',
-			title: 'Louisville Public Safety',
-			slider: true,
-			noLegend: false,
-			collapsed: false,
-			sublayerToggle: false, //true to automatically turn on sublayers
-			options: {
-				id: 'louisvillePubSafety',
-				opacity: 1.0,
-				visible: true
-			}
-		}, {
-			type: 'dynamic',
-			url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/MapServer',
-			title: 'Damage Assessment',
-			slider: true,
-			noLegend: false,
-			collapsed: false,
-			options: {
-				id: 'DamageAssessment',
-				opacity: 1.0,
-				visible: true
-			}
-		}],
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/BuildingInformation/SpaceByFloor/MapServer',
+            title  : 'Floor plans (by floor)',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'floorPlansMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/DPPS/ParkingDatabaseMap/MapServer',
+            title  : 'Parking Database',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'parkingDatabaseMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/PlantDatabase/PlantDatabaseMap/MapServer',
+            title  : 'Plant Database',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'plantDatabaseMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/CampusInfo/Benchmarks/MapServer',
+            title  : 'Benchmarks',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'benchmarksMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/CampusInfo/EmergencyPhones/MapServer',
+            title  : 'Emergency Phones',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'emergencyPhonesMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/ChilledWater/MapServer',
+            title  : 'Chilled Water',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'chilledWaterMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/Communication/MapServer',
+            title  : 'Communication',
+            slider: false,
+            noLegend: true,
+            collapsed: false,
+            sublayerToggle: true,
+            options: {
+                id     : 'communicationMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/Electric/MapServer',
+            title  : 'Electric',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'electricMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/HeatedWalks/MapServer',
+            title  : 'Heated Walks',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'heatedWalksMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/Irrigation/MapServer',
+            title  : 'Irrigation',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'irrigationMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/MiscellaneousUtilities/MapServer',
+            title  : 'Misc. Utilities',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'miscUtilitiesMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/NaturalGas/MapServer',
+            title  : 'Natural Gas',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'naturalGasMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/PotableWater/MapServer',
+            title  : 'Potable Water',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'potableWaterMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/RawWater/MapServer',
+            title  : 'Raw Water (Well)',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'rawWaterMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/Sanitary/MapServer',
+            title  : 'Sanitary',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'sanitaryMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/Steam/MapServer',
+            title  : 'Steam',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'steamMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/StormWater/MapServer',
+            title  : 'Storm Water',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'stormWaterMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/StreetLighting/MapServer',
+            title  : 'Street Lighting',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'streetLightingMapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/CampusInfo/ProjectandDetourInformation/MapServer',
+            title  : 'Capital Project and Detours',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'capitalProjectsDetoursMapLayer',
+                opacity: 0.75,
+                visible: false
+            }
+        },
+        {
+            type   : 'dynamic',
+            url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/CampusInfo/Topo/MapServer',
+            title  : 'Topo',
+            slider: false,
+            noLegend: false,
+            collapsed: false,
+            options: {
+                id     : 'MapLayer',
+                opacity: 1.0,
+                visible: false
+            }
+        }],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
 		widgets: {
 			growler: {
