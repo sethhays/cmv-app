@@ -142,7 +142,8 @@ define([
 		// operationalLayers: Array of Layers to load on top of the basemap: valid 'type' options: 'dynamic', 'tiled', 'feature'.
 		// The 'options' object is passed as the layers options for constructor. Title will be used in the legend only. id's must be unique and have no spaces.
 		// 3 'mode' options: MODE_SNAPSHOT = 0, MODE_ONDEMAND = 1, MODE_SELECTION = 2
-		operationalLayers: [{
+		operationalLayers: [
+        {
             type   : 'dynamic',
             url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/BuildingInformation/SpaceByFloor/MapServer',
             title  : 'Floor plans (by floor)',
@@ -225,9 +226,8 @@ define([
             url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/Communication/MapServer',
             title  : 'Communication',
             slider: false,
-            noLegend: true,
+            noLegend: false,
             collapsed: false,
-            sublayerToggle: true,
             options: {
                 id     : 'communicationMapLayer',
                 opacity: 1.0,
@@ -381,7 +381,7 @@ define([
             type   : 'dynamic',
             url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/CampusInfo/ProjectandDetourInformation/MapServer',
             title  : 'Capital Project and Detours',
-            slider: false,
+            slider: true,
             noLegend: false,
             collapsed: false,
             options: {
@@ -529,6 +529,7 @@ define([
 			TOC: {
 				include: true,
 				id: 'toc',
+                canFloat: 'true',
 				type: 'titlePane',
 				path: 'gis/dijit/TOC',
 				title: 'Layers',
