@@ -18,7 +18,7 @@ define([
 
 	return {
 		//default mapClick mode, mapClickMode lets widgets know what mode the map is in to avoid multipult map click actions from taking place (ie identify while drawing).
-		defaultMapClickMode: 'identify',
+		defaultMapClickMode: 'click',
 		// map options, passed to map constructor. see: https://developers.arcgis.com/javascript/jsapi/map-amd.html#map1
         mapOptions: {
             basemap    : 'gray',
@@ -458,16 +458,6 @@ define([
             }],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
 		widgets: {
-            campusInfoFeatures: {
-                include: true,
-                id     : 'campusInfoFeaturesWidget',
-                type   : 'invisible',
-                path   : 'fis/dijit/campus/campusinfofeatures',
-                options: {
-                    map         : true,
-                    mapClickMode: false
-                }
-            },
             buildingFloorplans: {
                 include: true,
                 id     : 'buildingFloorplansWidget',
@@ -480,6 +470,16 @@ define([
                 },
                 open: true,
                 position: 1
+            },
+            campusInfoFeatures: {
+                include: true,
+                id     : 'campusInfoFeaturesWidget',
+                type   : 'invisible',
+                path   : 'fis/dijit/campus/campusinfofeatures',
+                options: {
+                    map         : true,
+                    mapClickMode: false
+                }
             },
             growler: {
 				include: true,
