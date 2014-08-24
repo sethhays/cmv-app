@@ -1,22 +1,27 @@
-# Configurable ESRI JS API Viewer
+# Configurable Map Viewer (CMV)
 
-This JS web app can be easily configured or used as a boilerplate/starting point for basic viewers. It also demonstrates best practices for OO and classes in JS. [demo](http://davidspriggs.github.io/ConfigurableViewerJSAPI/viewer/)
+[![Build Status](https://travis-ci.org/DavidSpriggs/ConfigurableViewerJSAPI.svg?branch=master)](https://travis-ci.org/DavidSpriggs/ConfigurableViewerJSAPI)
+
+This JS web app can be easily configured or used as a boilerplate/starting point for basic viewers. It also demonstrates best practices for modular design and OOP via classes in JS using dojo's great [declare](http://dojotoolkit.org/reference-guide/1.9/dojo/_base/declare.html) system.
+
+![screen shot 2014-08-20 at 9 59 48 pm](https://cloud.githubusercontent.com/assets/661156/3991302/5aa2e0f2-28df-11e4-94d0-9c813937d933.png)
+
+## Demo Site
+[http://davidspriggs.github.io/ConfigurableViewerJSAPI/viewer](http://davidspriggs.github.io/ConfigurableViewerJSAPI/viewer)
+
 
 ## Installation:
-* Clone or download the repo
+* Download the latest release [here](https://github.com/DavidSpriggs/ConfigurableViewerJSAPI/releases).
 * Move to your web server
 * configure the proper proxy page. Should work out of the box if using IIS.
-* Edit the config.js file to include your services.
+* Edit the config.js file to include your services and desired widgets.
 * Enjoy!
 
 ## Customize:
-* Use the ConfigurableViewerJSAPI\js\viewer\config.js file to customize your own map layers and task url's.
+* Use the `ConfigurableViewerJSAPI\js\config\viewer.js` file to customize your own map layers, task urls and widgets.
+* Use the [wiki](https://github.com/DavidSpriggs/ConfigurableViewerJSAPI/wiki) documentation for guidance on configuring individual widgets.
 
-## Notes:
-* This is the begining of a viewer, it in no way represents a complete solution and is intended for well versed JS developers as a starting point.
-* This app demonstrates best practices of OO programing in dojo and JS, using modular design and classes.
-
-## Widgets Included:
+# Widgets Included:
 * Base Maps
 * Bookmarks
 * Directions
@@ -25,32 +30,53 @@ This JS web app can be easily configured or used as a boilerplate/starting point
 * Find
 * Geocoder
 * Growler
-* Help Button
+* Help
 * Home
-* Identify (for dynamic layers)
+* Identify
 * Legend
 * Locate Button (Geolocation)
 * Measure
 * Overview Map
-* Print (Advanced)
+* Print
 * Scalebar
 * StreetView
 * Table of contents
+* Find
+* Map Right click menu with various widget functions.
+* Highly configurable UI, right or left sidebars with widgets in both, top and bottom regions for other content.
+
+## Proposing Features
+If there is a feature you would like to request, add it to the [issues list](https://github.com/DavidSpriggs/ConfigurableViewerJSAPI/issues) for consideration.
 
 ## Change log:
 See [releases](https://github.com/DavidSpriggs/ConfigurableViewerJSAPI/releases) for change logs.
 
-## Grunt tasks
-This project uses grunt to automate tasks like minifying css and js as well as js linting and css prefixing. A minified version of the app will be created in a `dist` folder.
+# Community
+We have an IRC channel: `#cmv` on freenode for the project. If you have questions, stop on by. I recommend [HexChat](http://hexchat.github.io) as an IRC client or you can use freenode's [webchat](http://webchat.freenode.net) client.
 
-To get started:
-- Install [node](http://nodejs.org/).
-- Install the grunt cli (command line interface) globally from the command line with : `npm install -g grunt-cli` this only needs to be done once per dev machine.
-- Install jshint globally from the command line with : `npm install -g jshint` this only needs to be done once per dev machine.
-- Install the local dependencies for the project in the repo from the command line: `npm install` This only needs to be done once per dev machine.
-- Run grunt from the repo with: `grunt` this will create a dist folder with minified code ready for deployment.
-- There are other grunt tasks such as `grunt watch` that will lint your js as you code.
+### Contributing to the project
+There are many ways to contribute:
 
-## License
+1. Contribute code as widgets (see below).
+2. Created documentation in [the wiki](https://github.com/DavidSpriggs/ConfigurableViewerJSAPI/wiki).
+3. Submit issues you find in the [issues log](https://github.com/DavidSpriggs/ConfigurableViewerJSAPI/issues?state=open).
+
+### Grunt tasks
+This project uses grunt to automate tasks like minifying css and js as well as js linting and css prefixing.
+
+### To get started setup you dev machine:
+- Install [node](http://nodejs.org).
+- Install the grunt cli (command line interface) globally from the command line with : `npm install -g grunt-cli`, this only needs to be done once per dev machine.
+- Install jshint globally from the command line with : `npm install -g jshint`, this only needs to be done once per dev machine.
+
+### Get the code and install dev dependencies:
+- Fork the repo into your own github account.
+- Clone your fork and in cloned directory:
+- Install the local dev dependencies for the project in the repo from the command line: `npm install`, this only needs to be done once per dev machine.
+- Run grunt from the repo with: `grunt` this will launch a mini dev server and lint your js as you code.
+- Run grunt from the repo with: `grunt build` this will create a `dist` folder with minified code ready for deployment.
+- There are other grunt tasks, use: `grunt -h` to see a list.
+
+# License
 
 MIT

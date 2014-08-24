@@ -3,17 +3,15 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     tag: {
       banner: '/*  <%= pkg.name %>\n' +
-        ' *  @version <%= pkg.version %>\n' +
-        ' *  @author <%= pkg.author %>\n' +
+        ' *  version <%= pkg.version %>\n' +
         ' *  Project: <%= pkg.homepage %>\n' +
-        ' *  Copyright <%= pkg.year %>. <%= pkg.license %> licensed.\n' +
         ' */\n'
     },
     copy: {
       build: {
         cwd: 'viewer',
         src: ['**'],
-        dest: 'dist',
+        dest: 'dist/viewer',
         expand: true
       }
     },
@@ -25,17 +23,17 @@ module.exports = function(grunt) {
     autoprefixer: {
       build: {
         expand: true,
-        cwd: 'dist',
+        cwd: 'dist/viewer',
         src: ['**/*.css', '!**/dbootstrap/**'],
-        dest: 'dist'
+        dest: 'dist/viewer'
       }
     },
     cssmin: {
       build: {
         expand: true,
-        cwd: 'dist',
+        cwd: 'dist/viewer',
         src: ['**/*.css', '!**/dbootstrap/**'],
-        dest: 'dist'
+        dest: 'dist/viewer'
       }
     },
     jshint: {
@@ -51,24 +49,25 @@ module.exports = function(grunt) {
       build: {
         files: [{
           expand: true,
-          cwd: 'viewer',
+          cwd: 'dist/viewer',
           src: ['**/*.js'],
-          dest: 'dist',
+          dest: 'dist/viewer',
           ext: '.js'
         }],
         options: {
           banner: '<%= tag.banner %>',
-          sourceMap: true,
-          sourceMapName: function(filePath) {
-            return filePath + '.map';
-          }
+          sourceMap: true
         }
       }
     },
     watch: {
       dev: {
         files: ['viewer/**'],
-        tasks: ['newer:jshint']
+        tasks: ['jshint']
+      },
+      build: {
+        files: ['dist/viewer/**'],
+        tasks: ['jshint']
       }
     },
     connect: {
@@ -82,7 +81,7 @@ module.exports = function(grunt) {
       build: {
         options: {
           port: 3001,
-          base: 'dist',
+          base: 'dist/viewer',
           hostname: '*'
         }
       }
@@ -93,6 +92,18 @@ module.exports = function(grunt) {
       },
       build_browser: {
         path: 'http://localhost:3001/index.html'
+      }
+    },
+    compress: {
+      build: {
+        options: {
+          archive: 'dist/viewer.zip'
+        },
+        files: [{
+          expand: true,
+          cwd: 'dist/viewer',
+          src: ['**']
+        }]
       }
     }
   });
@@ -108,10 +119,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-open');
+  grunt.loadNpmTasks('grunt-contrib-compress');
 
   // define the tasks
-  grunt.registerTask('default', 'Watches the project for changes, automatically builds them and runs a server.', ['connect:dev', 'open:dev_browser', 'watch']);
-  grunt.registerTask('build', 'Compiles all of the assets and copies the files to the build directory.', ['clean', 'copy', 'stylesheets', 'scripts', 'connect:build', 'open:build_browser', 'watch']);
-  grunt.registerTask('scripts', 'Compiles the JavaScript files.', ['newer:jshint', 'newer:uglify']);
-  grunt.registerTask('stylesheets', 'Compiles the stylesheets.', ['newer:autoprefixer', 'newer:cssmin']);
+  grunt.registerTask('default', 'Watches the project for changes, automatically builds them and runs a web server and opens default browser to preview.', ['connect:dev', 'open:dev_browser', 'watch:dev']);
+  grunt.registerTask('build', 'Compiles all of the assets and copies the files to the build directory.', ['clean', 'copy', 'scripts', 'stylesheets', 'compress:build']);
+  grunt.registerTask('build-view', 'Compiles all of the assets and copies the files to the build directory starts a web server and opens browser to preview app.', ['clean', 'copy', 'scripts', 'stylesheets', 'compress:build', 'connect:build', 'open:build_browser', 'watch:build']);
+  grunt.registerTask('scripts', 'Compiles the JavaScript files.', ['jshint', 'uglify']);
+  grunt.registerTask('stylesheets', 'Auto prefixes css and compiles the stylesheets.', ['autoprefixer', 'cssmin']);
 };
