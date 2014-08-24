@@ -1,0 +1,13 @@
+.fisFloorplansDijit {
+    width: 100%;
+}
+
+.fisFloorplansDijit .layerSelect, .fisFloorplansDijit .searchText {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.fisFloorplansDijit label {
+    font-weight: bold;
+    margin-left: 5px;
+}

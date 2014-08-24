@@ -468,6 +468,19 @@ define([
                     mapClickMode: false
                 }
             },
+            buildingFloorplans: {
+                include: true,
+                id     : 'buildingFloorplansWidget',
+                type   : 'titlePane',
+                title  : 'Building Floor Plans',
+                path   : 'fis/dijit/campus/Floorplans',
+                options: {
+                    map         : true,
+                    mapClickMode: false
+                },
+                open: true,
+                position: 1
+            },
             growler: {
 				include: true,
 				id: 'growler',

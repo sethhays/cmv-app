@@ -1,11 +1,11 @@
-<div class="floorplans-node">
+<div class="fisFloorplansDijit">
     <ul class="list-unstyled floorplan-legend" />
     <div class="formContainer">
         <div data-dojo-type="dijit.form.Form" data-dojo-attach-point="layerFormDijit">
             <div data-dojo-attach-point="layerSelectDom">
                 <label>Select floor:</label><br />
-                <input type="select" data-dojo-type="dijit.form.Select"
-                       data-dojo-props="name:'layer', autoComplete:false,required:true,classs:'layerSelect'"
+                <input type="select" data-dojo-type="dijit.form.FilteringSelect"
+                       data-dojo-props="name:'label', autoComplete:true,required:true,searchAttr:'label',class:'layerSelect'"
                        data-dojo-attach-point="layerSelectDijit"
                        data-dojo-attach-event="onChange:_onLayerChange" />
             </div>
