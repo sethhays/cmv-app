@@ -7,7 +7,7 @@ define([
 ], function(units, Extent, esriConfig, GeometryService, ImageParameters) {
 
 	// url to your proxy page, must be on same machine hosting you app. See proxy folder for readme.
-	esriConfig.defaults.io.proxyUrl = 'proxy/proxy.ashx';
+	//esriConfig.defaults.io.proxyUrl = 'proxy/proxy.ashx';
 	esriConfig.defaults.io.alwaysUseProxy = false;
 	// url to your geometry server.
 	esriConfig.defaults.geometryService = new GeometryService('http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer');
@@ -469,7 +469,7 @@ define([
                     mapClickMode: false
                 },
                 open: true,
-                position: 1
+                position: 0
             },
             campusInfoFeatures: {
                 include: true,
@@ -629,8 +629,8 @@ define([
 				canFloat: true,
 				path: 'gis/dijit/Find',
 				title: 'Find',
-				open: true,
-				position: 0,
+				open: false,
+				position: 1,
 				options: 'config/find'
 			},
 			measure: {
