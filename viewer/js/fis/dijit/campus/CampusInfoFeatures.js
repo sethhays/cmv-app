@@ -44,7 +44,8 @@ define ( [
                 '<ul class="list-unstyled list-inline">' +
                 '<li><a href="http://fis.ipf.msu.edu/fisapps/fit/v3/prod/index.html#/buildings/${BUILDINGID}/details" target="_blank">Details</a></li>' +
                 '<li><a href="http://fis.ipf.msu.edu/fisapps/fit/v3/prod/index.html#/buildings/${BUILDINGID}/additions" target="_blank">Additions</a></li>' +
-                '<li><a href="http://fis.ipf.msu.edu/fisapps/fit/v3/prod/index.html#/buildings/${$BUILDINGID}/projects" target="_blank">Projects</a></li>' +
+                '<li><a href="http://fis.ipf.msu.edu/fisapps/fit/v3/prod/index.html#/buildings/${BUILDINGID}/projects" target="_blank">Projects</a></li>' +
+                '<li><a href="https://dms.ipf.msu.edu/ExplorerClient/Home.aspx?VIEWID=DOC_EE76A&DOCFILTER=ae50dc&BUILDING=${BUILDING}" target="_blank">Floor plans</a></li>' +
                 '</ul>';
             featureLayer.infoTemplate = new InfoTemplate ( 'Building', popupContent );
 

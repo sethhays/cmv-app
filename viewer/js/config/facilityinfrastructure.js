@@ -3,8 +3,9 @@ define([
 	'esri/geometry/Extent',
 	'esri/config',
 	'esri/tasks/GeometryService',
-	'esri/layers/ImageParameters'
-], function(units, Extent, esriConfig, GeometryService, ImageParameters) {
+	'esri/layers/ImageParameters',
+    'esri/InfoTemplate'
+], function(units, Extent, esriConfig, GeometryService, ImageParameters, InfoTemplate) {
 
 	// url to your proxy page, must be on same machine hosting you app. See proxy folder for readme.
 	//esriConfig.defaults.io.proxyUrl = 'proxy/proxy.ashx';
@@ -15,6 +16,10 @@ define([
 	//image parameters for dynamic services, set to png32 for higher quality exports.
 	var imageParameters = new ImageParameters();
 	imageParameters.format = 'png32';
+
+    var panoInfoTemplate = new InfoTemplate();
+    panoInfoTemplate.setTitle( 'Panoramic Photo Location' );
+    panoInfoTemplate.setContent( '<a href="http://prod.gis.msu.edu/campusmap/pano.html?viewer=sphere&locationid=${LOCATIONID}" target="_blank">Open in new window</a>' );
 
 	return {
 		//default mapClick mode, mapClickMode lets widgets know what mode the map is in to avoid multipult map click actions from taking place (ie identify while drawing).
@@ -176,17 +181,19 @@ define([
 		// 3 'mode' options: MODE_SNAPSHOT = 0, MODE_ONDEMAND = 1, MODE_SELECTION = 2
         operationalLayers: [
             {
-                type   : 'dynamic',
-                url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/BuildingInformation/SpaceByFloor/MapServer',
-                title  : 'Floor plans (by floor)',
+                type   : 'feature',
+                url    : 'http://prod.gis.msu.edu/arcgis/rest/services/features/gigapan_loc/MapServer/0',
+                title  : 'Panoramic Photos',
                 slider: false,
                 noLegend: false,
                 collapsed: false,
                 options: {
-                    id     : 'floorPlansMapLayer',
-                    opacity: 1.0,
-                    visible: false,
-                    imageParameters: imageParameters
+                    id     : 'panoFeatureLayer',
+                    opacity: 0.9,
+                    visible: true,
+                    minScale: 2500,
+                    infoTemplate: panoInfoTemplate,
+                    outFields: ['LOCATIONID']
                 }
             },
             {
@@ -468,8 +475,9 @@ define([
                     map         : true,
                     mapClickMode: false
                 },
-                open: true,
-                position: 0
+                canFloat: true,
+                open: false,
+                position: 1
             },
             campusInfoFeatures: {
                 include: true,
@@ -629,8 +637,8 @@ define([
 				canFloat: true,
 				path: 'gis/dijit/Find',
 				title: 'Find',
-				open: false,
-				position: 1,
+				open: true,
+				position: 0,
 				options: 'config/find'
 			},
 			measure: {
