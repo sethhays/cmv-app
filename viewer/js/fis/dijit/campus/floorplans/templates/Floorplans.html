@@ -1,7 +1,9 @@
 <div class="fisFloorplansDijit">
-    <ul class="list-unstyled floorplan-legend" />
+
     <div class="formContainer">
+
         <div data-dojo-type="dijit.form.Form" data-dojo-attach-point="layerFormDijit">
+
             <div data-dojo-attach-point="layerSelectDom">
                 <label>Select floor:</label><br />
                 <input type="select"
@@ -11,6 +13,31 @@
                        data-dojo-attach-point="layerSelectDijit"
                        data-dojo-attach-event="onChange:_onLayerChange" />
             </div>
+
+            <div data-dojo-attach-point="subLayerSelect"
+                    data-dojo-props="class:'subLayerSelect'">
+
+                <div data-dojo-attach-point="doorsSelectDom">
+                    <input type="checkbox"
+                           data-dojo-type="dijit.form.CheckBox"
+                           data-dojo-attach-point="showDoorsDijit"
+                           data-dojo-props="class:'containsCheck'"
+                           data-dojo-attach-event="onChange:_onSubLayerChange"/>
+                    <label style="font-weight: normal"> Show Doors</label>
+                </div>
+
+                <div data-dojo-attach-point="additionsSelectDom">
+                    <input type="checkbox"
+                           data-dojo-type="dijit.form.CheckBox"
+                           data-dojo-attach-point="showAdditionsDijit"
+                           data-dojo-props="class:'containsCheck'"
+                           data-dojo-attach-event="onChange:_onSubLayerChange"/>
+                    <label style="font-weight: normal"> Show Addition Outlines</label>
+                </div>
+
+            </div>
+
         </div>
+
     </div>
 </div>

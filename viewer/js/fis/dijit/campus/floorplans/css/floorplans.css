@@ -11,3 +11,8 @@
     font-weight: bold;
     margin-left: 5px;
 }
+
+.fisFloorplansDijit .subLayerSelect label {
+    font-size: smaller;
+    font-weight: normal;
+}

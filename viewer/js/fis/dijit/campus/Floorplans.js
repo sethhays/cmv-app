@@ -6,6 +6,7 @@ define ( [
              'dijit/form/Form',
              'dijit/form/FilteringSelect',
              'dijit/form/ValidationTextBox',
+             'dijit/form/CheckBox',
              'dojo/dom',
              'dojo/dom-construct',
              'dojo/dom-class',
@@ -22,7 +23,7 @@ define ( [
              'esri/Credential',
              'dojo/text!./Floorplans/templates/Floorplans.html',
              'xstyle/css!./Floorplans/css/floorplans.css'
-         ], function ( declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Form, FilteringSelect, ValidationTextBox, dom, domConstruct, domClass, lang, Color, array, on, request, Memory, DynamicMapServiceLayer, ImageParameters, InfoTemplate, IdentityManager, Credential, FloorplansTemplate, css ) {
+         ], function ( declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Form, FilteringSelect, ValidationTextBox, CheckBox, dom, domConstruct, domClass, lang, Color, array, on, request, Memory, DynamicMapServiceLayer, ImageParameters, InfoTemplate, IdentityManager, Credential, FloorplansTemplate, css ) {
 
              var Floorplans = declare ( [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
                                             widgetsInTemplate: true,
@@ -62,6 +63,8 @@ define ( [
 
                                                 this.layerInfos = this.floorplansLayer.layerInfos;
                                                 this._addRoomInfoTemplates();
+                                                this._addDoorInfoTemplates();
+                                                this._addAdditionInfoTemplates();
                                                 this._buildFloorList();
 
                                             },
@@ -81,7 +84,60 @@ define ( [
 
                                                 }
 
-                                                this.floorplansLayer.setInfoTemplates( infoTemplates );
+                                                var existingTemplates = {};
+                                                if ( this.floorplansLayer.infoTemplates ) {
+                                                    existingTemplates = this.floorplansLayer.infoTemplates;
+                                                }
+
+                                                this.floorplansLayer.setInfoTemplates( lang.mixin( existingTemplates, infoTemplates ) );
+                                                this.floorplansLayer.refresh();
+                                            },
+
+                                            _addDoorInfoTemplates: function () {
+                                                var infoTemplates = {};
+                                                var infoTemplate = new InfoTemplate();
+                                                infoTemplate.setTitle( 'Door' );
+                                                infoTemplate.setContent( '<h5>DOOR ${ASSET_NO}</h5><p>${EQUIPMENT}<br />${KEYWORD}<br />${ASSET_CLASS}</p>' );
+
+                                                for ( var k=0; k<this.floorplansLayer.layerInfos.length; k++ ) {
+                                                    var layerInfo = this.floorplansLayer.layerInfos[k];
+
+                                                    if ( layerInfo.name.search( 'Door' ) >= 0 ) {
+                                                        infoTemplates[ layerInfo.id ] = { infoTemplate: infoTemplate };
+                                                    }
+
+                                                }
+
+                                                var existingTemplates = {};
+                                                if ( this.floorplansLayer.infoTemplates ) {
+                                                    existingTemplates = this.floorplansLayer.infoTemplates;
+                                                }
+
+                                                this.floorplansLayer.setInfoTemplates( lang.mixin( existingTemplates, infoTemplates ) );
+                                                this.floorplansLayer.refresh();
+                                            },
+
+                                            _addAdditionInfoTemplates: function () {
+                                                var infoTemplates = {};
+                                                var infoTemplate = new InfoTemplate();
+                                                infoTemplate.setTitle( 'Building Addition' );
+                                                infoTemplate.setContent( '<h5>ADDITION NO ${ADDN_NUM}</h5><p>${YEAR_BUILT}</p>' );
+
+                                                for ( var k=0; k<this.floorplansLayer.layerInfos.length; k++ ) {
+                                                    var layerInfo = this.floorplansLayer.layerInfos[k];
+
+                                                    if ( layerInfo.name.search( 'Addition' ) >= 0 ) {
+                                                        infoTemplates[ layerInfo.id ] = { infoTemplate: infoTemplate };
+                                                    }
+
+                                                }
+
+                                                var existingTemplates = {};
+                                                if ( this.floorplansLayer.infoTemplates ) {
+                                                    existingTemplates = this.floorplansLayer.infoTemplates;
+                                                }
+
+                                                this.floorplansLayer.setInfoTemplates( lang.mixin( existingTemplates, infoTemplates ) );
                                                 this.floorplansLayer.refresh();
                                             },
 
@@ -120,6 +176,10 @@ define ( [
 
                                             },
 
+                                            _onSubLayerChange: function ( checked ) {
+                                              this._updateLayerProperties();
+                                            },
+
                                             _updateLayerProperties: function () {
 
                                                 var layerIdx = this._selectedLayerIdx;
@@ -152,6 +212,28 @@ define ( [
                                                         layerInfo.id + 22,
                                                         layerInfo.id + 23
                                                 ];
+
+                                                var showAdditions = this.showAdditionsDijit.get( 'checked' );
+
+                                                if ( showAdditions ) {
+                                                    var additionLayers = [
+                                                      layerInfo.id + 19
+                                                    ];
+
+                                                    visibleLayers = visibleLayers.concat( additionLayers );
+                                                }
+
+
+                                                var showDoors = this.showDoorsDijit.get( 'checked' );
+
+                                                if ( showDoors ) {
+                                                    var doorsLayers = [
+                                                            layerInfo.id + 2,
+                                                            layerInfo.id + 3
+                                                    ];
+
+                                                    visibleLayers = visibleLayers.concat( doorsLayers );
+                                                }
 
                                                 return visibleLayers;
                                             }
