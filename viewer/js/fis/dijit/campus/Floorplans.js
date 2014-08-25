@@ -29,111 +29,131 @@ define ( [
                                             templateString: FloorplansTemplate,
                                             baseClass: 'fisFloorplansDijit',
 
-                                            _floorList: [
-                                                {floor: '-', label: 'None'},
-                                                {floor: '01', label: 'First Floor'},
-                                                {floor: '02', label: 'Second Floor'},
-                                                {floor: '03', label: 'Third Floor'},
-                                                {floor: '04', label: 'Fourth Floor'},
-                                                {floor: '05', label: 'Fifth Floor'}
-                                            ],
-
-                                            _getFloorplanLayer: function () {
-                                                var imageParameters = new ImageParameters();
-                                                imageParameters.format = 'png32';
-                                                imageParameters.layerIds = [3,23,24,25,26];
-                                                imageParameters.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-
-                                                var floorplansLayer = new DynamicMapServiceLayer('https://fis.ipf.msu.edu/arcgis/rest/services/BuildingInformation/BuildingSystemsAndEquipment/MapServer',
-                                                                                               {
-                                                                                                   visible: false,
-                                                                                                   imageParameters: imageParameters
-                                                                                               });
-
-                                                var infoTemplate = new InfoTemplate();
-                                                infoTemplate.setTitle('Room');
-                                                infoTemplate.setContent('<h5>${ROOM} ${DESCRIPTION}</h5><p>${SPACE_CATEGORY_DESCR}<br />${SPACE_SUB_CATEGORY_DESCR}</p><p>${SQR_FEET:NumberFormat(places:0)} SqFt</p>');
-
-                                                floorplansLayer.setInfoTemplates({
-                                                    25: {infoTemplate: infoTemplate}
-                                                });
-
-                                                return floorplansLayer;
-                                            },
+                                            _floorList: [],
 
                                             postCreate: function () {
                                                 this.inherited ( arguments );
 
-                                                var k= 0, layerLen = this._floorList.length;
-
-                                                for (k = 0; k < layerLen; k++) {
-                                                    this._floorList[k].id = k;
-                                                }
-
-                                                this.layerIdx = 0;
-
-                                                if (layerLen > 1) {
-                                                    var layerStore = new Memory({
-                                                                                    data: this._floorList
-                                                                                });
-                                                    this.layerSelectDijit.set('store',layerStore);
-                                                    this.layerSelectDijit.set('value',this.layerIdx);
-                                                }
                                                 this.layerSelectDijit.set('disabled', true);
 
                                                 this.floorplansLayer = this._getFloorplanLayer();
                                                 this.map.addLayer(this.floorplansLayer);
                                                 this.floorplansLayer.hide();
 
-                                                on.once( IdentityManager, 'credential-create', lang.hitch( this, this._getFloorPlanLayerDefinitionExpressions ));
+                                                on.once( this.floorplansLayer, 'load', lang.hitch( this, this._processFloorplansLayer ));
 
                                             },
 
-                                            _getFloorPlanLayerDefinitionExpressions: function() {
-                                                this.floorplanLayerDefinitionExpression = [];
-                                                var floorPlanLayerDefinitionExpressions = this.floorplanLayerDefinitionExpression;
-                                                var selectorDijit = this.layerSelectDijit;
+                                            _getFloorplanLayer: function () {
+                                                var imageParameters = new ImageParameters();
+                                                imageParameters.format = 'png32';
 
-                                                var credential = IdentityManager.findCredential(this.floorplansLayer.url);
+                                                var floorplansLayer = new DynamicMapServiceLayer('https://fis.ipf.msu.edu/arcgis/rest/services/BuildingInformation/SpaceByFloor/MapServer',
+                                                                                               {
+                                                                                                   visible: false,
+                                                                                                   imageParameters: imageParameters
+                                                                                               });
+                                                return floorplansLayer;
 
 
-                                                request(this.floorplansLayer.url + '/layers?f=json&token=' + credential.token, {
-                                                    handleAs: 'json'
-                                                }).then(function(layer){
+                                            },
 
-                                                    array.forEach(layer.layers, function(layerInfo){
-                                                        if ( layerInfo.definitionExpression && layerInfo.definitionExpression.length > 0) {
-                                                            floorPlanLayerDefinitionExpressions[ floorPlanLayerDefinitionExpressions.length ] = {id: layerInfo.id, definitionExpression: layerInfo.definitionExpression};
-                                                        }
-                                                    });
-                                                    console.log(floorPlanLayerDefinitionExpressions);
-                                                    selectorDijit.set('disabled', false);
-                                                });
+                                            _processFloorplansLayer: function () {
+
+                                                this.layerInfos = this.floorplansLayer.layerInfos;
+                                                this._addRoomInfoTemplates();
+                                                this._buildFloorList();
+
+                                            },
+
+                                            _addRoomInfoTemplates: function () {
+                                                var infoTemplates = {};
+                                                var infoTemplate = new InfoTemplate();
+                                                infoTemplate.setTitle( 'Room' );
+                                                infoTemplate.setContent( '<h5>${ROOM} ${DESCRIPTION}</h5><p>${SPACE_CATEGORY_DESCR}<br />${SPACE_SUB_CATEGORY_DESCR}</p><p>${SQR_FEET:NumberFormat(places:0)} SqFt</p>' );
+
+                                                for ( var k=0; k<this.floorplansLayer.layerInfos.length; k++ ) {
+                                                    var layerInfo = this.floorplansLayer.layerInfos[k];
+
+                                                    if ( layerInfo.name === 'Space Classification' ) {
+                                                        infoTemplates[ layerInfo.id ] = { infoTemplate: infoTemplate };
+                                                    }
+
+                                                }
+
+                                                this.floorplansLayer.setInfoTemplates( infoTemplates );
+                                                this.floorplansLayer.refresh();
+                                            },
+
+                                            _buildFloorList: function () {
+
+                                                this._floorList = [];
+                                                this._floorList.push( { id: -1, label:'None' } );
+
+                                                this._floorListHash = {};
+                                                this._floorListHash[ -1 ] = this._floorList[ 0 ];
+
+                                                for ( var k=0; k<this.layerInfos.length; k++ ) {
+                                                    var layerInfo = this.layerInfos[k];
+
+                                                    if ( layerInfo.parentLayerId === -1 ) {
+
+                                                        var floorInfo = { id: layerInfo.id, label: layerInfo.name };
+                                                        this._floorList.push( floorInfo );
+                                                        this._floorListHash[ layerInfo.id ] = floorInfo;
+
+                                                    }
+
+                                                }
+
+                                                var layerStore = new Memory( { data: this._floorList } );
+                                                this.layerSelectDijit.set( 'store',layerStore );
+                                                this.layerSelectDijit.set( 'value',-1) ;
+                                                this.layerSelectDijit.set( 'disabled',false );
+
                                             },
 
                                             _onLayerChange: function (layerIdx) {
-                                                this._updateDefinitionExpressions(layerIdx);
+
+                                                this._selectedLayerIdx = layerIdx;
+                                                this._updateLayerProperties();
+
                                             },
 
-                                            _updateDefinitionExpressions: function(layerIdx) {
+                                            _updateLayerProperties: function () {
+
+                                                var layerIdx = this._selectedLayerIdx;
+
                                                 if ( layerIdx > 0) {
 
-                                                    //var defExpr = 'SUBSTR(FLOORID, INSTR( FLOORID,\'-\',-1 )+1 ) = \'' + this._floorList[ layerIdx ].floor + '\'';
-                                                    console.warn(this.floorplansLayer);
+                                                    this.floorplansLayer.setVisibleLayers( this._getVisibleLayers(), true );
 
-                                                    var layerDefs = [];
-                                                    for ( var i=0; i<this.floorplanLayerDefinitionExpression.length; i++) {
-                                                        layerDefs[ this.floorplanLayerDefinitionExpression[i].id ] = this.floorplanLayerDefinitionExpression[i].definitionExpression.replace('${FLOOR}', this._floorList[ layerIdx ].floor);
+                                                    if ( !this.floorplansLayer.visible ) {
+                                                        this.floorplansLayer.show();
+                                                    } else {
+                                                        this.floorplansLayer.refresh ();
                                                     }
-                                                    console.log(layerDefs);
-                                                    this.floorplansLayer.setLayerDefinitions(layerDefs, false);
 
-                                                    this.floorplansLayer.setVisibility(true);
-                                                    //this.floorplansLayer.refresh();
                                                 }
                                                 else {
-                                                    this.floorplansLayer.setVisibility(false);
+                                                    this.floorplansLayer.hide();
                                                 }
+
+                                            },
+
+                                            _getVisibleLayers: function () {
+
+                                                var layerIdx = this._selectedLayerIdx;
+                                                var layerInfo = this._floorListHash[ layerIdx ];
+
+                                                var visibleLayers = [
+                                                        layerInfo.id + 20,
+                                                        layerInfo.id + 21,
+                                                        layerInfo.id + 22,
+                                                        layerInfo.id + 23
+                                                ];
+
+                                                return visibleLayers;
                                             }
 
                                         }
