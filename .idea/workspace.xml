@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd937d1b-509e-4b04-a54b-03f9f523db33" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js" afterPath="$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" afterPath="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/index.html" afterPath="$PROJECT_DIR$/viewer/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ConfigurableViewerJSAPI-GitLab.iws" />
@@ -123,7 +118,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="floorplans-branch" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
   </component>
@@ -471,7 +466,11 @@
       <created>1408985250578</created>
       <updated>1408985250578</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Setting up utility layer infoTemplates">
+      <created>1409015883549</created>
+      <updated>1409015883549</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -528,7 +527,8 @@
     <MESSAGE value="Determined this approach won't work as the map service will always honor the existing definitionExpression." />
     <MESSAGE value="Added controls for additions and doors.  Building Systems layers may be more complicated.  May need to look at the cbtree project." />
     <MESSAGE value="Added Scott H's Pano Feature Service&#10;Added bootstrap.min.css" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Scott H's Pano Feature Service&#10;Added bootstrap.min.css" />
+    <MESSAGE value="Setting up utility layer infoTemplates" />
+    <option name="LAST_COMMIT_MESSAGE" value="Setting up utility layer infoTemplates" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
