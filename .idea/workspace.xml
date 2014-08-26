@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd937d1b-509e-4b04-a54b-03f9f523db33" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js" afterPath="$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" afterPath="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/index.html" afterPath="$PROJECT_DIR$/viewer/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/Growler.js" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/Growler.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ConfigurableViewerJSAPI-GitLab.iws" />
@@ -43,21 +39,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Floorplans.js" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="3795">
-                  <caret line="29" column="44" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="facilityinfrastructure.js" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="facilityinfrastructure.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.40250447" vertical-offset="2085" max-vertical-offset="8580">
-                  <caret line="270" column="60" selection-start-line="270" selection-start-column="60" selection-end-line="270" selection-end-column="60" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="7125" max-vertical-offset="8565">
+                  <caret line="613" column="18" selection-start-line="613" selection-start-column="18" selection-end-line="613" selection-end-column="18" />
                   <folding>
                     <element signature="e#1728#5788#0" expanded="false" />
                   </folding>
@@ -65,10 +51,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="UtilityLayerInfoTemplates.js" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="UtilityLayerInfoTemplates.js" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="656">
                   <caret line="0" column="9" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
                   <folding />
                 </state>
@@ -89,21 +75,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="ChilledWaterInfoTemplates.js" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="ChilledWaterInfoTemplates.js" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.5412371" vertical-offset="600" max-vertical-offset="1245">
-                  <caret line="61" column="46" selection-start-line="61" selection-start-column="46" selection-end-line="61" selection-end-column="46" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/viewer/index.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="1140">
-                  <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+                <state vertical-scroll-proportion="1.6789396" vertical-offset="0" max-vertical-offset="1245">
+                  <caret line="76" column="2" selection-start-line="76" selection-start-column="2" selection-end-line="76" selection-end-column="2" />
                   <folding />
                 </state>
               </provider>
@@ -123,7 +99,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="floorplans-branch" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
   </component>
@@ -143,10 +119,11 @@
         <option value="$PROJECT_DIR$/viewer/js/fis/dijit/campus/CampusInfoFeatures.js" />
         <option value="$PROJECT_DIR$/viewer/js/fis/infoTemplates/utilityLayers.js" />
         <option value="$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js" />
-        <option value="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" />
         <option value="$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js" />
-        <option value="$PROJECT_DIR$/viewer/index.html" />
         <option value="$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js" />
+        <option value="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" />
+        <option value="$PROJECT_DIR$/viewer/index.html" />
+        <option value="$PROJECT_DIR$/viewer/js/gis/dijit/Growler.js" />
       </list>
     </option>
   </component>
@@ -237,6 +214,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="configurableviewerjsapi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ConfigurableViewerJSAPI-GitLab" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fis" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -352,6 +351,142 @@
       <recent name="$PROJECT_DIR$/viewer/css" />
       <recent name="$PROJECT_DIR$/viewer/js/config" />
     </key>
+  </component>
+  <component name="RestoreUpdateTree">
+    <UpdateInfo date="Moments ago" ActionInfo="_Update">
+      <UpdatedFiles>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated from server" />
+          <option name="myStatusName" value="Changed on server" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CHANGED_ON_SERVER" />
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Updated" />
+            <option name="myStatusName" value="Changed" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="UPDATED" />
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/deployment.xml</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/css/msu.css</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/index.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/GeoLocation.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/Growler.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/Identify.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/MapInfo.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/Print.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/StreetView.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/TOC.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/viewer/Controller.js</PATH>
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Created" />
+            <option name="myStatusName" value="Created" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="CREATED" />
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/fis/util/ie-console.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/LayerController.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/components/Scales.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/components/Transparency.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/components/templates/Scales.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/DynamicFolder.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/DynamicSublayer.js</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/templates/Control.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/templates/Folder.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/templates/Sublayer.html</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/css/LayerController.css</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/css/dbootstrap.css</PATH>
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Deleted" />
+            <option name="myStatusName" value="Deleted" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="true" />
+            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Restored" />
+            <option name="myStatusName" value="Will be restored" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="RESTORED" />
+          </FILE-GROUP>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Modified" />
+          <option name="myStatusName" value="Modified" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MODIFIED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Skipped" />
+          <option name="myStatusName" value="Skipped" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SKIPPED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with conflicts" />
+          <option name="myStatusName" value="Will be merged with conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_CONFLICTS" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with tree conflicts" />
+          <option name="myStatusName" value="Merged with tree conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with property conflicts" />
+          <option name="myStatusName" value="Will be merged with property conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged" />
+          <option name="myStatusName" value="Will be merged" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Not in repository" />
+          <option name="myStatusName" value="Not in repository" />
+          <option name="mySupportsDeletion" value="true" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UNKNOWN" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally added" />
+          <option name="myStatusName" value="Locally added" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_ADDED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally removed" />
+          <option name="myStatusName" value="Locally removed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_REMOVED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Switched" />
+          <option name="myStatusName" value="Switched" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SWITCHED" />
+        </FILE-GROUP>
+      </UpdatedFiles>
+    </UpdateInfo>
   </component>
   <component name="RunManager">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
@@ -471,7 +606,23 @@
       <created>1408985250578</created>
       <updated>1408985250578</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Setting up utility layer infoTemplates">
+      <created>1409015883549</created>
+      <updated>1409015883549</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Setting up utility layer infoTemplates">
+      <created>1409015950867</created>
+      <updated>1409015950867</updated>
+    </task>
+    <task id="LOCAL-00019" summary="change default visibility of capital project layer">
+      <created>1409016706300</created>
+      <updated>1409016706300</updated>
+    </task>
+    <task id="LOCAL-00020" summary="allow TOC to float">
+      <created>1409016816890</created>
+      <updated>1409016816890</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -481,7 +632,7 @@
       <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13472222" sideWeight="0.49964765" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13472222" sideWeight="0.49964765" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24947146" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -489,7 +640,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13472222" sideWeight="0.5003524" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32689655" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3263889" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -528,7 +679,10 @@
     <MESSAGE value="Determined this approach won't work as the map service will always honor the existing definitionExpression." />
     <MESSAGE value="Added controls for additions and doors.  Building Systems layers may be more complicated.  May need to look at the cbtree project." />
     <MESSAGE value="Added Scott H's Pano Feature Service&#10;Added bootstrap.min.css" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Scott H's Pano Feature Service&#10;Added bootstrap.min.css" />
+    <MESSAGE value="Setting up utility layer infoTemplates" />
+    <MESSAGE value="change default visibility of capital project layer" />
+    <MESSAGE value="allow TOC to float" />
+    <option name="LAST_COMMIT_MESSAGE" value="allow TOC to float" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -843,6 +997,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/Growler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.70692194" vertical-offset="285" max-vertical-offset="1275">
+          <caret line="51" column="20" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewer/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5648855" vertical-offset="470" max-vertical-offset="1185">
+          <caret line="56" column="39" selection-start-line="56" selection-start-column="39" selection-end-line="56" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.6789396" vertical-offset="0" max-vertical-offset="1245">
+          <caret line="76" column="2" selection-start-line="76" selection-start-column="2" selection-end-line="76" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="7125" max-vertical-offset="8565">
+          <caret line="613" column="18" selection-start-line="613" selection-start-column="18" selection-end-line="613" selection-end-column="18" />
+          <folding>
+            <element signature="e#1728#5788#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5487805" vertical-offset="75" max-vertical-offset="3795">
+          <caret line="29" column="44" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/CampusInfoFeatures.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1380">
@@ -851,44 +1047,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="3795">
-          <caret line="29" column="44" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40250447" vertical-offset="2085" max-vertical-offset="8580">
-          <caret line="270" column="60" selection-start-line="270" selection-start-column="60" selection-end-line="270" selection-end-column="60" />
-          <folding>
-            <element signature="e#1728#5788#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="1140">
-          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5412371" vertical-offset="600" max-vertical-offset="1245">
-          <caret line="61" column="46" selection-start-line="61" selection-start-column="46" selection-end-line="61" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="656">
+          <caret line="0" column="9" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
           <folding />
         </state>
       </provider>
