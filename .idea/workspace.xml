@@ -2,18 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd937d1b-509e-4b04-a54b-03f9f523db33" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/fis/util/ie-console.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/viewer/Controller.js" afterPath="$PROJECT_DIR$/viewer/js/viewer/Controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/GeoLocation.js" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/GeoLocation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/Growler.js" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/Growler.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/Identify.js" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/Identify.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/MapInfo.js" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/MapInfo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/Print.js" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/Print.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/StreetView.js" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/StreetView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/TOC.js" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/TOC.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" afterPath="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/index.html" afterPath="$PROJECT_DIR$/viewer/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/templates/Control.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/DynamicFolder.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/DynamicSublayer.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/templates/Folder.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/css/LayerController.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/components/templates/Scales.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/components/Scales.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/templates/Sublayer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/components/Transparency.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/css/dbootstrap.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/css/msu.css" afterPath="$PROJECT_DIR$/viewer/css/msu.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ConfigurableViewerJSAPI-GitLab.iws" />
@@ -49,28 +50,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TOC.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/TOC.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="86" column="81" selection-start="4230" selection-end="4230" vertical-scroll-proportion="0.59130436" vertical-offset="969" max-vertical-offset="14790">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ie-console.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/viewer/js/fis/util/ie-console.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="5" selection-start="687" selection-end="687" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/viewer/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="80" selection-start="506" selection-end="581" vertical-scroll-proportion="-1.8461539" vertical-offset="105" max-vertical-offset="1343">
+            <state line="36" column="28" selection-start="1593" selection-end="1593" vertical-scroll-proportion="-19.5" vertical-offset="105" max-vertical-offset="1343">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="msu.css" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/viewer/css/msu.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="27" selection-start="461" selection-end="461" vertical-scroll-proportion="0.58036983" vertical-offset="0" max-vertical-offset="799">
               <folding />
             </state>
           </provider>
@@ -88,7 +80,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="floorplans-branch" />
+        <entry key="$PROJECT_DIR$" value="btfou-layer-controller" />
       </map>
     </option>
   </component>
@@ -99,7 +91,6 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/viewer/js/config/viewer.js" />
         <option value="$PROJECT_DIR$/viewer/css/main.css" />
-        <option value="$PROJECT_DIR$/viewer/css/msu.css" />
         <option value="$PROJECT_DIR$/viewer/js/config/find.js" />
         <option value="$PROJECT_DIR$/viewer/js/gis/dijit/Find.js" />
         <option value="$PROJECT_DIR$/viewer/js/fis/dijit/campus/floorplans/css/floorplans.css" />
@@ -117,6 +108,7 @@
         <option value="$PROJECT_DIR$/viewer/js/viewer/Controller.js" />
         <option value="$PROJECT_DIR$/viewer/index.html" />
         <option value="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" />
+        <option value="$PROJECT_DIR$/viewer/css/msu.css" />
       </list>
     </option>
   </component>
@@ -255,32 +247,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="gis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dijit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="configurableviewerjsapi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="configurableviewerjsapi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="viewer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="fis" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -329,6 +295,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="configurableviewerjsapi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="configurableviewerjsapi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -341,6 +325,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mfreeman\Scratch Space\Git Workspace\configurableviewerjsapi\viewer\js\gis\dijit" />
       <recent name="$PROJECT_DIR$/viewer/css" />
       <recent name="$PROJECT_DIR$/viewer/js/config" />
     </key>
@@ -469,7 +454,11 @@
       <created>1408978830560</created>
       <updated>1408978830560</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Add ie console hack.  Comment out console.log statements">
+      <created>1409067576268</created>
+      <updated>1409067576268</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -479,20 +468,20 @@
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23919043" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13434727" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32934684" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32689655" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18399565" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32689655" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -523,19 +512,13 @@
     <MESSAGE value="Cont'd work on floorplans.  Basic functionality includes&#10;-Hide/Show layers&#10;-Info Templates on rooms&#10;&#10;Need to get floor list dynamically." />
     <MESSAGE value="Determined this approach won't work as the map service will always honor the existing definitionExpression." />
     <MESSAGE value="Added controls for additions and doors.  Building Systems layers may be more complicated.  May need to look at the cbtree project." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added controls for additions and doors.  Building Systems layers may be more complicated.  May need to look at the cbtree project." />
+    <MESSAGE value="Add ie console hack.  Comment out console.log statements" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add ie console hack.  Comment out console.log statements" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/floorplans/css/floorplans.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/CampusInfoFeatures.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1547">
@@ -855,9 +838,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/index.html">
+    <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/TOC.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="80" selection-start="506" selection-end="581" vertical-scroll-proportion="-1.8461539" vertical-offset="105" max-vertical-offset="1343">
+        <state line="86" column="81" selection-start="4230" selection-end="4230" vertical-scroll-proportion="0.59130436" vertical-offset="969" max-vertical-offset="14790">
           <folding />
         </state>
       </provider>
@@ -871,9 +854,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/TOC.js">
+    <entry file="file://$PROJECT_DIR$/viewer/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="81" selection-start="4230" selection-end="4230" vertical-scroll-proportion="0.59130436" vertical-offset="969" max-vertical-offset="14790">
+        <state line="36" column="28" selection-start="1593" selection-end="1593" vertical-scroll-proportion="-19.5" vertical-offset="105" max-vertical-offset="1343">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewer/css/msu.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="27" selection-start="461" selection-end="461" vertical-scroll-proportion="0.58036983" vertical-offset="0" max-vertical-offset="799">
           <folding />
         </state>
       </provider>
