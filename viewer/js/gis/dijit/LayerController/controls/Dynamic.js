@@ -79,6 +79,7 @@ define([
             }
             this._initialize(this.params, this.controller.map);
         },
+
         //add layer and init control
         _initialize: function(params, map) {
 
