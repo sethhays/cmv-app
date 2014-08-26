@@ -444,13 +444,13 @@ define([
                 type   : 'dynamic',
                 url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/CampusInfo/ProjectandDetourInformation/MapServer',
                 title  : 'Capital Project and Detours',
-                slider: false,
+                slider: true,
                 noLegend: false,
-                collapsed: false,
+                collapsed: true,
                 options: {
                     id     : 'capitalProjectsDetoursMapLayer',
                     opacity: 0.75,
-                    visible: false,
+                    visible: true,
                     imageParameters: imageParameters
                 }
             },
