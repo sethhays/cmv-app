@@ -60,7 +60,6 @@ define([
         constructor: function(options) {
             options = options || {};
             lang.mixin(this, options);
-            console.log(options);
         },
         postCreate: function() {
             if (!this.params) {
@@ -82,6 +81,7 @@ define([
         },
         //add layer and init control
         _initialize: function(params, map) {
+
             //default mixin
             params = lang.mixin({
                 type: 'dynamic',
@@ -97,6 +97,7 @@ define([
                 layerExtend: {},
                 controlOptions: {}
             }, params);
+
             //control options mixin
             //a separate mixin is required for nested objects and arrays
             //saves much code by eliminating the need for checks
@@ -108,6 +109,7 @@ define([
                 sublayerMenuItems: []
             }, params.controlOptions);
             this.params = params;
+
             //are we using a layer or loading one
             if (params.layer && params.layer.isInstanceOf(ArcGISDynamicMapServiceLayer)) {
                 this.layer = params.layer;
@@ -124,12 +126,13 @@ define([
                 html.set(this.labelNode, params.title + ': Invalid Layer');
                 return;
             }
+
             lang.mixin(this.layer, params.layerExtend);
             if (params.layerOptions.visible) {
                 domClass.remove(this.checkNode, 'fa-square-o');
                 domClass.add(this.checkNode, 'fa fa-check-square-o');
             }
-            console.log('adding click handler');
+
             on(this.checkNode, 'click', lang.hitch(this, '_toggleLayer'));
             html.set(this.labelNode, params.title);
             this.layer.on('update-start', lang.hitch(this, function() {
@@ -403,7 +406,6 @@ define([
         },
         //toggle layer visibility
         _toggleLayer: function() {
-            console.log('toggle layer called');
             var layer = this.layer;
             if (layer.visible) {
                 layer.hide();

@@ -54,8 +54,6 @@ define([
         _topApplicationLayers: [],
         _bottomApplicationLayers: [],
         constructor: function(options) {
-            console.log('constructor called..');
-            console.log(options);
             options = options || {};
             if (!options.map) {
                 console.log('LayerController error::map option is required');
@@ -64,7 +62,6 @@ define([
             lang.mixin(this, options);
         },
         postCreate: function() {
-            console.log('postCreate called..');
             this.operationalLayers = this.layerInfos;
 
             var ControlContainer = declare([WidgetBase, Container]);
@@ -108,7 +105,7 @@ define([
             }, this);
             require(modules, lang.hitch(this, function() {
                 //load operational layers
-                arrayUtil.forEach(this.operationalLayers, function(opLayer) {
+                arrayUtil.forEach(this.operationalLayers.reverse(), function(opLayer) {
                     var control = this._layerControls[opLayer.type];
                     if (control) {
                         require([control], lang.hitch(this, '_addControl', opLayer));
