@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd937d1b-509e-4b04-a54b-03f9f523db33" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ConfigurableViewerJSAPI-GitLab.iws" />
@@ -95,7 +94,7 @@
           <file leaf-file-name="Dynamic.js" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="81" column="8" selection-start="2155" selection-end="2155" vertical-scroll-proportion="0.71192896" vertical-offset="816" max-vertical-offset="8058">
+                <state line="81" column="0" selection-start="2147" selection-end="2147" vertical-scroll-proportion="0.71192896" vertical-offset="816" max-vertical-offset="8058">
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                   </folding>
@@ -656,7 +655,11 @@
       <created>1409074443471</created>
       <updated>1409074443471</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="added space, forcing push">
+      <created>1409074483041</created>
+      <updated>1409074483041</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -713,7 +716,8 @@
     <MESSAGE value="Add ie console hack.  Comment out console.log statements" />
     <MESSAGE value="Initial port of btfou's code.  Required several small modifications to Controller.js to pass additional layer parameters (url,type).   Url could probably be retrieved from the layer property of the params passed to the individual layer control." />
     <MESSAGE value="remove console.log statements&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove console.log statements&#10;" />
+    <MESSAGE value="added space, forcing push" />
+    <option name="LAST_COMMIT_MESSAGE" value="added space, forcing push" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1035,7 +1039,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="8" selection-start="2155" selection-end="2155" vertical-scroll-proportion="0.71192896" vertical-offset="816" max-vertical-offset="8058">
+        <state line="81" column="0" selection-start="2147" selection-end="2147" vertical-scroll-proportion="0.71192896" vertical-offset="816" max-vertical-offset="8058">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
