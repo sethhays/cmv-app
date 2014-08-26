@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd937d1b-509e-4b04-a54b-03f9f523db33" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/css/bootstrap.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/fis/dijit/campus/CampusInfoFeatures.js" afterPath="$PROJECT_DIR$/viewer/js/fis/dijit/campus/CampusInfoFeatures.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js" afterPath="$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" afterPath="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/index.html" afterPath="$PROJECT_DIR$/viewer/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -29,83 +30,88 @@
     <favorites_list name="ConfigurableViewerJSAPI-GitLab" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="floorplans.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/floorplans/css/floorplans.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="345">
-              <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-              <folding>
-                <marker date="1408978868000" expanded="true" signature="67:128" placeholder="{...}" />
-                <marker date="1408978868000" expanded="true" signature="196:207" placeholder="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CampusInfoFeatures.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/CampusInfoFeatures.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="545" max-vertical-offset="1380">
-              <caret line="47" column="162" selection-start-line="47" selection-start-column="162" selection-end-line="47" selection-end-column="162" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Floorplans.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1548" max-vertical-offset="3780">
-              <caret line="135" column="53" selection-start-line="135" selection-start-column="53" selection-end-line="135" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Floorplans.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/floorplans/templates/Floorplans.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.5" vertical-offset="390" max-vertical-offset="720">
-              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/viewer/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.5" vertical-offset="0" max-vertical-offset="1140">
-              <caret line="12" column="53" selection-start-line="12" selection-start-column="53" selection-end-line="12" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Find.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/Find.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2055" max-vertical-offset="6255">
-              <caret line="158" column="13" selection-start-line="158" selection-start-column="13" selection-end-line="158" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="facilityinfrastructure.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7182131" vertical-offset="812" max-vertical-offset="8505">
-              <caret line="198" column="13" selection-start-line="198" selection-start-column="13" selection-end-line="198" selection-end-column="13" />
-              <folding>
-                <element signature="e#1577#5637#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.36293164">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="CampusInfoFeatures.js" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/CampusInfoFeatures.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1380">
+                  <caret line="47" column="162" selection-start-line="47" selection-start-column="162" selection-end-line="47" selection-end-column="162" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Floorplans.js" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="3795">
+                  <caret line="29" column="44" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="facilityinfrastructure.js" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.40250447" vertical-offset="2085" max-vertical-offset="8580">
+                  <caret line="270" column="60" selection-start-line="270" selection-start-column="60" selection-end-line="270" selection-end-column="60" />
+                  <folding>
+                    <element signature="e#1728#5788#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="UtilityLayerInfoTemplates.js" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+                  <caret line="0" column="9" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="UtilityLayerInfoTemplates.js" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+                  <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ChilledWaterInfoTemplates.js" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.5412371" vertical-offset="600" max-vertical-offset="1245">
+                  <caret line="61" column="46" selection-start-line="61" selection-start-column="46" selection-end-line="61" selection-end-column="46" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/viewer/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="1140">
+                  <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -134,10 +140,13 @@
         <option value="$PROJECT_DIR$/viewer/js/gis/dijit/Find.js" />
         <option value="$PROJECT_DIR$/viewer/js/fis/dijit/campus/floorplans/css/floorplans.css" />
         <option value="$PROJECT_DIR$/viewer/js/fis/dijit/campus/floorplans/templates/Floorplans.html" />
-        <option value="$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js" />
-        <option value="$PROJECT_DIR$/viewer/index.html" />
         <option value="$PROJECT_DIR$/viewer/js/fis/dijit/campus/CampusInfoFeatures.js" />
+        <option value="$PROJECT_DIR$/viewer/js/fis/infoTemplates/utilityLayers.js" />
+        <option value="$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js" />
         <option value="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" />
+        <option value="$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js" />
+        <option value="$PROJECT_DIR$/viewer/index.html" />
+        <option value="$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js" />
       </list>
     </option>
   </component>
@@ -227,6 +236,102 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="configurableviewerjsapi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ConfigurableViewerJSAPI-GitLab" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="infoTemplates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="configurableviewerjsapi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ConfigurableViewerJSAPI-GitLab" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dijit" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="campus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="configurableviewerjsapi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ConfigurableViewerJSAPI-GitLab" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="configurableviewerjsapi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ConfigurableViewerJSAPI-GitLab" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -243,6 +348,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/viewer/js/fis/infoTemplates" />
       <recent name="$PROJECT_DIR$/viewer/css" />
       <recent name="$PROJECT_DIR$/viewer/js/config" />
     </key>
@@ -361,7 +467,11 @@
       <created>1408978830560</created>
       <updated>1408978830560</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Added Scott H's Pano Feature Service&#10;Added bootstrap.min.css">
+      <created>1408985250578</created>
+      <updated>1408985250578</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -371,13 +481,13 @@
       <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13472222" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13472222" sideWeight="0.49964765" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24947146" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24947146" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13472222" sideWeight="0.5003524" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32689655" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -417,7 +527,8 @@
     <MESSAGE value="Cont'd work on floorplans.  Basic functionality includes&#10;-Hide/Show layers&#10;-Info Templates on rooms&#10;&#10;Need to get floor list dynamically." />
     <MESSAGE value="Determined this approach won't work as the map service will always honor the existing definitionExpression." />
     <MESSAGE value="Added controls for additions and doors.  Building Systems layers may be more complicated.  May need to look at the cbtree project." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added controls for additions and doors.  Building Systems layers may be more complicated.  May need to look at the cbtree project." />
+    <MESSAGE value="Added Scott H's Pano Feature Service&#10;Added bootstrap.min.css" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Scott H's Pano Feature Service&#10;Added bootstrap.min.css" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -428,8 +539,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="270">
           <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
           <folding>
-            <marker date="1408978868000" expanded="true" signature="67:128" placeholder="{...}" />
-            <marker date="1408978868000" expanded="true" signature="196:207" placeholder="{...}" />
+            <marker date="1408978868000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1408978868000" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -455,7 +566,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="7065" max-vertical-offset="10125">
           <caret line="471" column="27" selection-start-line="471" selection-start-column="27" selection-end-line="471" selection-end-column="27" />
           <folding>
-            <element signature="e#1577#5637#0" expanded="false" />
+            <element signature="e#1728#5788#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -465,8 +576,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1408978868000" expanded="true" signature="67:128" placeholder="{...}" />
-            <marker date="1408978868000" expanded="true" signature="196:207" placeholder="{...}" />
+            <marker date="1408978868000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1408978868000" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -518,8 +629,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1408978868000" expanded="true" signature="67:128" placeholder="{...}" />
-            <marker date="1408978868000" expanded="true" signature="196:207" placeholder="{...}" />
+            <marker date="1408978868000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1408978868000" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -561,8 +672,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1408978868000" expanded="true" signature="67:128" placeholder="{...}" />
-            <marker date="1408978868000" expanded="true" signature="196:207" placeholder="{...}" />
+            <marker date="1408978868000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1408978868000" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -604,8 +715,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1408978868000" expanded="true" signature="67:128" placeholder="{...}" />
-            <marker date="1408978868000" expanded="true" signature="196:207" placeholder="{...}" />
+            <marker date="1408978868000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1408978868000" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -658,13 +769,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/config/identify.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1095">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/config/viewer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334" vertical-offset="646" max-vertical-offset="6240">
@@ -696,14 +800,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/Find.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2055" max-vertical-offset="6255">
-          <caret line="158" column="13" selection-start-line="158" selection-start-column="13" selection-end-line="158" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/Find/templates/Find.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.34946236" vertical-offset="0" max-vertical-offset="558">
@@ -717,8 +813,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="345">
           <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
           <folding>
-            <marker date="1408978868000" expanded="true" signature="67:128" placeholder="{...}" />
-            <marker date="1408978868000" expanded="true" signature="196:207" placeholder="{...}" />
+            <marker date="1408978868000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1408978868000" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -731,17 +827,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/index.html">
+    <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/Find.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.5" vertical-offset="0" max-vertical-offset="1140">
-          <caret line="12" column="53" selection-start-line="12" selection-start-column="53" selection-end-line="12" selection-end-column="53" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2055" max-vertical-offset="6255">
+          <caret line="158" column="13" selection-start-line="158" selection-start-column="13" selection-end-line="158" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewer/js/config/identify.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.57983196" vertical-offset="0" max-vertical-offset="1095">
+          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/CampusInfoFeatures.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="545" max-vertical-offset="1380">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1380">
           <caret line="47" column="162" selection-start-line="47" selection-start-column="162" selection-end-line="47" selection-end-column="162" />
           <folding />
         </state>
@@ -749,19 +853,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/Floorplans.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1548" max-vertical-offset="3780">
-          <caret line="135" column="53" selection-start-line="135" selection-start-column="53" selection-end-line="135" selection-end-column="53" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="3795">
+          <caret line="29" column="44" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7182131" vertical-offset="812" max-vertical-offset="8505">
-          <caret line="198" column="13" selection-start-line="198" selection-start-column="13" selection-end-line="198" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.40250447" vertical-offset="2085" max-vertical-offset="8580">
+          <caret line="270" column="60" selection-start-line="270" selection-start-column="60" selection-end-line="270" selection-end-column="60" />
           <folding>
-            <element signature="e#1577#5637#0" expanded="false" />
+            <element signature="e#1728#5788#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewer/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="1140">
+          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5412371" vertical-offset="600" max-vertical-offset="1245">
+          <caret line="61" column="46" selection-start-line="61" selection-start-column="46" selection-end-line="61" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -26,6 +26,7 @@ define ( [
          ], function ( declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Form, FilteringSelect, ValidationTextBox, CheckBox, dom, domConstruct, domClass, lang, Color, array, on, request, Memory, DynamicMapServiceLayer, ImageParameters, InfoTemplate, IdentityManager, Credential, FloorplansTemplate, css ) {
 
              var Floorplans = declare ( [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+
                                             widgetsInTemplate: true,
                                             templateString: FloorplansTemplate,
                                             baseClass: 'fisFloorplansDijit',

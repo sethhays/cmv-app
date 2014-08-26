@@ -4,8 +4,9 @@ define([
 	'esri/config',
 	'esri/tasks/GeometryService',
 	'esri/layers/ImageParameters',
-    'esri/InfoTemplate'
-], function(units, Extent, esriConfig, GeometryService, ImageParameters, InfoTemplate) {
+    'esri/InfoTemplate',
+    'fis/infoTemplates/UtilityLayerInfoTemplates'
+], function( units, Extent, esriConfig, GeometryService, ImageParameters, InfoTemplate, UtilityLayerInfoTemplates ) {
 
 	// url to your proxy page, must be on same machine hosting you app. See proxy folder for readme.
 	//esriConfig.defaults.io.proxyUrl = 'proxy/proxy.ashx';
@@ -20,6 +21,9 @@ define([
     var panoInfoTemplate = new InfoTemplate();
     panoInfoTemplate.setTitle( 'Panoramic Photo Location' );
     panoInfoTemplate.setContent( '<a href="http://prod.gis.msu.edu/campusmap/pano.html?viewer=sphere&locationid=${LOCATIONID}" target="_blank">Open in new window</a>' );
+
+
+    var utilityLayerInfoTemplates = new UtilityLayerInfoTemplates();
 
 	return {
 		//default mapClick mode, mapClickMode lets widgets know what mode the map is in to avoid multipult map click actions from taking place (ie identify while drawing).
@@ -263,7 +267,8 @@ define([
                     id     : 'chilledWaterMapLayer',
                     opacity: 1.0,
                     visible: false,
-                    imageParameters: imageParameters
+                    imageParameters: imageParameters,
+                    infoTemplates: utilityLayerInfoTemplates.chilledWater
                 }
             },
             {
@@ -515,7 +520,7 @@ define([
 				}
 			},
 			identify: {
-				include: true,
+				include: false,
 				id: 'identify',
 				type: 'titlePane',
 				path: 'gis/dijit/Identify',
