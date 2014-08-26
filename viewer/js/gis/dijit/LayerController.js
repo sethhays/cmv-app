@@ -54,6 +54,8 @@ define([
         _topApplicationLayers: [],
         _bottomApplicationLayers: [],
         constructor: function(options) {
+            console.log('constructor called..');
+            console.log(options);
             options = options || {};
             if (!options.map) {
                 console.log('LayerController error::map option is required');
@@ -62,6 +64,9 @@ define([
             lang.mixin(this, options);
         },
         postCreate: function() {
+            console.log('postCreate called..');
+            this.operationalLayers = this.layerInfos;
+
             var ControlContainer = declare([WidgetBase, Container]);
             //vector layer control container
             this._vectorContainer = new ControlContainer({

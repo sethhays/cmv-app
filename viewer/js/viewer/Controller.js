@@ -209,7 +209,9 @@ define([
                 slider: (layer.slider === false) ? false : true,
                 noLegend: layer.noLegend || false,
                 collapsed: layer.collapsed || false,
-                sublayerToggle: layer.sublayerToggle || false
+                sublayerToggle: layer.sublayerToggle || false,
+                type: layer.type,
+                url: layer.url
             });
             if (layer.type === 'feature') {
                 var options = {
