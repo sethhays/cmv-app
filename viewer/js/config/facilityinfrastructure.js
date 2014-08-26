@@ -619,6 +619,7 @@ define([
 				path: 'gis/dijit/TOC',
 				title: 'Layers',
 				open: false,
+                canFloat: true,
 				position: 1,
 				options: {
 					map: true,
