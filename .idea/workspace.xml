@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd937d1b-509e-4b04-a54b-03f9f523db33" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController.js" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ConfigurableViewerJSAPI-GitLab.iws" />
@@ -96,7 +94,7 @@
           <file leaf-file-name="Dynamic.js" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="61" column="38" selection-start="1486" selection-end="1486" vertical-scroll-proportion="0.28045684" vertical-offset="816" max-vertical-offset="8041">
+                <state line="71" column="31" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.4961929" vertical-offset="816" max-vertical-offset="8041">
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                   </folding>
@@ -649,7 +647,11 @@
       <created>1409074038477</created>
       <updated>1409074038477</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="remove console.log statements&#10;">
+      <created>1409074410813</created>
+      <updated>1409074410813</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -705,7 +707,8 @@
     <MESSAGE value="Added controls for additions and doors.  Building Systems layers may be more complicated.  May need to look at the cbtree project." />
     <MESSAGE value="Add ie console hack.  Comment out console.log statements" />
     <MESSAGE value="Initial port of btfou's code.  Required several small modifications to Controller.js to pass additional layer parameters (url,type).   Url could probably be retrieved from the layer property of the params passed to the individual layer control." />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial port of btfou's code.  Required several small modifications to Controller.js to pass additional layer parameters (url,type).   Url could probably be retrieved from the layer property of the params passed to the individual layer control." />
+    <MESSAGE value="remove console.log statements&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove console.log statements&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1027,7 +1030,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="38" selection-start="1486" selection-end="1486" vertical-scroll-proportion="0.28045684" vertical-offset="816" max-vertical-offset="8041">
+        <state line="71" column="31" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.4961929" vertical-offset="816" max-vertical-offset="8041">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
