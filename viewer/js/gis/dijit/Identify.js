@@ -212,7 +212,7 @@ define([
         },
         identifyError: function(err) {
             this.map.infoWindow.hide();
-            console.log('identify tasks error: ', err);
+            //console.log('identify tasks error: ', err);
         },
         handleRightClick: function(evt) {
             if ((this.mapClickMode.current === 'identify') && (this.mapRightClick)) {

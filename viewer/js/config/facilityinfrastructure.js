@@ -189,7 +189,7 @@ define([
                 collapsed: false,
                 options: {
                     id     : 'panoFeatureLayer',
-                    opacity: 0.9,
+                    opacity: 0.8,
                     visible: true,
                     minScale: 2500,
                     infoTemplate: panoInfoTemplate,
@@ -273,7 +273,6 @@ define([
                 slider: false,
                 noLegend: false,
                 collapsed: false,
-                sublayerToggle: true,
                 options: {
                     id     : 'communicationMapLayer',
                     opacity: 1.0,

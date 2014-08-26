@@ -69,7 +69,7 @@ define([
 		postCreate: function() {
 			var map = this.map;
 			if (!map) {
-				console.log('MapInfo error::a map reference is required');
+				//console.log('MapInfo error::a map reference is required');
 				this.destroy();
 				return;
 			}
