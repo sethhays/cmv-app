@@ -22,6 +22,10 @@ define([
     panoInfoTemplate.setTitle( 'Panoramic Photo Location' );
     panoInfoTemplate.setContent( '<a href="http://prod.gis.msu.edu/campusmap/pano.html?viewer=sphere&locationid=${LOCATIONID}" target="_blank">Open in new window</a>' );
 
+    var panoInfoTemplates = {
+        0: {infoTemplate: panoInfoTemplate}
+    };
+
 
     var utilityLayerInfoTemplates = new UtilityLayerInfoTemplates();
 
@@ -185,8 +189,8 @@ define([
 		// 3 'mode' options: MODE_SNAPSHOT = 0, MODE_ONDEMAND = 1, MODE_SELECTION = 2
         operationalLayers: [
             {
-                type   : 'feature',
-                url    : 'http://prod.gis.msu.edu/arcgis/rest/services/features/gigapan_loc/MapServer/0',
+                type   : 'dynamic',
+                url    : 'http://prod.gis.msu.edu/arcgis/rest/services/features/gigapan_loc/MapServer',
                 title  : 'Panoramic Photos',
                 slider: false,
                 noLegend: false,
@@ -196,7 +200,7 @@ define([
                     opacity: 0.8,
                     visible: true,
                     minScale: 2500,
-                    infoTemplate: panoInfoTemplate,
+                    infoTemplates: panoInfoTemplates,
                     outFields: ['LOCATIONID']
                 }
             },
@@ -612,7 +616,7 @@ define([
                 }
 			},
 			TOC: {
-				include: true,
+				include: false,
 				id: 'toc',
 				type: 'titlePane',
 				path: 'gis/dijit/TOC',
@@ -624,6 +628,23 @@ define([
 					tocLayerInfos: true
 				}
 			},
+            LayerController: {
+                include: true,
+                id: 'layerController',
+                type: 'titlePane',
+                path: 'gis/dijit/LayerController',
+                title: 'Layers',
+                open: true,
+                position: 1,
+                options: {
+                    map: true,
+                    tocLayerInfos: true,
+                    components: ['transparency', 'scales'],
+                    reorder: false,
+                    basemapCount: 2,
+                    dbootstrap: true
+                }
+            },
 			bookmarks: {
 				include: true,
 				id: 'bookmarks',

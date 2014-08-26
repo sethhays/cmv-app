@@ -62,6 +62,8 @@ define([
             lang.mixin(this, options);
         },
         postCreate: function() {
+            this.operationalLayers = this.layerInfos;
+
             var ControlContainer = declare([WidgetBase, Container]);
             //vector layer control container
             this._vectorContainer = new ControlContainer({
@@ -103,7 +105,8 @@ define([
             }, this);
             require(modules, lang.hitch(this, function() {
                 //load operational layers
-                arrayUtil.forEach(this.operationalLayers, function(opLayer) {
+                //JF added the reverse() call to get layers to list in the same order they are listed in the CMV config.  This might affect being able to re-order layers??
+                arrayUtil.forEach(this.operationalLayers.reverse(), function(opLayer) {
                     var control = this._layerControls[opLayer.type];
                     if (control) {
                         require([control], lang.hitch(this, '_addControl', opLayer));
