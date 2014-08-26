@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd937d1b-509e-4b04-a54b-03f9f523db33" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController.js" afterPath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ConfigurableViewerJSAPI-GitLab.iws" />
@@ -25,14 +26,16 @@
     <favorites_list name="ConfigurableViewerJSAPI-GitLab" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.30212304">
+    <splitter split-orientation="horizontal" split-proportion="0.4677856">
       <split-first>
         <leaf>
-          <file leaf-file-name="facilityinfrastructure.js" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="facilityinfrastructure.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="188" column="90" selection-start="6820" selection-end="6820" vertical-scroll-proportion="0.6256345" vertical-offset="2703" max-vertical-offset="11951">
-                  <folding />
+                <state line="641" column="14" selection-start="22210" selection-end="22776" vertical-scroll-proportion="0.0" vertical-offset="5507" max-vertical-offset="7157">
+                  <folding>
+                    <element signature="e#6678#17534#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -46,10 +49,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Controller.js" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="Controller.js" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/viewer/js/viewer/Controller.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="211" column="62" selection-start="9062" selection-end="9062" vertical-scroll-proportion="0.0" vertical-offset="3002" max-vertical-offset="7871">
+                <state line="219" column="33" selection-start="9308" selection-end="9308" vertical-scroll-proportion="0.569797" vertical-offset="3274" max-vertical-offset="7871">
                   <folding />
                 </state>
               </provider>
@@ -58,10 +61,10 @@
           <file leaf-file-name="LayerController.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerController.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="3689">
+                <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="3706">
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
-                    <marker date="1409074279122" expanded="true" signature="981:1235" placeholder="//..." />
+                    <marker date="1409083718096" expanded="true" signature="981:1235" placeholder="//..." />
                   </folding>
                 </state>
               </provider>
@@ -71,10 +74,10 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="LayerController.js" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="LayerController.js" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerController.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="107" column="66" selection-start="3895" selection-end="3895" vertical-scroll-proportion="0.0" vertical-offset="1263" max-vertical-offset="3689">
+                <state line="114" column="16" selection-start="4343" selection-end="4343" vertical-scroll-proportion="0.5038071" vertical-offset="1541" max-vertical-offset="3706">
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                   </folding>
@@ -91,10 +94,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Dynamic.js" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="Dynamic.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="81" column="0" selection-start="2147" selection-end="2147" vertical-scroll-proportion="0.71192896" vertical-offset="816" max-vertical-offset="8058">
+                <state line="73" column="13" selection-start="1888" selection-end="1888" vertical-scroll-proportion="0.0" vertical-offset="2193" max-vertical-offset="8058">
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                   </folding>
@@ -145,8 +148,8 @@
         <option value="$PROJECT_DIR$/viewer/js/viewer/Controller.js" />
         <option value="$PROJECT_DIR$/viewer/index.html" />
         <option value="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" />
-        <option value="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController.js" />
         <option value="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js" />
+        <option value="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController.js" />
       </list>
     </option>
   </component>
@@ -659,7 +662,11 @@
       <created>1409074483041</created>
       <updated>1409074483041</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="added space, forcing push&#10;">
+      <created>1409074574687</created>
+      <updated>1409074574687</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -717,7 +724,8 @@
     <MESSAGE value="Initial port of btfou's code.  Required several small modifications to Controller.js to pass additional layer parameters (url,type).   Url could probably be retrieved from the layer property of the params passed to the individual layer control." />
     <MESSAGE value="remove console.log statements&#10;" />
     <MESSAGE value="added space, forcing push" />
-    <option name="LAST_COMMIT_MESSAGE" value="added space, forcing push" />
+    <MESSAGE value="added space, forcing push&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="added space, forcing push&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -733,7 +741,9 @@
     <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="9639">
-          <folding />
+          <folding>
+            <element signature="e#6678#17534#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -757,7 +767,9 @@
     <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
+          <folding>
+            <element signature="e#6678#17534#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1007,13 +1019,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/viewer/Controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="211" column="62" selection-start="9062" selection-end="9062" vertical-scroll-proportion="0.0" vertical-offset="3002" max-vertical-offset="7871">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/viewer/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="104" selection-start="686" selection-end="686" vertical-scroll-proportion="-4.4615383" vertical-offset="54" max-vertical-offset="1360">
@@ -1021,28 +1026,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
+    <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="188" column="90" selection-start="6820" selection-end="6820" vertical-scroll-proportion="0.6256345" vertical-offset="2703" max-vertical-offset="11951">
-          <folding />
+        <state line="73" column="13" selection-start="1888" selection-end="1888" vertical-scroll-proportion="0.0" vertical-offset="2193" max-vertical-offset="8058">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="107" column="66" selection-start="3895" selection-end="3895" vertical-scroll-proportion="0.0" vertical-offset="1263" max-vertical-offset="3689">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="3706">
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1409083718096" expanded="true" signature="981:1235" placeholder="//..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js">
+    <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="0" selection-start="2147" selection-end="2147" vertical-scroll-proportion="0.71192896" vertical-offset="816" max-vertical-offset="8058">
+        <state line="641" column="14" selection-start="22210" selection-end="22776" vertical-scroll-proportion="0.0" vertical-offset="5507" max-vertical-offset="7157">
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#6678#17534#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewer/js/viewer/Controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="219" column="33" selection-start="9308" selection-end="9308" vertical-scroll-proportion="0.569797" vertical-offset="3274" max-vertical-offset="7871">
+          <folding />
         </state>
       </provider>
     </entry>

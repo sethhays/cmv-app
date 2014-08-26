@@ -105,6 +105,7 @@ define([
             }, this);
             require(modules, lang.hitch(this, function() {
                 //load operational layers
+                //JF added the reverse() call to get layers to list in the same order they are listed in the CMV config.  This might affect being able to re-order layers??
                 arrayUtil.forEach(this.operationalLayers.reverse(), function(opLayer) {
                     var control = this._layerControls[opLayer.type];
                     if (control) {
