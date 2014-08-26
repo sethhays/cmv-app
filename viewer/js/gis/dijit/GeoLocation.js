@@ -71,7 +71,7 @@ define([
             }
         },
         onProjectComplete: function(geoms, event) {
-            console.log(geoms);
+            //console.log(geoms);
             if (geoms.length > 0) {
                 this.setMap(geoms[0], event);
             } else {

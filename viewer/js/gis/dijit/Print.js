@@ -66,7 +66,7 @@ define([
             //aspect.after(this.printTask, '_createOperationalLayers', this.operationalLayersInspector, false);
         },
         operationalLayersInspector: function(opLayers) {
-            console.log(opLayers);
+            //console.log(opLayers);
             array.forEach(opLayers, function(layer) {
                 if (layer.id == 'Measurement_graphicslayer') {
                     array.forEach(layer.featureCollection.layers, function(fcLayer) {
@@ -82,14 +82,14 @@ define([
             return opLayers;
         },
         _handleError: function(err) {
-            console.log(1, err);
+            //console.log(1, err);
         },
         _handlePrintInfo: function(data) {
             var Layout_Template = array.filter(data.parameters, function(param, idx) {
                 return param.name === 'Layout_Template';
             });
             if (Layout_Template.length === 0) {
-                console.log('print service parameters name for templates must be \'Layout_Template\'');
+                //console.log('print service parameters name for templates must be \'Layout_Template\'');
                 return;
             }
             var layoutItems = array.map(Layout_Template[0].choiceList, function(item, i) {
@@ -115,7 +115,7 @@ define([
                 return param.name === 'Format';
             });
             if (Format.length === 0) {
-                console.log('print service parameters name for format must be \'Format\'');
+                //console.log('print service parameters name for format must be \'Format\'');
                 return;
             }
             var formatItems = array.map(Format[0].choiceList, function(item, i) {
@@ -206,7 +206,7 @@ define([
             }
         },
         _onPrintError: function(err) {
-            console.log(err);
+            //console.log(err);
             this.nameNode.innerHTML = '<span class="bold">Error, try again</span>';
             domClass.add(this.resultNode, 'printResultError');
         },

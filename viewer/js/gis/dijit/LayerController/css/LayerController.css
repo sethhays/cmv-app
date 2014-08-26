@@ -1,0 +1,96 @@
+/* don't include this file - LayerController loads via xstyle/css */
+.vectorLayerContainer {
+
+}
+
+.overlayLayerContainer {
+
+}
+
+.layerControl {
+    margin-bottom: 4px;
+    padding-bottom: 2px;
+    border-bottom: solid 1px #e5e5e5;
+}
+
+.layerControlTable {
+    width: 100%;
+}
+
+.layerControlTable tr {
+    vertical-align: middle;
+}
+
+.layerControlTable td {
+    padding: 0;
+}
+
+.layerControlTableExpand {
+    cursor: pointer;
+    width: 18px;
+    height: 15px;
+    line-height: 15px;
+}
+
+.layerControlTableCheck {
+    cursor: pointer;
+    width: 18px;
+    height: 15px;
+    line-height: 15px;
+}
+
+.layerControlTableLabel {
+    font-size: 14px;
+    height: 15px;
+    line-height: 15px;
+}
+
+.layerControlTableUpdate {
+    width: 20px;
+    height: 15px;
+    line-height: 15px;
+    text-align: center;
+}
+
+.layerControlIndent {
+    padding-left: 20px;
+}
+
+.layerControlIcon {
+    font-size: 15px;
+}
+
+.layerControlUpdateIcon {
+    font-size: 13px
+}
+
+.layerControlCheckIconOutScale {
+    color: #BBB;
+}
+
+.layerControlClick {
+    cursor: pointer;
+    color: #1f78af;
+    text-decoration: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.layerControlClick:hover {
+    text-decoration: underline;
+}
+
+.layerControlLegendTable tr {
+    vertical-align: middle;
+}
+
+.layerControlLegendImage > img {
+    border: none;
+    padding: 0;
+}
+
+.layerControlLegendLabel {
+    padding: 0 0 0 4px;
+}
