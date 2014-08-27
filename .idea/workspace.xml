@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd937d1b-509e-4b04-a54b-03f9f523db33" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/PotableWaterInfoTemplates.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/RawWaterInfoTemplates.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/communicationInfoTemplates.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/electricInfoTemplates.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js" afterPath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/PotableWaterInfoTemplates.js" afterPath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/PotableWaterInfoTemplates.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js" afterPath="$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" afterPath="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -45,7 +47,7 @@
           <file leaf-file-name="facilityinfrastructure.js" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="385" column="53" selection-start="14285" selection-end="14285" vertical-scroll-proportion="0.30538923" vertical-offset="3927" max-vertical-offset="9350">
+                <state line="317" column="69" selection-start="11714" selection-end="11714" vertical-scroll-proportion="0.8652695" vertical-offset="2397" max-vertical-offset="9401">
                   <folding>
                     <element signature="e#1810#5870#0" expanded="false" />
                     <element signature="e#5884#5895#0" expanded="false" />
@@ -97,26 +99,51 @@
           <file leaf-file-name="UtilityLayerInfoTemplates.js" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="24" column="0" selection-start="784" selection-end="784" vertical-scroll-proportion="0.5811966" vertical-offset="0" max-vertical-offset="702">
+                <state line="19" column="0" selection-start="939" selection-end="939" vertical-scroll-proportion="0.46879536" vertical-offset="0" max-vertical-offset="714">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="ChilledWaterInfoTemplates.js" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js">
+          <file leaf-file-name="RawWaterInfoTemplates.js" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/RawWaterInfoTemplates.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="81" column="0" selection-start="3453" selection-end="3453" vertical-scroll-proportion="0.0" vertical-offset="709" max-vertical-offset="1479">
+                <state line="26" column="14" selection-start="854" selection-end="854" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1173">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="PotableWaterInfoTemplates.js" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/PotableWaterInfoTemplates.js">
+          <file leaf-file-name="communicationInfoTemplates.js" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/communicationInfoTemplates.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="26" column="14" selection-start="861" selection-end="861" vertical-scroll-proportion="0.0" vertical-offset="97" max-vertical-offset="1173">
-                  <folding />
+                <state line="51" column="64" selection-start="2633" selection-end="2633" vertical-scroll-proportion="0.0" vertical-offset="361" max-vertical-offset="1836">
+                  <folding>
+                    <marker date="1409166708717" expanded="true" signature="1666:1693" placeholder="..." />
+                    <marker date="1409166708717" expanded="true" signature="2032:2059" placeholder="..." />
+                    <marker date="1409166708717" expanded="true" signature="2393:2420" placeholder="..." />
+                    <marker date="1409166708717" expanded="true" signature="3227:3254" placeholder="..." />
+                    <marker date="1409166708717" expanded="true" signature="3925:3952" placeholder="..." />
+                    <marker date="1409166708717" expanded="true" signature="4590:4617" placeholder="..." />
+                    <marker date="1409166708717" expanded="true" signature="4970:4997" placeholder="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="electricInfoTemplates.js" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/electricInfoTemplates.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="27" column="100" selection-start="1039" selection-end="1039" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1836">
+                  <folding>
+                    <marker date="1409166860640" expanded="false" signature="1666:1693" placeholder="..." />
+                    <marker date="1409166860640" expanded="false" signature="2032:2059" placeholder="..." />
+                    <marker date="1409166860640" expanded="false" signature="2393:2420" placeholder="..." />
+                    <marker date="1409166860640" expanded="false" signature="3227:3254" placeholder="..." />
+                    <marker date="1409166860640" expanded="false" signature="3925:3952" placeholder="..." />
+                    <marker date="1409166860640" expanded="false" signature="4590:4617" placeholder="..." />
+                    <marker date="1409166860640" expanded="false" signature="4970:4997" placeholder="..." />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -169,6 +196,9 @@
         <option value="$PROJECT_DIR$/viewer/css/msu.css" />
         <option value="$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js" />
         <option value="$PROJECT_DIR$/viewer/js/fis/infoTemplates/PotableWaterInfoTemplates.js" />
+        <option value="$PROJECT_DIR$/viewer/js/fis/infoTemplates/RawWaterInfoTemplates.js" />
+        <option value="$PROJECT_DIR$/viewer/js/fis/infoTemplates/communicationInfoTemplates.js" />
+        <option value="$PROJECT_DIR$/viewer/js/fis/infoTemplates/electricInfoTemplates.js" />
         <option value="$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js" />
         <option value="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" />
       </list>
@@ -464,13 +494,18 @@
       <created>1409103108266</created>
       <updated>1409103108266</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="potable water info templates">
+      <created>1409154150644</created>
+      <updated>1409154150644</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1874" height="1216" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3302668" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13406795" sideWeight="0.49964765" order="7" side_tool="false" content_ui="tabs" />
@@ -487,7 +522,6 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -523,36 +557,13 @@
     <MESSAGE value="change default visibility of capital project layer" />
     <MESSAGE value="allow TOC to float" />
     <MESSAGE value="reformat chw pipe code" />
-    <option name="LAST_COMMIT_MESSAGE" value="reformat chw pipe code" />
+    <MESSAGE value="potable water info templates" />
+    <option name="LAST_COMMIT_MESSAGE" value="potable water info templates" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/viewer/js/fis/dijit/campus/CampusInfoFeatures.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding>
-            <element signature="e#1810#5870#0" expanded="false" />
-            <element signature="e#5884#5895#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/ChilledWaterInfoTemplates.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
@@ -834,9 +845,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/RawWaterInfoTemplates.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="14" selection-start="854" selection-end="854" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1173">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/communicationInfoTemplates.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="64" selection-start="2633" selection-end="2633" vertical-scroll-proportion="0.0" vertical-offset="361" max-vertical-offset="1836">
+          <folding>
+            <marker date="1409166708717" expanded="true" signature="1666:1693" placeholder="..." />
+            <marker date="1409166708717" expanded="true" signature="2032:2059" placeholder="..." />
+            <marker date="1409166708717" expanded="true" signature="2393:2420" placeholder="..." />
+            <marker date="1409166708717" expanded="true" signature="3227:3254" placeholder="..." />
+            <marker date="1409166708717" expanded="true" signature="3925:3952" placeholder="..." />
+            <marker date="1409166708717" expanded="true" signature="4590:4617" placeholder="..." />
+            <marker date="1409166708717" expanded="true" signature="4970:4997" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/electricInfoTemplates.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="100" selection-start="1039" selection-end="1039" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1836">
+          <folding>
+            <marker date="1409166860640" expanded="false" signature="1666:1693" placeholder="..." />
+            <marker date="1409166860640" expanded="false" signature="2032:2059" placeholder="..." />
+            <marker date="1409166860640" expanded="false" signature="2393:2420" placeholder="..." />
+            <marker date="1409166860640" expanded="false" signature="3227:3254" placeholder="..." />
+            <marker date="1409166860640" expanded="false" signature="3925:3952" placeholder="..." />
+            <marker date="1409166860640" expanded="false" signature="4590:4617" placeholder="..." />
+            <marker date="1409166860640" expanded="false" signature="4970:4997" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="385" column="53" selection-start="14285" selection-end="14285" vertical-scroll-proportion="0.30538923" vertical-offset="3927" max-vertical-offset="9350">
+        <state line="317" column="69" selection-start="11714" selection-end="11714" vertical-scroll-proportion="0.8652695" vertical-offset="2397" max-vertical-offset="9401">
           <folding>
             <element signature="e#1810#5870#0" expanded="false" />
             <element signature="e#5884#5895#0" expanded="false" />
@@ -846,7 +894,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/fis/infoTemplates/UtilityLayerInfoTemplates.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="0" selection-start="784" selection-end="784" vertical-scroll-proportion="0.5811966" vertical-offset="0" max-vertical-offset="702">
+        <state line="19" column="0" selection-start="939" selection-end="939" vertical-scroll-proportion="0.46879536" vertical-offset="0" max-vertical-offset="714">
           <folding />
         </state>
       </provider>

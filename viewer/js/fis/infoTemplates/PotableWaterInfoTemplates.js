@@ -8,7 +8,7 @@ define ( [
 
             infoTemplates: {},
 
-            watLayers: { pipes: [ 2,5,8,11 ], nodes: [ 1,4,7,10 ] },
+            layers: { pipes: [ 2,5,8,11 ], nodes: [ 1,4,7,10 ] },
 
             constructor: function () {
                 this._buildInfoTemplates();
@@ -16,17 +16,17 @@ define ( [
 
             _buildInfoTemplates: function () {
 
-                array.forEach( this.watLayers.pipes, function( layerId ) {
-                    this.infoTemplates[ layerId ] = { infoTemplate: this._getPipeInfoTemplate( 'WTR' ) };
+                array.forEach( this.layers.pipes, function( layerId ) {
+                    this.infoTemplates[ layerId ] = { infoTemplate: this._getRouteInfoTemplates( 'WTR' ) };
                 }, this );
 
-                array.forEach( this.watLayers.nodes, function( layerId ) {
+                array.forEach( this.layers.nodes, function( layerId ) {
                     this.infoTemplates[ layerId ] = { infoTemplate: this._getNodeInfoTemplate( 'WTR' ) };
                 }, this );
 
             },
 
-            _getPipeInfoTemplate: function ( watCategory ) {
+            _getRouteInfoTemplates: function ( watCategory ) {
 
                 var infoTemplate = new InfoTemplate();
                 infoTemplate.setTitle( watCategory + ' Water Pipe' );
