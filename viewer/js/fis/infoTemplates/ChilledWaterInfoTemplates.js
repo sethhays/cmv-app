@@ -19,21 +19,15 @@ define ( [
                  _buildInfoTemplates: function () {
 
                      array.forEach( this.chwsPipeLayers, function( layerId ) {
-
                          this.infoTemplates[ layerId ] = { infoTemplate: this._getPipeInfoTemplate( 'CHWS' ) };
-
                      }, this );
 
                      array.forEach( this.chwrPipeLayers, function( layerId ) {
-
                          this.infoTemplates[ layerId ] = { infoTemplate: this._getPipeInfoTemplate( 'CHWR' ) };
-
                      }, this );
 
                      array.forEach( this.geoPipeLayers, function( layerId ) {
-
                          this.infoTemplates[ layerId ] = { infoTemplate: this._getPipeInfoTemplate( 'GEOTH' ) };
-
                      }, this );
 
 
