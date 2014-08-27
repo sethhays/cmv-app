@@ -4,8 +4,9 @@ define([
 	'esri/config',
 	'esri/tasks/GeometryService',
 	'esri/layers/ImageParameters',
-    'esri/InfoTemplate'
-], function(units, Extent, esriConfig, GeometryService, ImageParameters, InfoTemplate) {
+    'esri/InfoTemplate',
+    'fis/infoTemplates/UtilityLayerInfoTemplates'
+], function( units, Extent, esriConfig, GeometryService, ImageParameters, InfoTemplate, UtilityLayerInfoTemplates ) {
 
 	// url to your proxy page, must be on same machine hosting you app. See proxy folder for readme.
 	//esriConfig.defaults.io.proxyUrl = 'proxy/proxy.ashx';
@@ -20,6 +21,13 @@ define([
     var panoInfoTemplate = new InfoTemplate();
     panoInfoTemplate.setTitle( 'Panoramic Photo Location' );
     panoInfoTemplate.setContent( '<a href="http://prod.gis.msu.edu/campusmap/pano.html?viewer=sphere&locationid=${LOCATIONID}" target="_blank">Open in new window</a>' );
+
+    var panoInfoTemplates = {
+        0: {infoTemplate: panoInfoTemplate}
+    };
+
+
+    var utilityLayerInfoTemplates = new UtilityLayerInfoTemplates();
 
 	return {
 		//default mapClick mode, mapClickMode lets widgets know what mode the map is in to avoid multipult map click actions from taking place (ie identify while drawing).
@@ -176,13 +184,26 @@ define([
 		// },
 		// collapseButtonsPane: 'center', //center or outer
 
+        panes: {
+            left: {
+                splitter: true
+            },
+            right: {
+                 		id: 'sidebarRight',
+                 		placeAt: 'outer',
+                 		region: 'right',
+                 		splitter: true,
+                 		collapsible: true
+            }
+        },
+
 		// operationalLayers: Array of Layers to load on top of the basemap: valid 'type' options: 'dynamic', 'tiled', 'feature'.
 		// The 'options' object is passed as the layers options for constructor. Title will be used in the legend only. id's must be unique and have no spaces.
 		// 3 'mode' options: MODE_SNAPSHOT = 0, MODE_ONDEMAND = 1, MODE_SELECTION = 2
         operationalLayers: [
             {
-                type   : 'feature',
-                url    : 'http://prod.gis.msu.edu/arcgis/rest/services/features/gigapan_loc/MapServer/0',
+                type   : 'dynamic',
+                url    : 'http://prod.gis.msu.edu/arcgis/rest/services/features/gigapan_loc/MapServer',
                 title  : 'Panoramic Photos',
                 slider: false,
                 noLegend: false,
@@ -192,7 +213,7 @@ define([
                     opacity: 0.8,
                     visible: true,
                     minScale: 2500,
-                    infoTemplate: panoInfoTemplate,
+                    infoTemplates: panoInfoTemplates,
                     outFields: ['LOCATIONID']
                 }
             },
@@ -263,7 +284,8 @@ define([
                     id     : 'chilledWaterMapLayer',
                     opacity: 1.0,
                     visible: false,
-                    imageParameters: imageParameters
+                    imageParameters: imageParameters,
+                    infoTemplates: utilityLayerInfoTemplates.chilledWater
                 }
             },
             {
@@ -495,26 +517,8 @@ define([
 				path: 'gis/dijit/Growler',
 				srcNodeRef: 'growlerDijit',
 				options: {}
-			},
-			geocoder: {
+			},identify: {
 				include: false,
-				id: 'geocoder',
-				type: 'domNode',
-				path: 'gis/dijit/Geocoder',
-				srcNodeRef: 'geocodeDijit',
-				options: {
-					map: true,
-					mapRightClickMenu: true,
-					geocoderOptions: {
-						autoComplete: true,
-						arcgisGeocoder: {
-							placeholder: 'Enter an address or place'
-						}
-					}
-				}
-			},
-			identify: {
-				include: true,
 				id: 'identify',
 				type: 'titlePane',
 				path: 'gis/dijit/Identify',
@@ -606,19 +610,24 @@ define([
                     )
                 }
 			},
-			TOC: {
-				include: true,
-				id: 'toc',
-				type: 'titlePane',
-				path: 'gis/dijit/TOC',
-				title: 'Layers',
-				open: false,
-				position: 1,
-				options: {
-					map: true,
-					tocLayerInfos: true
-				}
-			},
+            LayerController: {
+                include: true,
+                id: 'layerController',
+                type: 'titlePane',
+                path: 'gis/dijit/LayerController',
+                title: 'Layers',
+                open: true,
+                position: 1,
+                placeAt: 'right',
+                options: {
+                    map: true,
+                    tocLayerInfos: true,
+                    components: ['transparency', 'scales'],
+                    reorder: false,
+                    basemapCount: 2,
+                    dbootstrap: true
+                }
+            },
 			bookmarks: {
 				include: true,
 				id: 'bookmarks',

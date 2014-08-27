@@ -47,8 +47,6 @@ define([
                     opacity: this.opacity
                 }, 250);
                 this.setTimeout();
-            } else {
-                //console.log('Growl container not found/specified.');
             }
         },
         setTimeout: function() {

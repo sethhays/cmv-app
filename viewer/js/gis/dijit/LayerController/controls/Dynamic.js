@@ -79,8 +79,10 @@ define([
             }
             this._initialize(this.params, this.controller.map);
         },
+
         //add layer and init control
         _initialize: function(params, map) {
+
             //default mixin
             params = lang.mixin({
                 type: 'dynamic',
@@ -96,6 +98,7 @@ define([
                 layerExtend: {},
                 controlOptions: {}
             }, params);
+
             //control options mixin
             //a separate mixin is required for nested objects and arrays
             //saves much code by eliminating the need for checks
@@ -107,8 +110,9 @@ define([
                 sublayerMenuItems: []
             }, params.controlOptions);
             this.params = params;
+
             //are we using a layer or loading one
-            if (params.layer && params.layer.isInstanceOf('esri.layers.ArcGISDynamicMapServiceLayer')) {
+            if (params.layer && params.layer.isInstanceOf(ArcGISDynamicMapServiceLayer)) {
                 this.layer = params.layer;
             } else if (params.layerOptions) {
                 var token = params.token;
@@ -123,11 +127,13 @@ define([
                 html.set(this.labelNode, params.title + ': Invalid Layer');
                 return;
             }
+
             lang.mixin(this.layer, params.layerExtend);
             if (params.layerOptions.visible) {
                 domClass.remove(this.checkNode, 'fa-square-o');
                 domClass.add(this.checkNode, 'fa fa-check-square-o');
             }
+
             on(this.checkNode, 'click', lang.hitch(this, '_toggleLayer'));
             html.set(this.labelNode, params.title);
             this.layer.on('update-start', lang.hitch(this, function() {
