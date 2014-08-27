@@ -383,7 +383,8 @@ define([
                     id     : 'potableWaterMapLayer',
                     opacity: 1.0,
                     visible: false,
-                    imageParameters: imageParameters
+                    imageParameters: imageParameters,
+                    infoTemplates: utilityLayerInfoTemplates.potableWater
                 }
             },
             {
