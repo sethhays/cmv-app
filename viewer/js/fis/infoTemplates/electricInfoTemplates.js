@@ -38,15 +38,15 @@ define ( [
                     '<li><label>Type:&nbsp;</label>${TYPE}</li>' +
                     '<li><label>No of Cond:&nbsp;</label>${COND_NUM:NumberFormat(places:0)}"</li>' +
                     '<li><label>Size of Cond:&nbsp;</label>${COND_SIZE:NumberFormat(places:0)}</li>' +
-                    '<hr style="width: 90%; color: #d3d3d3;" /> ' +
+                    '<hr /> ' +
                     '<li><label>St Node:&nbsp;</label>${START_NODE_REF}</li>' +
                     '<li><label>Grnd Elev:&nbsp;</label>${START_NODE_GRNDELEV:NumberFormat(places:2)}</li>' +
                     '<li><label>Inv Elev:&nbsp;</label>${START_NODE_INVELEV:NumberFormat(places:2)}</li>' +
-                    '<hr style="width: 90%; color: #d3d3d3;" /> ' +
+                    '<hr /> ' +
                     '<li><label>End Node:&nbsp;</label>${END_NODE_REF}</li>' +
                     '<li><label>Grnd Elev:&nbsp;</label>${END_NODE_GRNDELEV:NumberFormat(places:2)}</li>' +
                     '<li><label>Inv Elev:&nbsp;</label>${END_NODE_INVELEV:NumberFormat(places:2)}</li>' +
-                    '<hr style="width: 90%; color: #d3d3d3;" /> ' +
+                    '<hr /> ' +
                     '<li><label>Status:&nbsp;</label>${STATUS}</li>' +
                     '<li><label>Owner:&nbsp;</label>${OWNER}</li>' +
                     '<li><label>Length:&nbsp;</label>${LENGTH_FT:NumberFormat(places:0)}\'</li>' +
@@ -62,14 +62,14 @@ define ( [
                 infoTemplate.setContent( '<h5>${LABEL}</h5><ul class="list-unstyled">' +
                     '<li><label>Vault ID:&nbsp;</label>${Vault ID:NumberFormat(places:0)}\'</li>' +
                     '<li><label>Node Type:&nbsp;</label>${TYPE}</li>' +
-                    '<hr style="width: 90%; color: #d3d3d3;" /> ' +
+                    '<hr /> ' +
                     '<li><label>Ground Elev:&nbsp;</label>${GRND_ELEV:NumberFormat(places:2)}\'</li>' +
                     '<li><label>Neck Opening:&nbsp;</label>${NECK_OPENING:NumberFormat(places:0)}\'</li>' +
                     '<li><label>Neck Length:&nbsp;</label>${NECK_LENGTH:NumberFormat(places:0)}\'</li>' +
                     '<li><label>Ceiling Elev:&nbsp;</label>${CEILING_ELEV:NumberFormat(places:2)}\'</li>' +
                     '<li><label>Headroom:&nbsp;</label>${HEADROOM:NumberFormat(places:2)}\'</li>' +
                     '<li><label>Floor Elev:&nbsp;</label>${FLOOR_ELEV:NumberFormat(places:2)}\'</li>' +
-                    '<hr style="width: 90%; color: #d3d3d3;" /> ' +
+                    '<hr /> ' +
                     '<li><label>Status:&nbsp;</label>${STATUS}</li>' +
                     '<li><label>Owner:&nbsp;</label>${OWNER}</li>' +
                     '</ul>' );
@@ -83,11 +83,11 @@ define ( [
                 infoTemplate.setTitle( watCategory + ' Vault' );
                 infoTemplate.setContent( '<h5>${LABEL}</h5><ul class="list-unstyled">' +
                     '<li><label>Vault ID:&nbsp;</label>${Vault ID:NumberFormat(places:0)}\'</li>' +
-                    '<hr style="width: 90%; color: #d3d3d3;" /> ' +
+                    '<hr /> ' +
                     '<li><label>Ceiling Elev:&nbsp;</label>${CEILING_ELEV:NumberFormat(places:2)}\'</li>' +
                     '<li><label>Headroom:&nbsp;</label>${HEADROOM:NumberFormat(places:2)}\'</li>' +
                     '<li><label>Floor Elev:&nbsp;</label>${FLOOR_ELEV:NumberFormat(places:2)}\'</li>' +
-                    '<hr style="width: 90%; color: #d3d3d3;" /> ' +
+                    '<hr /> ' +
                     '<li><label>Sump:&nbsp;</label>${SUMP}</li>' +
                     '<li><label>Status:&nbsp;</label>${STATUS}</li>' +
                     '</ul>' );
