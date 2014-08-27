@@ -8,9 +8,7 @@ define ( [
 
             infoTemplates: {},
 
-            chwsLayers: { pipes: [ 2,9,16,23 ], nodes: [ 1,8,15,22 ] },
-            chwrLayers: { pipes: [ 4,11,18,25 ], nodes: [ 3,10,17,24 ] },
-            geoLayers: { pipes: [ 6,13,20,27 ], nodes: [ 5,12,19,26 ] },
+            layers: { pipes: [ 2,5,8,11 ], nodes: [ 1,4,7,10 ] },
 
             constructor: function () {
                 this._buildInfoTemplates();
@@ -18,28 +16,12 @@ define ( [
 
             _buildInfoTemplates: function () {
 
-                array.forEach( this.chwsLayers.pipes, function( layerId ) {
-                    this.infoTemplates[ layerId ] = { infoTemplate: this._getRouteInfoTemplates( 'CHWS' ) };
+                array.forEach( this.layers.pipes, function( layerId ) {
+                    this.infoTemplates[ layerId ] = { infoTemplate: this._getRouteInfoTemplates( 'WEL' ) };
                 }, this );
 
-                array.forEach( this.chwrLayers.pipes, function( layerId ) {
-                    this.infoTemplates[ layerId ] = { infoTemplate: this._getRouteInfoTemplates( 'CHWR' ) };
-                }, this );
-
-                array.forEach( this.geoLayers.pipes, function( layerId ) {
-                    this.infoTemplates[ layerId ] = { infoTemplate: this._getRouteInfoTemplates( 'GEOTH' ) };
-                }, this );
-
-                array.forEach( this.chwsLayers.nodes, function( layerId ) {
-                    this.infoTemplates[ layerId ] = { infoTemplate: this._getNodeInfoTemplate( 'CHWS' ) };
-                }, this );
-
-                array.forEach( this.chwrLayers.nodes, function( layerId ) {
-                    this.infoTemplates[ layerId ] = { infoTemplate: this._getNodeInfoTemplate( 'CHWR' ) };
-                }, this );
-
-                array.forEach( this.geoLayers.nodes, function( layerId ) {
-                    this.infoTemplates[ layerId ] = { infoTemplate: this._getNodeInfoTemplate( 'GEOTH' ) };
+                array.forEach( this.layers.nodes, function( layerId ) {
+                    this.infoTemplates[ layerId ] = { infoTemplate: this._getNodeInfoTemplate( 'WEL' ) };
                 }, this );
 
             },

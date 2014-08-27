@@ -39,3 +39,20 @@ body, html {
     display: inline-block;
 }
 
+.contentPane .list-unstyled li > label {
+    color: darkgrey;
+    margin-right: 5px;
+    width: 33%;
+    text-align: right;
+    vertical-align: initial;
+    display: inline-block;
+}
+
+.contentPane .list-unstyled hr {
+    color: #d3d3d3;
+    margin: 0px;
+    margin-top: 1em;
+    margin-bottom: 2px;
+    width: 80%;
+}
+

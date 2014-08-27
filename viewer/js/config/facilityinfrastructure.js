@@ -299,7 +299,8 @@ define([
                     id     : 'communicationMapLayer',
                     opacity: 1.0,
                     visible: false,
-                    imageParameters: imageParameters
+                    imageParameters: imageParameters,
+                    infoTemplates: utilityLayerInfoTemplates.communication
                 }
             },
             {
@@ -313,7 +314,8 @@ define([
                     id     : 'electricMapLayer',
                     opacity: 1.0,
                     visible: false,
-                    imageParameters: imageParameters
+                    imageParameters: imageParameters,
+                    infoTemplates: utilityLayerInfoTemplates.electric
                 }
             },
             {
@@ -383,7 +385,8 @@ define([
                     id     : 'potableWaterMapLayer',
                     opacity: 1.0,
                     visible: false,
-                    imageParameters: imageParameters
+                    imageParameters: imageParameters,
+                    infoTemplates: utilityLayerInfoTemplates.potableWater
                 }
             },
             {
@@ -397,7 +400,8 @@ define([
                     id     : 'rawWaterMapLayer',
                     opacity: 1.0,
                     visible: false,
-                    imageParameters: imageParameters
+                    imageParameters: imageParameters,
+                    infoTemplates: utilityLayerInfoTemplates.rawWater
                 }
             },
             {
