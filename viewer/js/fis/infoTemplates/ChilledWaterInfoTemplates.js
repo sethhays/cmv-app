@@ -1,9 +1,16 @@
 define ( [
             'dojo/_base/declare',
+            'dojo/_base/array',
             'esri/InfoTemplate'
-       ], function ( declare, InfoTemplate ) {
+       ], function ( declare, array, InfoTemplate ) {
 
              var infoTemplates = declare ( null, {
+
+                 infoTemplates: {},
+
+                 chwsPipeLayers: [ 2,9,16,23 ],
+                 chwrPipeLayers: [ 4,11,18,25 ],
+                 geoPipeLayers: [ 6,13,20,27 ],
 
                  constructor: function () {
                     this._buildInfoTemplates();
@@ -11,47 +18,24 @@ define ( [
 
                  _buildInfoTemplates: function () {
 
-                     this.infoTemplates = {
+                     array.forEach( this.chwsPipeLayers, function( layerId ) {
 
-                         2: {
-                             infoTemplate: this._getPipeInfoTemplate ( 'CHWS' )
-                         },
-                         9: {
-                             infoTemplate: this._getPipeInfoTemplate ( 'CHWS' )
-                         },
-                         16: {
-                             infoTemplate: this._getPipeInfoTemplate ( 'CHWS' )
-                         },
-                         23: {
-                             infoTemplate: this._getPipeInfoTemplate ( 'CHWS' )
-                         },
-                         4: {
-                             infoTemplate: this._getPipeInfoTemplate ( 'CHWR' )
-                         },
-                         11: {
-                             infoTemplate: this._getPipeInfoTemplate ( 'CHWR' )
-                         },
-                         18: {
-                             infoTemplate: this._getPipeInfoTemplate ( 'CHWR' )
-                         },
-                         25: {
-                             infoTemplate: this._getPipeInfoTemplate ( 'CHWR' )
-                         },
-                         6: {
-                             infoTemplate: this._getPipeInfoTemplate ( 'GEOTH' )
-                         },
-                         13: {
-                             infoTemplate: this._getPipeInfoTemplate ( 'GEOTH' )
-                         },
-                         20: {
-                             infoTemplate: this._getPipeInfoTemplate ( 'GEOTH' )
-                         },
-                         27: {
-                             infoTemplate: this._getPipeInfoTemplate ( 'GEOTH' )
-                         }
+                         this.infoTemplates[ layerId ] = { infoTemplate: this._getPipeInfoTemplate( 'CHWS' ) };
 
+                     }, this );
 
-                     };
+                     array.forEach( this.chwrPipeLayers, function( layerId ) {
+
+                         this.infoTemplates[ layerId ] = { infoTemplate: this._getPipeInfoTemplate( 'CHWR' ) };
+
+                     }, this );
+
+                     array.forEach( this.geoPipeLayers, function( layerId ) {
+
+                         this.infoTemplates[ layerId ] = { infoTemplate: this._getPipeInfoTemplate( 'GEOTH' ) };
+
+                     }, this );
+
 
                  },
 
