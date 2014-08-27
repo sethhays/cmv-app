@@ -22,6 +22,10 @@ define([
     panoInfoTemplate.setTitle( 'Panoramic Photo Location' );
     panoInfoTemplate.setContent( '<a href="http://prod.gis.msu.edu/campusmap/pano.html?viewer=sphere&locationid=${LOCATIONID}" target="_blank">Open in new window</a>' );
 
+    var panoInfoTemplates = {
+        0: {infoTemplate: panoInfoTemplate}
+    };
+
 
     var utilityLayerInfoTemplates = new UtilityLayerInfoTemplates();
 
@@ -180,23 +184,36 @@ define([
 		// },
 		// collapseButtonsPane: 'center', //center or outer
 
+        panes: {
+            left: {
+                splitter: true
+            },
+            right: {
+                 		id: 'sidebarRight',
+                 		placeAt: 'outer',
+                 		region: 'right',
+                 		splitter: true,
+                 		collapsible: true
+            }
+        },
+
 		// operationalLayers: Array of Layers to load on top of the basemap: valid 'type' options: 'dynamic', 'tiled', 'feature'.
 		// The 'options' object is passed as the layers options for constructor. Title will be used in the legend only. id's must be unique and have no spaces.
 		// 3 'mode' options: MODE_SNAPSHOT = 0, MODE_ONDEMAND = 1, MODE_SELECTION = 2
         operationalLayers: [
             {
-                type   : 'feature',
-                url    : 'http://prod.gis.msu.edu/arcgis/rest/services/features/gigapan_loc/MapServer/0',
+                type   : 'dynamic',
+                url    : 'http://prod.gis.msu.edu/arcgis/rest/services/features/gigapan_loc/MapServer',
                 title  : 'Panoramic Photos',
                 slider: false,
                 noLegend: false,
                 collapsed: false,
                 options: {
                     id     : 'panoFeatureLayer',
-                    opacity: 0.9,
+                    opacity: 0.8,
                     visible: true,
                     minScale: 2500,
-                    infoTemplate: panoInfoTemplate,
+                    infoTemplates: panoInfoTemplates,
                     outFields: ['LOCATIONID']
                 }
             },
@@ -278,7 +295,6 @@ define([
                 slider: false,
                 noLegend: false,
                 collapsed: false,
-                sublayerToggle: true,
                 options: {
                     id     : 'communicationMapLayer',
                     opacity: 1.0,
@@ -444,13 +460,13 @@ define([
                 type   : 'dynamic',
                 url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/CampusInfo/ProjectandDetourInformation/MapServer',
                 title  : 'Capital Project and Detours',
-                slider: true,
+                slider: false,
                 noLegend: false,
-                collapsed: true,
+                collapsed: false,
                 options: {
                     id     : 'capitalProjectsDetoursMapLayer',
                     opacity: 0.75,
-                    visible: true,
+                    visible: false,
                     imageParameters: imageParameters
                 }
             },
@@ -501,25 +517,7 @@ define([
 				path: 'gis/dijit/Growler',
 				srcNodeRef: 'growlerDijit',
 				options: {}
-			},
-			geocoder: {
-				include: false,
-				id: 'geocoder',
-				type: 'domNode',
-				path: 'gis/dijit/Geocoder',
-				srcNodeRef: 'geocodeDijit',
-				options: {
-					map: true,
-					mapRightClickMenu: true,
-					geocoderOptions: {
-						autoComplete: true,
-						arcgisGeocoder: {
-							placeholder: 'Enter an address or place'
-						}
-					}
-				}
-			},
-			identify: {
+			},identify: {
 				include: false,
 				id: 'identify',
 				type: 'titlePane',
@@ -612,20 +610,24 @@ define([
                     )
                 }
 			},
-			TOC: {
-				include: true,
-				id: 'toc',
-				type: 'titlePane',
-				path: 'gis/dijit/TOC',
-				title: 'Layers',
-				open: false,
-                canFloat: true,
-				position: 1,
-				options: {
-					map: true,
-					tocLayerInfos: true
-				}
-			},
+            LayerController: {
+                include: true,
+                id: 'layerController',
+                type: 'titlePane',
+                path: 'gis/dijit/LayerController',
+                title: 'Layers',
+                open: true,
+                position: 1,
+                placeAt: 'right',
+                options: {
+                    map: true,
+                    tocLayerInfos: true,
+                    components: ['transparency', 'scales'],
+                    reorder: false,
+                    basemapCount: 2,
+                    dbootstrap: true
+                }
+            },
 			bookmarks: {
 				include: true,
 				id: 'bookmarks',

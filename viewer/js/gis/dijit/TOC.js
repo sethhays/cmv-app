@@ -311,8 +311,8 @@ define([
             }
           }
         } else {
-          if (console)
-            console.log('no symbol in renderer');
+          /*if (console)
+            console.log('no symbol in renderer');*/
         }
       } else {
         iconNode.src = src;

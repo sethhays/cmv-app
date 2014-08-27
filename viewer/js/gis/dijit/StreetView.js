@@ -223,7 +223,7 @@ define([
             } else {
                 this.setPanoPlace = null;
                 this.clearGraphics();
-                console.log('StreetView error unknown.');
+                //console.log('StreetView error unknown.');
             }
         },
         setPlaceMarkerPosition: function() {

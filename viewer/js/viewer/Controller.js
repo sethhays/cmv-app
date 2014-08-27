@@ -209,7 +209,9 @@ define([
                 slider: (layer.slider === false) ? false : true,
                 noLegend: layer.noLegend || false,
                 collapsed: layer.collapsed || false,
-                sublayerToggle: layer.sublayerToggle || false
+                sublayerToggle: layer.sublayerToggle || false,
+                type: layer.type,
+                url: layer.url
             });
             if (layer.type === 'feature') {
                 var options = {
@@ -385,7 +387,7 @@ define([
             // only proceed for valid widget types
             var widgetTypes = ['titlePane', 'contentPane', 'floating', 'domNode', 'invisible', 'map'];
             if (array.indexOf(widgetTypes, widgetConfig.type) < 0) {
-                console.log('Widget type ' + widgetConfig.type + ' (' + widgetConfig.title + ') at position ' + position + ' is not supported.');
+                //console.log('Widget type ' + widgetConfig.type + ' (' + widgetConfig.title + ') at position ' + position + ' is not supported.');
                 return;
             }
 
