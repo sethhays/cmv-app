@@ -184,6 +184,19 @@ define([
 		// },
 		// collapseButtonsPane: 'center', //center or outer
 
+        panes: {
+            left: {
+                splitter: true
+            },
+            right: {
+                 		id: 'sidebarRight',
+                 		placeAt: 'outer',
+                 		region: 'right',
+                 		splitter: true,
+                 		collapsible: true
+            }
+        },
+
 		// operationalLayers: Array of Layers to load on top of the basemap: valid 'type' options: 'dynamic', 'tiled', 'feature'.
 		// The 'options' object is passed as the layers options for constructor. Title will be used in the legend only. id's must be unique and have no spaces.
 		// 3 'mode' options: MODE_SNAPSHOT = 0, MODE_ONDEMAND = 1, MODE_SELECTION = 2
@@ -504,25 +517,7 @@ define([
 				path: 'gis/dijit/Growler',
 				srcNodeRef: 'growlerDijit',
 				options: {}
-			},
-			geocoder: {
-				include: false,
-				id: 'geocoder',
-				type: 'domNode',
-				path: 'gis/dijit/Geocoder',
-				srcNodeRef: 'geocodeDijit',
-				options: {
-					map: true,
-					mapRightClickMenu: true,
-					geocoderOptions: {
-						autoComplete: true,
-						arcgisGeocoder: {
-							placeholder: 'Enter an address or place'
-						}
-					}
-				}
-			},
-			identify: {
+			},identify: {
 				include: false,
 				id: 'identify',
 				type: 'titlePane',
@@ -615,19 +610,6 @@ define([
                     )
                 }
 			},
-			TOC: {
-				include: false,
-				id: 'toc',
-				type: 'titlePane',
-				path: 'gis/dijit/TOC',
-				title: 'Layers',
-				open: false,
-				position: 1,
-				options: {
-					map: true,
-					tocLayerInfos: true
-				}
-			},
             LayerController: {
                 include: true,
                 id: 'layerController',
@@ -636,6 +618,7 @@ define([
                 title: 'Layers',
                 open: true,
                 position: 1,
+                placeAt: 'right',
                 options: {
                     map: true,
                     tocLayerInfos: true,
