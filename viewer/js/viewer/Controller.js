@@ -25,6 +25,7 @@ define([
         editorLayerInfos: [],
         identifyLayerInfos: [],
         tocLayerInfos: [],
+        layerControlLayerInfos: [], //LayerControl custom LayerInfos array
         panes: {
             left: {
                 id: 'sidebarLeft',
@@ -220,6 +221,15 @@ define([
                 }
                 this.editorLayerInfos.push(options);
             }
+            //LayerControl custom LayerInfos array
+            this.layerControlLayerInfos.unshift({
+                layer: l,
+                type: layer.type,
+                title: layer.title,
+                controlOptions: lang.mixin({
+                    sublayers: true
+                }, layer.controlOptions)
+            });
             if (layer.type === 'dynamic' || layer.type === 'feature') {
                 var identifyLayerInfo = {
                     layer: l
@@ -435,7 +445,10 @@ define([
             if (options.identifyLayerInfos) {
                 options.layerInfos = this.identifyLayerInfos;
             }
-
+            //pass LayerControl LayerInfos array
+            if (options.layerControlLayerInfos) {
+                options.layerInfos = this.layerControlLayerInfos;
+            }
             // create the widget
             var pnl = options.parentWidget;
             if ((widgetConfig.type === 'titlePane' || widgetConfig.type === 'contentPane' || widgetConfig.type === 'floating')) {
