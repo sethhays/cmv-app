@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd937d1b-509e-4b04-a54b-03f9f523db33" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" afterPath="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/config/test.js" afterPath="$PROJECT_DIR$/viewer/js/config/test.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/components/Scales.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/components/Transparency.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/components/templates/Scales.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/DynamicFolder.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/DynamicSublayer.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/templates/Control.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/templates/Folder.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/templates/Sublayer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/css/LayerController.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/css/dbootstrap.css" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ConfigurableViewerJSAPI-GitLab.iws" />
@@ -41,8 +51,8 @@
       <file leaf-file-name="facilityinfrastructure.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5145798" vertical-offset="7185" max-vertical-offset="10380">
-              <caret line="499" column="33" selection-start-line="499" selection-start-column="33" selection-end-line="499" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.30874786" vertical-offset="7185" max-vertical-offset="10380">
+              <caret line="491" column="18" selection-start-line="491" selection-start-column="18" selection-end-line="491" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -405,7 +415,11 @@
       <created>1409172325945</created>
       <updated>1409172325945</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Add new LayerControl to configs">
+      <created>1409268190253</created>
+      <updated>1409268190253</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -413,6 +427,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13333334" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -428,7 +443,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32934684" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -464,7 +478,8 @@
     <MESSAGE value="Added controls for additions and doors.  Building Systems layers may be more complicated.  May need to look at the cbtree project." />
     <MESSAGE value="Add ie console hack.  Comment out console.log statements" />
     <MESSAGE value="basic directory structure and files" />
-    <option name="LAST_COMMIT_MESSAGE" value="basic directory structure and files" />
+    <MESSAGE value="Add new LayerControl to configs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add new LayerControl to configs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -728,13 +743,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/css/LayerController.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15256411" vertical-offset="459" max-vertical-offset="1734">
-          <caret line="34" column="25" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerSwapper/templates/LayerSwapper.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.43470484" vertical-offset="282" max-vertical-offset="960">
@@ -750,14 +758,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1065" max-vertical-offset="6255">
           <caret line="71" column="34" selection-start-line="71" selection-start-column="34" selection-end-line="71" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="7110">
-          <caret line="29" column="7" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
           <folding />
         </state>
       </provider>
@@ -805,22 +805,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="960" max-vertical-offset="3270">
-          <caret line="64" column="50" selection-start-line="64" selection-start-column="50" selection-end-line="64" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/templates/Control.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.125" vertical-offset="0" max-vertical-offset="375">
-          <caret line="13" column="51" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/gis/dijit/LayerSwapper.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1337" max-vertical-offset="1920">
@@ -847,8 +831,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5145798" vertical-offset="7185" max-vertical-offset="10380">
-          <caret line="499" column="33" selection-start-line="499" selection-start-column="33" selection-end-line="499" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.30874786" vertical-offset="7185" max-vertical-offset="10380">
+          <caret line="491" column="18" selection-start-line="491" selection-start-column="18" selection-end-line="491" selection-end-column="18" />
           <folding />
         </state>
       </provider>
