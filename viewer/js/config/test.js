@@ -217,22 +217,18 @@ define([
             }],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
 		widgets: {
-            LayerController: {
+            layerControl: {
                 include: true,
-                id: 'layerController',
+                id: 'layerControl',
                 type: 'titlePane',
-                path: 'gis/dijit/LayerController',
+                path: 'gis/dijit/LayerControl',
                 title: 'Layers',
                 open: true,
-                position: 1,
-                placeAt: 'right',
+                position: 0,
                 options: {
                     map: true,
-                    tocLayerInfos: true,
-                    components: ['transparency', 'scales'],
-                    reorder: false,
-                    basemapCount: 2,
-                    dbootstrap: true
+                    layerControlLayerInfos: true,
+                    vectorReorder: true
                 }
             },
             layerSwapper: {

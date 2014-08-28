@@ -470,7 +470,7 @@ define([
                 options: {
                     id     : 'capitalProjectsDetoursMapLayer',
                     opacity: 0.75,
-                    visible: false,
+                    visible: true,
                     imageParameters: imageParameters
                 }
             },
@@ -490,6 +490,21 @@ define([
             }],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
 		widgets: {
+            layerControl: {
+                include: true,
+                id: 'layerControl',
+                type: 'titlePane',
+                path: 'gis/dijit/LayerControl',
+                title: 'Layers',
+                open: true,
+                placeAt: 'right',
+                position: 0,
+                options: {
+                    map: true,
+                    layerControlLayerInfos: true,
+                    vectorReorder: true
+                }
+            },
             buildingFloorplans: {
                 include: true,
                 id     : 'buildingFloorplansWidget',
@@ -614,24 +629,6 @@ define([
                     )
                 }
 			},
-            LayerController: {
-                include: true,
-                id: 'layerController',
-                type: 'titlePane',
-                path: 'gis/dijit/LayerController',
-                title: 'Layers',
-                open: true,
-                position: 1,
-                placeAt: 'right',
-                options: {
-                    map: true,
-                    tocLayerInfos: true,
-                    components: ['transparency', 'scales'],
-                    reorder: false,
-                    basemapCount: 2,
-                    dbootstrap: true
-                }
-            },
 			bookmarks: {
 				include: true,
 				id: 'bookmarks',
