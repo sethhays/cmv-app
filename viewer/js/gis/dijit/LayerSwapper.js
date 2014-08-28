@@ -1,20 +1,23 @@
 define ( [
             'dojo/_base/declare',
-            'dojo/_WidgetBase',
-            'dojo/_TemplatedMixin',
-            'dojo/_WidgetsInTemplateMixin',
+            'dijit/_WidgetBase',
+            'dijit/_TemplatedMixin',
+            'dijit/_WidgetsInTemplateMixin',
+            'dijit/form/Form',
+            'dijit/form/FilteringSelect',
+            'dijit/form/HorizontalSlider',
+            'dijit/form/HorizontalRule',
+            'dijit/form/HorizontalRuleLabels',
             'dojo/_base/array',
             'dojo/_base/lang',
             'dojo/store/Memory',
-            'dijit/form/Form',
-            'dijit/form/Select',
-            'dijit/form/HorizontalSlider',
+            'dojo/dom-style',
             'esri/layers/ArcGISDynamicMapServiceLayer',
             'esri/layers/ArcGISTiledMapServiceLayer',
             'dojo/text!./LayerSwapper/templates/LayerSwapper.html',
             'xstyle/css!./LayerSwapper/css/LayerSwapper.css'
 
-         ], function ( declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, array, lang, Memory, Form, FilteringSelect, HorizontalSlider, ArcGISDynamicMapServiceLayer, ArcGISTiledMapServiceLayer, LayerSwapperTemplate, css ) {
+         ], function ( declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Form, FilteringSelect, HorizontalSlider, HorizontalRule, HorizontalRuleLabels, array, lang, Memory, domStyle, ArcGISDynamicMapServiceLayer, ArcGISTiledMapServiceLayer, LayerSwapperTemplate, css ) {
 
              return declare ( [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
 
@@ -31,11 +34,9 @@ define ( [
                  },
 
                  postCreate: function () {
-                     console.log('post create!');
                      this.inherited ( arguments );
 
                      var modules = [];
-
                      array.forEach( this.layerInfos, function( layer ) {
 
                          var mod = this._layerTypes[ layer.type ];
@@ -46,7 +47,7 @@ define ( [
                      }, this );
 
                      require( modules, lang.hitch( this, function () {
-                         console.log('adding layers..');
+
                          array.forEach( this.layerInfos, function ( layerInfo ) {
                              var lyr;
                              if ( layerInfo.type === 'dynamic' ) {
@@ -54,9 +55,22 @@ define ( [
                                  this.map.addLayer( lyr );
                                  layerInfo.layer = lyr;
 
+                             } else {
+                                 lyr = new ArcGISTiledMapServiceLayer( layerInfo.url, { visible:false } );
+                                 this.map.addLayer( lyr );
+                                 layerInfo.layer = lyr;
                              }
 
+                             lyr.on( 'update-start', lang.hitch( this, function () {
+                                 domStyle.set( this.layerUpdateNode, 'display', 'inline-block' );
+                             } ) );
+
+                             lyr.on( 'update-end', lang.hitch( this, function () {
+                                 domStyle.set( this.layerUpdateNode, 'display', 'none' );
+                             } ) );
+
                          }, this );
+
 
                          var k=0, queryLen = this.layerInfos.length;
                          for ( k=0; k < queryLen; k++ ) {
@@ -65,6 +79,7 @@ define ( [
 
                          if ( queryLen > 0 ) {
                              var layerStore = new Memory( { data: this.layerInfos } );
+                             console.log( layerStore );
                              this.layerSelectDijit.set( 'store', layerStore );
                              this.layerSelectDijit.set( 'value', -1 );
                              this.layerSelectDijit.set( 'disabled', false );
@@ -76,11 +91,27 @@ define ( [
                  },
 
                  _onLayerChange: function ( newIndex ) {
-                     console.log( newIndex );
+
+                     var lyr, k= 0, queryLen=this.layerInfos.length;
+                     for (k=0; k < queryLen; k++ ) {
+                         lyr = this.layerInfos[ k ];
+                         if ( k === newIndex ) {
+                             lyr.layer.show();
+                         } else {
+                             lyr.layer.hide();
+                         }
+                     }
+
                  },
 
-                 _onFaderChange: function ( newValue ) {
-                     console.log( newValue );
+                 _onLayerFaderChange: function ( newValue ) {
+
+                     var lyr, k= 0, queryLen=this.layerInfos.length;
+                     for (k=0; k < queryLen; k++ ) {
+                         lyr = this.layerInfos[ k ];
+                         lyr.layer.setOpacity( newValue );
+                     }
+
                  }
 
 
