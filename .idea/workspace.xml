@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd937d1b-509e-4b04-a54b-03f9f523db33" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/components/Scales.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/components/Transparency.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/components/templates/Scales.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/Dynamic.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/DynamicFolder.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/DynamicSublayer.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/templates/Control.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/templates/Folder.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/controls/templates/Sublayer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/css/LayerController.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/viewer/js/gis/dijit/LayerController/css/dbootstrap.css" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" afterPath="$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ConfigurableViewerJSAPI-GitLab.iws" />
@@ -51,8 +40,8 @@
       <file leaf-file-name="facilityinfrastructure.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.30874786" vertical-offset="7185" max-vertical-offset="10380">
-              <caret line="491" column="18" selection-start-line="491" selection-start-column="18" selection-end-line="491" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.6174957" vertical-offset="7185" max-vertical-offset="10380">
+              <caret line="503" column="49" selection-start-line="503" selection-start-column="49" selection-end-line="503" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -273,6 +262,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="configurableviewerjsapi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ConfigurableViewerJSAPI-GitLab" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -419,7 +430,11 @@
       <created>1409268190253</created>
       <updated>1409268190253</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Remove old LayerController">
+      <created>1409268224647</created>
+      <updated>1409268224647</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -479,7 +494,8 @@
     <MESSAGE value="Add ie console hack.  Comment out console.log statements" />
     <MESSAGE value="basic directory structure and files" />
     <MESSAGE value="Add new LayerControl to configs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add new LayerControl to configs" />
+    <MESSAGE value="Remove old LayerController" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove old LayerController" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -831,8 +847,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/viewer/js/config/facilityinfrastructure.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30874786" vertical-offset="7185" max-vertical-offset="10380">
-          <caret line="491" column="18" selection-start-line="491" selection-start-column="18" selection-end-line="491" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.6174957" vertical-offset="7185" max-vertical-offset="10380">
+          <caret line="503" column="49" selection-start-line="503" selection-start-column="49" selection-end-line="503" selection-end-column="49" />
           <folding />
         </state>
       </provider>
