@@ -1,0 +1,43 @@
+<div class="gisLayerSwapperDijit">
+    <div class="formContainer">
+
+        <div data-dojo-type="dijit.form.Form" data-dojo-attach-point="layerSwapperFormDijit">
+
+            <div>
+                <label data-dojo-attach-point="layerSelectLabel">Select layer:</label>
+                <br />
+                <input type="select"
+                       disabled
+                       data-dojo-type="dijit.form.Select"
+                       data-dojo-attach-point="layerSelectDijit"
+                       data-dojo-props="name: 'label'"
+                       data-dojo-attach-event="onChange:_onLayerChange" />
+
+                <div data-dojo-attach-point="layerFadeSlider"
+                     minimum="0"
+                     maximum="1"
+                     data-dojo-props="value:1.0"
+                     discreetValues="11"
+                     intermediateChanges="true"
+                     showButtons="false"
+                     data-dojo-attach-event="onChange:_onLayerFaderChange">
+
+                    <div data-dojo-type="dijit.form.HorizontalRule"
+                         container="bottomDecoration"
+                         count=11
+                         style="height:5px;" />
+
+                    <ol data-dojo-type="dijit.form.HorizontalRuleLabels"
+                        container="bottomDecoration"
+                        style="height:1em;font-size:75%;color:gray;">
+                        <li>0%</li>
+                        <li>50%</li>
+                        <li>100%</li>
+                    </ol>
+
+                     </div>
+            </div>
+
+        </div>
+    </div>
+</div>

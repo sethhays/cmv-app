@@ -4,7 +4,7 @@ define ( [
             'fis/infoTemplates/PotableWaterInfoTemplates',
             'fis/infoTemplates/RawWaterInfoTemplates',
             'fis/infoTemplates/CommunicationInfoTemplates',
-            'fis/infoTemplates/ElectricInfoTemplates',
+            'fis/infoTemplates/ElectricInfoTemplates'
 
        ], function ( declare, ChilledWaterInfoTemplates, PotableWaterInfoTemplates, RawWaterInfoTemplates, CommunicationInfoTemplates, ElectricInfoTemplates ) {
 
