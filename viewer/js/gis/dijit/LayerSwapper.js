@@ -10,6 +10,7 @@ define ( [
             'dijit/form/HorizontalRuleLabels',
             'dojo/_base/array',
             'dojo/_base/lang',
+            'dojo/topic',
             'dojo/store/Memory',
             'dojo/dom-style',
             'esri/layers/ArcGISDynamicMapServiceLayer',
@@ -17,7 +18,7 @@ define ( [
             'dojo/text!./LayerSwapper/templates/LayerSwapper.html',
             'xstyle/css!./LayerSwapper/css/LayerSwapper.css'
 
-         ], function ( declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Form, FilteringSelect, HorizontalSlider, HorizontalRule, HorizontalRuleLabels, array, lang, Memory, domStyle, ArcGISDynamicMapServiceLayer, ArcGISTiledMapServiceLayer, LayerSwapperTemplate, css ) {
+         ], function ( declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Form, FilteringSelect, HorizontalSlider, HorizontalRule, HorizontalRuleLabels, array, lang, topic, Memory, domStyle, ArcGISDynamicMapServiceLayer, ArcGISTiledMapServiceLayer, LayerSwapperTemplate, css ) {
 
              return declare ( [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
 
@@ -60,7 +61,6 @@ define ( [
 
                          if ( queryLen > 0 ) {
                              var layerStore = new Memory( { data: this.layerInfos } );
-                             console.log( layerStore );
                              this.layerSelectDijit.set( 'store', layerStore );
                              this.layerSelectDijit.set( 'value', 0 );
                              this.layerSelectDijit.set( 'disabled', false );
@@ -81,6 +81,13 @@ define ( [
                              this._addLayer( lyr );
                          }
                          lyr.layer.show();
+
+                         topic.publish( 'googleAnaytics/widgetEvent', {
+                             category: 'Widget Event',
+                             action: 'Visible Layer Change',
+                             label: 'Layer Swapper',
+                             value: lyr.label
+                         } );
                      }
 
                      for (k=1; k < queryLen; k++ ) {
@@ -89,6 +96,8 @@ define ( [
                              lyr.layer.hide();
                          }
                      }
+
+
 
                  },
 
