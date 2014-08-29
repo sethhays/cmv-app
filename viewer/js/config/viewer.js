@@ -98,7 +98,10 @@ define([
 			},
 			identifyLayerInfos: {
 				layerIds: [2, 4, 5, 8, 12, 21]
-			}
+			},
+            controlOptions: {
+                expand: true
+            }
 		}, {
 			type: 'dynamic',
 			url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/MapServer',
