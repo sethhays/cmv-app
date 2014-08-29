@@ -217,6 +217,24 @@ define([
             }],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
 		widgets: {
+            googleAnalytics: {
+                include: true,
+                id: 'googAnalytics',
+                type: 'invisible',
+                path: 'gis/dijit/GoogleAnalytics',
+                options: {
+                    map: true,  //reguired to track map and layer events
+                    gaAccount: 'UA-XXX00774-02',
+                    events: {
+                        map: ['extent-change','basemap-change' ],
+                        layer: [ 'visibility-change', 'update-end' ],
+                        widget: [ 'open', 'widget-interact' ] //not yet implemented, not sure this is possible
+                    },
+                    //trackLayerVisibility: true,  //track layer visibility changes
+                    //trackMapZoomChange: true,  //track map extent changes
+                    trackWidgetEvents: true    //track custom widget events
+                }
+            },
             layerControl: {
                 include: true,
                 id: 'layerControl',
@@ -238,6 +256,8 @@ define([
                 type: 'titlePane',
                 title: 'Historical Imagery',
                 path: 'gis/dijit/LayerSwapper',
+                placeAt: 'left',
+                position: 0,
                 open: true,
                 options: {
                     map: true,
@@ -359,6 +379,14 @@ define([
                         }
                     ]
                 }
+            },
+            basemaps: {
+                include: true,
+                id: 'basemaps',
+                type: 'domNode',
+                path: 'gis/dijit/Basemaps',
+                srcNodeRef: 'basemapsDijit',
+                options: 'config/basemaps'
             }
 		}
 	};
