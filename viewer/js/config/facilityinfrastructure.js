@@ -519,6 +519,36 @@ define([
                 open: false,
                 position: 1
             },
+            layerSwapper: {
+                include: true,
+                id: 'layerSwapper',
+                type: 'titlePane',
+                title: 'Historical Imagery',
+                path: 'gis/dijit/LayerSwapper',
+                open: false,
+                position: 2,
+                canFloat: true,
+                options: {
+                    map: true,
+                    layerInfos: [
+                        {
+                            label: '2012 (June 19th)',
+                            url: 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2012_jun19/MapServer',
+                            type: 'tiled'
+                        },
+                        {
+                            label: '2011 (Nov 15th)',
+                            url: 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2011_nov15/MapServer',
+                            type: 'tiled'
+                        },
+                        {
+                            label: 'Detailed Basemap',
+                            url: 'https://fis.ipf.msu.edu/arcgis/rest/services/Basemaps/DetailedBasemap/MapServer',
+                            type: 'dynamic'
+                        }
+                    ]
+                }
+            },
             campusInfoFeatures: {
                 include: true,
                 id     : 'campusInfoFeaturesWidget',
@@ -636,7 +666,7 @@ define([
 				path: 'gis/dijit/Bookmarks',
 				title: 'Bookmarks',
 				open: false,
-				position: 2,
+				position: 3,
 				options: 'config/bookmarks'
 			},
 			find: {
