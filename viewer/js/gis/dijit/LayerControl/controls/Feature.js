@@ -107,6 +107,10 @@ define([
                     domClass.replace(iconNode, 'fa-plus-square-o', 'fa-minus-square-o');
                 }
             }));
+            //expand - THIS NEEDS VETTED
+            if (this.controlOptions.expand) {
+                this.expandClickNode.click();
+            }
             //layer menu
             this._menu();
             //legend
