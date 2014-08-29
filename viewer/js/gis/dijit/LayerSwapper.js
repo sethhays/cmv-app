@@ -48,29 +48,10 @@ define ( [
 
                      require( modules, lang.hitch( this, function () {
 
-                         array.forEach( this.layerInfos, function ( layerInfo ) {
-                             var lyr;
-                             if ( layerInfo.type === 'dynamic' ) {
-                                 lyr = new ArcGISDynamicMapServiceLayer( layerInfo.url, { visible:false } );
-                                 this.map.addLayer( lyr );
-                                 layerInfo.layer = lyr;
-
-                             } else {
-                                 lyr = new ArcGISTiledMapServiceLayer( layerInfo.url, { visible:false } );
-                                 this.map.addLayer( lyr );
-                                 layerInfo.layer = lyr;
-                             }
-
-                             lyr.on( 'update-start', lang.hitch( this, function () {
-                                 domStyle.set( this.layerUpdateNode, 'display', 'inline-block' );
-                             } ) );
-
-                             lyr.on( 'update-end', lang.hitch( this, function () {
-                                 domStyle.set( this.layerUpdateNode, 'display', 'none' );
-                             } ) );
-
-                         }, this );
-
+                         this.layerInfos.unshift( {
+                                                      label: '- Select layer -',
+                                                      url: ''
+                                                  } );
 
                          var k=0, queryLen = this.layerInfos.length;
                          for ( k=0; k < queryLen; k++ ) {
@@ -81,7 +62,7 @@ define ( [
                              var layerStore = new Memory( { data: this.layerInfos } );
                              console.log( layerStore );
                              this.layerSelectDijit.set( 'store', layerStore );
-                             this.layerSelectDijit.set( 'value', -1 );
+                             this.layerSelectDijit.set( 'value', 0 );
                              this.layerSelectDijit.set( 'disabled', false );
                          }
 
@@ -93,23 +74,61 @@ define ( [
                  _onLayerChange: function ( newIndex ) {
 
                      var lyr, k= 0, queryLen=this.layerInfos.length;
-                     for (k=0; k < queryLen; k++ ) {
+
+                     if ( newIndex > 0 ) {
+                         lyr = this.layerInfos[ newIndex ];
+                         if ( !lyr.layer ) {
+                             this._addLayer( lyr );
+                         }
+                         lyr.layer.show();
+                     }
+
+                     for (k=1; k < queryLen; k++ ) {
                          lyr = this.layerInfos[ k ];
-                         if ( k === newIndex ) {
-                             lyr.layer.show();
-                         } else {
+                         if ( lyr.layer && k !== newIndex ) {
                              lyr.layer.hide();
                          }
                      }
 
                  },
 
+                 _addLayer: function ( layerInfo ) {
+
+                     var lyr;
+
+                     if ( layerInfo.type === 'dynamic' ) {
+                         lyr = new ArcGISDynamicMapServiceLayer( layerInfo.url, { visible:false } );
+                         this.map.addLayer( lyr );
+                         layerInfo.layer = lyr;
+
+                     } else {
+                         lyr = new ArcGISTiledMapServiceLayer( layerInfo.url, { visible:false } );
+                         this.map.addLayer( lyr );
+                         layerInfo.layer = lyr;
+                     }
+
+                     lyr.on( 'update-start', lang.hitch( this, function () {
+                         domStyle.set( this.layerUpdateNode, 'display', 'inline-block' );
+                     } ) );
+
+                     lyr.on( 'update-end', lang.hitch( this, function () {
+                         domStyle.set( this.layerUpdateNode, 'display', 'none' );
+                     } ) );
+
+                     var opacity = this.layerFadeSlider.get( 'value' );
+                     lyr.setOpacity( opacity );
+
+                 },
+
                  _onLayerFaderChange: function ( newValue ) {
 
                      var lyr, k= 0, queryLen=this.layerInfos.length;
-                     for (k=0; k < queryLen; k++ ) {
+                     for (k=1; k < queryLen; k++ ) {
                          lyr = this.layerInfos[ k ];
-                         lyr.layer.setOpacity( newValue );
+                         if ( lyr.layer )
+                         {
+                             lyr.layer.setOpacity( newValue );
+                         }
                      }
 
                  }
