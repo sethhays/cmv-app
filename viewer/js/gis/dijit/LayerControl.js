@@ -1,4 +1,4 @@
-/* layer controller */
+/* layer control */
 define([
     'dojo/_base/declare',
     'dojo/_base/array',
@@ -6,64 +6,47 @@ define([
     'dojo/dom-construct',
     'dijit/_WidgetBase',
     'dijit/_Container',
-    'dojo/Evented',
-    'esri/layers/GraphicsLayer',
     'esri/tasks/ProjectParameters',
     'esri/config',
     //the css
-    'xstyle/css!gis/dijit/LayerController/css/LayerController.css'
-], function (
+    'xstyle/css!./LayerControl/css/LayerControl.css'
+], function(
     declare,
-    arrayUtil,
+    array,
     lang,
     domConst,
     WidgetBase,
     Container,
-    Evented,
-    GraphicsLayer,
     ProjectParameters,
     esriConfig
 ) {
     'use strict';
-    return declare([WidgetBase, Container, Evented], {
-        //options
-        map: null,
-        applicationLayers: [],
-        components: [],
-        reorder: false,
-        basemapCount: 0,
-        dbootstrap: false,
-        //private properties
-        _vectorContainer: null,
-        _overlayContainer: null,
-        _layerControls: {
-            dynamic: 'gis/dijit/LayerController/controls/Dynamic'
-            //feature: 'gis/dijit/LayerController/controls/Feature',
-            //image: 'gis/dijit/LayerController/controls/Image',
-            //tiled: 'gis/dijit/LayerController/controls/Tiled',
-            //webTiled: 'gis/dijit/LayerController/controls/WebTiled'
+    return declare([WidgetBase, Container], {
+        _vectorContainer: null, //vector layer control container
+        _overlayContainer: null, //overlay layer control container
+        _controls: {
+            dynamic: 'gis/dijit/LayerControl/controls/Dynamic',
+            feature: 'gis/dijit/LayerControl/controls/Feature'
+                //image: 'gis/dijit/LayerController/controls/Image',
+                //tiled: 'gis/dijit/LayerController/controls/Tiled',
+                //webTiled: 'gis/dijit/LayerController/controls/WebTiled'
         },
-        _components: {
-            scales: 'gis/dijit/LayerController/components/Scales',
-            transparency: 'gis/dijit/LayerController/components/Transparency'
-        },
-        _componentLabels: {
-            scales: 'Visible Scales',
-            transparency: 'Transparency'
-        },
-        _topApplicationLayers: [],
-        _bottomApplicationLayers: [],
         constructor: function(options) {
             options = options || {};
             if (!options.map) {
-                console.log('LayerController error::map option is required');
+                console.log('LayerControl error::map option is required');
                 return;
             }
-            lang.mixin(this, options);
+            declare.safeMixin(this, {
+                map: null,
+                layerInfos: [],
+                overlayReorder: false,
+                vectorReorder: false,
+                basemapCount: 0,
+                fontAwesome: true
+            }, options);
         },
         postCreate: function() {
-            this.operationalLayers = this.layerInfos;
-
             var ControlContainer = declare([WidgetBase, Container]);
             //vector layer control container
             this._vectorContainer = new ControlContainer({
@@ -75,53 +58,38 @@ define([
                 className: 'vectorLayerContainer'
             }, domConst.create('div'));
             this.addChild(this._overlayContainer, 'last');
-            //reorder top application layers
-            this.map.on('layer-add', lang.hitch(this, function () {
-                
-            }));
-            
-            //load bottom app layers here
-            
-            //load layer controls and components
+            //load only the modules we need
             var modules = [];
-            if (this.dbootstrap) {
-                modules.push('xstyle/css!gis/dijit/LayerController/css/dbootstrap.css');
+            //load font awesome
+            if (this.fontAwesome) {
+                modules.push('xstyle/css!//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css');
             }
-            arrayUtil.forEach(this.components, function(component) {
-                var mod = this._components[component];
+            //push used controls
+            array.forEach(this.layerInfos, function(layerInfo) {
+                var mod = this._controls[layerInfo.type];
                 if (mod) {
                     modules.push(mod);
                 } else {
-                    console.log('LayerController error::the component "' + component + '" is not valid');
+                    console.log('LayerControl error::the layer type "' + layerInfo.type + '" is not valid');
                 }
             }, this);
-            arrayUtil.forEach(this.operationalLayers, function(opLayer) {
-                var mod = this._layerControls[opLayer.type];
-                if (mod) {
-                    modules.push(mod);
-                } else {
-                    console.log('LayerController error::the layer type "' + opLayer.type + '" is not valid');
-                }
-            }, this);
+            //load and go
             require(modules, lang.hitch(this, function() {
-                //load operational layers
-                //JF added the reverse() call to get layers to list in the same order they are listed in the CMV config.  This might affect being able to re-order layers??
-                arrayUtil.forEach(this.operationalLayers.reverse(), function(opLayer) {
-                    var control = this._layerControls[opLayer.type];
+                array.forEach(this.layerInfos, function(layerInfo) {
+                    var control = this._controls[layerInfo.type];
                     if (control) {
-                        require([control], lang.hitch(this, '_addControl', opLayer));
+                        require([control], lang.hitch(this, '_addControl', layerInfo));
                     }
                 }, this);
-                
-                //load top app layers here
-                
             }));
         },
         //create layer control and add to appropriate _container
-        _addControl: function (opLayer, LayerControl) {
+        _addControl: function(layerInfo, LayerControl) {
             var layerControl = new LayerControl({
                 controller: this,
-                params: opLayer
+                layer: layerInfo.layer,
+                layerTitle: layerInfo.title,
+                controlOptions: layerInfo.controlOptions
             });
             layerControl.startup();
             if (layerControl._layerType === 'overlay') {
@@ -129,51 +97,34 @@ define([
             } else {
                 this._vectorContainer.addChild(layerControl, 'first');
             }
-            this.emit('control-add', {
-                layerId: layerControl.layer.id,
-                layerControlId: layerControl.id
-            });
         },
-        //public control adding method
-        //@param {Object} operational layer params
-        addControl: function(opLayer) {
-            var control = this._layerControls[opLayer.type];
-            if (control) {
-                require([control], lang.hitch(this, '_addControl', opLayer));
-            } else {
-                console.log('LayerController error::the layer type "' + opLayer.type + '" is not valid');
-            }
-        },
-        
-        //no control (top/bottom) application layer adding method here
-        
         //move control up in controller and layer up in map
-        _moveUp: function (control) {
+        _moveUp: function(control) {
             var id = control.layer.id,
                 node = control.domNode,
                 index;
             if (control._layerType === 'overlay') {
                 var count = this.map.layerIds.length;
-                index = arrayUtil.indexOf(this.map.layerIds, id);
+                index = array.indexOf(this.map.layerIds, id);
                 if (index < count - 1) {
                     this.map.reorderLayer(id, index + 1);
                     this._overlayContainer.containerNode.insertBefore(node, node.previousSibling);
                 }
             } else if (control._layerType === 'vector') {
                 if (control.getPreviousSibling()) {
-                    index = arrayUtil.indexOf(this.map.graphicsLayerIds, id);
+                    index = array.indexOf(this.map.graphicsLayerIds, id);
                     this.map.reorderLayer(id, index + 1);
                     this._vectorContainer.containerNode.insertBefore(node, node.previousSibling);
                 }
             }
         },
         //move control down in controller and layer down in map
-        _moveDown: function (control) {
+        _moveDown: function(control) {
             var id = control.layer.id,
                 node = control.domNode,
                 index;
             if (control._layerType === 'overlay') {
-                index = arrayUtil.indexOf(this.map.layerIds, id);
+                index = array.indexOf(this.map.layerIds, id);
                 if (index > this.basemapCount) {
                     this.map.reorderLayer(id, index - 1);
                     if (node.nextSibling !== null) {
@@ -182,7 +133,7 @@ define([
                 }
             } else if (control._layerType === 'vector') {
                 if (control.getNextSibling()) {
-                    index = arrayUtil.indexOf(this.map.graphicsLayerIds, id);
+                    index = array.indexOf(this.map.graphicsLayerIds, id);
                     this.map.reorderLayer(id, index - 1);
                     this._vectorContainer.containerNode.insertBefore(node, node.nextSibling.nextSibling);
                 }
@@ -204,7 +155,7 @@ define([
                         console.log(e);
                     });
                 } else {
-                    console.log('LayerController _zoomToLayer::esriConfig.defaults.geometryService is not set');
+                    console.log('LayerControl _zoomToLayer::esriConfig.defaults.geometryService is not set');
                 }
             }
         }

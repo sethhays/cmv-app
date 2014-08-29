@@ -7,7 +7,7 @@ define([
     'dojo/number',
     'dijit/PopupMenuItem',
     'dijit/TooltipDialog',
-    'dojo/text!gis/dijit/LayerController/components/templates/Scales.html'
+    'dojo/text!./templates/Scales.html'
 ], function (
     declare,
     lang,
@@ -43,7 +43,7 @@ define([
         },
         _clearMinScale: function () {
             this.layer.setMinScale(0);
-            this._setHtml(this.minScaleNode, 'Unlimited');
+            this._setHtml(this.minScaleNode, 'UNLIMITED');
         },
         _setMaxScale: function () {
             var mapScale = this.map.getScale();
@@ -52,11 +52,11 @@ define([
         },
         _clearMaxScale: function () {
             this.layer.setMaxScale(0);
-            this._setHtml(this.maxScaleNode, 'Unlimited');
+            this._setHtml(this.maxScaleNode, 'UNLIMITED');
         },
         _getScale: function (scale) {
             if (scale === 0) {
-                return 'Unlimited';
+                return 'UNLIMITED';
             } else {
                 return '1:' + number.format(scale, {places: 0});
             }

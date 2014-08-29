@@ -12,8 +12,7 @@ define([
     'dijit/Menu',
     'dijit/MenuItem',
     'dijit/MenuSeparator',
-    'dijit/form/CheckBox',
-    'dojo/text!gis/dijit/LayerController/controls/templates/Sublayer.html'
+    'dojo/text!./templates/Sublayer.html'
 ], function(
     declare,
     lang,
@@ -28,7 +27,6 @@ define([
     Menu,
     MenuItem,
     MenuSeparator,
-    CheckBox,
     sublayerTemplate
 ) {
     'use strict';

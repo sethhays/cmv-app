@@ -470,7 +470,7 @@ define([
                 options: {
                     id     : 'capitalProjectsDetoursMapLayer',
                     opacity: 0.75,
-                    visible: false,
+                    visible: true,
                     imageParameters: imageParameters
                 }
             },
@@ -490,6 +490,21 @@ define([
             }],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
 		widgets: {
+            layerControl: {
+                include: true,
+                id: 'layerControl',
+                type: 'titlePane',
+                path: 'gis/dijit/LayerControl',
+                title: 'Layers',
+                open: true,
+                placeAt: 'right',
+                position: 0,
+                options: {
+                    map: true,
+                    layerControlLayerInfos: true,
+                    vectorReorder: true
+                }
+            },
             buildingFloorplans: {
                 include: true,
                 id     : 'buildingFloorplansWidget',
@@ -503,6 +518,36 @@ define([
                 canFloat: true,
                 open: false,
                 position: 1
+            },
+            layerSwapper: {
+                include: true,
+                id: 'layerSwapper',
+                type: 'titlePane',
+                title: 'Historical Imagery',
+                path: 'gis/dijit/LayerSwapper',
+                open: false,
+                position: 2,
+                canFloat: true,
+                options: {
+                    map: true,
+                    layerInfos: [
+                        {
+                            label: '2012 (June 19th)',
+                            url: 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2012_jun19/MapServer',
+                            type: 'tiled'
+                        },
+                        {
+                            label: '2011 (Nov 15th)',
+                            url: 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2011_nov15/MapServer',
+                            type: 'tiled'
+                        },
+                        {
+                            label: 'Detailed Basemap',
+                            url: 'https://fis.ipf.msu.edu/arcgis/rest/services/Basemaps/DetailedBasemap/MapServer',
+                            type: 'dynamic'
+                        }
+                    ]
+                }
             },
             campusInfoFeatures: {
                 include: true,
@@ -614,24 +659,6 @@ define([
                     )
                 }
 			},
-            LayerController: {
-                include: true,
-                id: 'layerController',
-                type: 'titlePane',
-                path: 'gis/dijit/LayerController',
-                title: 'Layers',
-                open: true,
-                position: 1,
-                placeAt: 'right',
-                options: {
-                    map: true,
-                    tocLayerInfos: true,
-                    components: ['transparency', 'scales'],
-                    reorder: false,
-                    basemapCount: 2,
-                    dbootstrap: true
-                }
-            },
 			bookmarks: {
 				include: true,
 				id: 'bookmarks',
@@ -639,7 +666,7 @@ define([
 				path: 'gis/dijit/Bookmarks',
 				title: 'Bookmarks',
 				open: false,
-				position: 2,
+				position: 3,
 				options: 'config/bookmarks'
 			},
 			find: {
