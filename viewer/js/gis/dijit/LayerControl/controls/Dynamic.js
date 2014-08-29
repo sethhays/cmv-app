@@ -116,6 +116,10 @@ define([
                 domStyle.set(this.expandIconNode, 'cursor', 'default');
                 domConst.destroy(this.expandNode);
             }
+            //expand - THIS NEEDS VETTED
+            if (this.controlOptions.expand) {
+                this.expandClickNode.click();
+            }
             //layer menu
             this._menu();
             //if layer has scales set
