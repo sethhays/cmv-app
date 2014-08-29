@@ -575,7 +575,7 @@ define([
                             'label': '1965',
                             'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu1965/MapServer',
                             'type': 'tiled'
-                        },,
+                        },
                         {
                             'label': '1967',
                             'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/campus1967/MapServer',
