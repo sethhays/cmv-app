@@ -225,8 +225,13 @@ define([
                 options: {
                     map: true,  //reguired to track map and layer events
                     gaAccount: 'UA-XXX00774-02',
-                    trackLayerVisibility: true,  //track layer visibility changes
-                    trackMapZoomChange: true,  //track map extent changes
+                    events: {
+                        map: ['extent-change','basemap-change' ],
+                        layer: [ 'visibility-change', 'update-end' ],
+                        widget: [ 'open', 'widget-interact' ] //not yet implemented, not sure this is possible
+                    },
+                    //trackLayerVisibility: true,  //track layer visibility changes
+                    //trackMapZoomChange: true,  //track map extent changes
                     trackWidgetEvents: true    //track custom widget events
                 }
             },
@@ -374,6 +379,14 @@ define([
                         }
                     ]
                 }
+            },
+            basemaps: {
+                include: true,
+                id: 'basemaps',
+                type: 'domNode',
+                path: 'gis/dijit/Basemaps',
+                srcNodeRef: 'basemapsDijit',
+                options: 'config/basemaps'
             }
 		}
 	};
