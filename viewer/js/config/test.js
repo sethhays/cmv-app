@@ -225,6 +225,7 @@ define([
                 title: 'Layers',
                 open: true,
                 position: 0,
+                placeAt: 'right',
                 options: {
                     map: true,
                     layerControlLayerInfos: true,

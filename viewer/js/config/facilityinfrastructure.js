@@ -30,6 +30,13 @@ define([
     var utilityLayerInfoTemplates = new UtilityLayerInfoTemplates();
 
 	return {
+		//optional page and browser titles
+        titles: {
+            headerTitle: 'Facility and Infrastructure Viewer',
+            subHeaderTitle: '',
+            pageTitle: 'Facility and Infrastructure  | Facility Information Services'
+        },
+
 		//default mapClick mode, mapClickMode lets widgets know what mode the map is in to avoid multipult map click actions from taking place (ie identify while drawing).
 		defaultMapClickMode: 'click',
 		// map options, passed to map constructor. see: https://developers.arcgis.com/javascript/jsapi/map-amd.html#map1
