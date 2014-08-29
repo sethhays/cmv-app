@@ -70,7 +70,10 @@ define([
 			},
 			editorLayerInfos: {
 				disableGeometryUpdate: false
-			}
+			},
+            controlOptions: {
+                expanded: true
+            }
 		}, {
 			type: 'feature',
 			url: 'http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/SanFrancisco/311Incidents/FeatureServer/0',
@@ -100,7 +103,7 @@ define([
 				layerIds: [2, 4, 5, 8, 12, 21]
 			},
             controlOptions: {
-                expand: true
+                expanded: true
             }
 		}, {
 			type: 'dynamic',

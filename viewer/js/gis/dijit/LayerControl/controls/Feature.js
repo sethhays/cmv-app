@@ -2,7 +2,7 @@
 define([
     'dojo/_base/declare',
     'dojo/_base/lang',
-    //'dojo/_base/array',
+    'dojo/_base/array',
     'dojo/on',
     'dojo/dom-class',
     'dojo/dom-style',
@@ -20,7 +20,7 @@ define([
 ], function (
     declare,
     lang,
-    //arrayUtil, //will need for legend
+    array,
     on,
     domClass,
     domStyle,
@@ -107,8 +107,8 @@ define([
                     domClass.replace(iconNode, 'fa-plus-square-o', 'fa-minus-square-o');
                 }
             }));
-            //expand - THIS NEEDS VETTED
-            if (this.controlOptions.expand) {
+            //show expandNode
+            if (this.controlOptions.expanded) {
                 this.expandClickNode.click();
             }
             //layer menu
@@ -183,33 +183,31 @@ define([
             }
             menu.startup();
         },
-        //get legend json and build
+        //build feature 
         //
-        //  what really needs to happen is build a legend from the drawing info
-        //  probably a lot of work or at least digging into feature layer and dojox/gfx
+        //  IN PROGESS
+        //  having an issue with a particular layer, renderer, etc? help out and let @btfou know!
         _legend: function(layer) {
-            layer = layer; //lint free
+            //  layer.renderer.symbol = single symbols (esri.renderer.SimpleRenderer, etc)
+            //  layer.renderer.infos = multiple symbols (esri.renderer.UniqueValueRenderer, etc)
+            //  TODO: read up on every single renderer!
+            //
             
-            html.set(this.expandNode, 'No Legend');
-            
-            /*var url = layer.url;
-            if (!isNaN(parseInt(url.charAt(url.length - 1), 10))) {
-                url = url.replace('FeatureServer', 'MapServer').substring(0, url.length - 2);
-            }
-            esriRequest({
-                url: url + '/legend',
-                callbackParamName: 'callback',
-                content: {
-                    f: 'json',
-                    token: (typeof layer._getToken === 'function') ? layer._getToken() : null
-                }
-            }).then(lang.hitch(this, function(r) {
-                console.log(r);
-            }), lang.hitch(this, function(e) {
-                console.log(e);
-                console.log('Feature::an error occurred retrieving legend');
+            var symbol = layer.renderer.symbol,
+                infos = layer.renderer.infos,
+                legendContent = '<table class="layerControlLegendTable">';
+            if (symbol) {
+                legendContent += '<tr><td class="layerControlLegendImage"><img class="' + layer.id + '-layerLegendImage" style="opacity:' + layer.opacity + ';width:' + symbol.width + ';height:' + symbol.height + ';" src="' + symbol.url + '" alt="' + layer.name + '" /></td></tr>';
+            } else if (infos) {
+                array.forEach(infos, function (info) {
+                    var sym = info.symbol;
+                    legendContent += '<tr><td class="layerControlLegendImage"><img class="' + layer.id + '-layerLegendImage" style="opacity:' + layer.opacity + ';width:' + sym.width + ';height:' + sym.height + ';" src="' + sym.url + '" alt="' + info.label + '" /></td><td class="layerControlLegendLabel">' + info.label + '</td></tr>';
+                });
+            } else {
                 html.set(this.expandNode, 'No Legend');
-            }));*/
+            }
+            legendContent += '</table>';
+            html.set(this.expandNode, legendContent);
         },
         //check scales and add/remove disabled classes from checkbox
         _checkboxScaleRange: function() {

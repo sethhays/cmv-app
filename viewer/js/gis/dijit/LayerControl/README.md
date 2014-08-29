@@ -68,7 +68,7 @@ layerControl: {
     },
     controlOptions: {
         sublayers: false, //build sublayer/folder controls - default is true
-        expand: true, //expand control on init exposing sublayers or legend
+        expanded: true, //expand control on init exposing sublayers or legend
         transparency: true, //include transparency plugin
         scales: true //include layer scale setting plugin
     }
@@ -85,7 +85,7 @@ layerControl: {
         //layer options
     },
     controlOptions: {
-        expand: true, //expand control on init exposing legend
+        expanded: true, //expand control on init exposing legend
         transparency: true, //include transparency plugin
         scales: true //include layer scale setting plugin
     }
