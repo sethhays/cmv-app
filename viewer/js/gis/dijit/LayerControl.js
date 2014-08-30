@@ -26,10 +26,10 @@ define([
         _overlayContainer: null, //overlay layer control container
         _controls: {
             dynamic: 'gis/dijit/LayerControl/controls/Dynamic',
-            feature: 'gis/dijit/LayerControl/controls/Feature'
-                //image: 'gis/dijit/LayerController/controls/Image',
-                //tiled: 'gis/dijit/LayerController/controls/Tiled',
-                //webTiled: 'gis/dijit/LayerController/controls/WebTiled'
+            feature: 'gis/dijit/LayerControl/controls/Feature',
+            image: 'gis/dijit/LayerControl/controls/Image',
+            tiled: 'gis/dijit/LayerControl/controls/Tiled'
+                //webTiled: 'gis/dijit/LayerControl/controls/WebTiled'
         },
         constructor: function(options) {
             options = options || {};

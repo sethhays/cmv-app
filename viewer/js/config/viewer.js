@@ -72,7 +72,8 @@ define([
 				disableGeometryUpdate: false
 			},
             controlOptions: {
-                expanded: true
+                expanded: true,
+                transparency: true
             }
 		}, {
 			type: 'feature',
@@ -118,6 +119,30 @@ define([
 				visible: true,
 				imageParameters: imageParameters
 			}
+		}, {
+			type: 'image',
+			url: 'http://imagery.arcgisonline.com/ArcGIS/rest/services/LandsatGLS/FalseColor/ImageServer',
+			title: 'Landsat False Color',
+			options: {
+				id: 'landsat_false_color',
+				opacity: 0.7,
+				visible: false
+			},
+            controlOptions: {
+                transparency: true
+            }
+		}, {
+			type: 'tiled',
+			url: 'http://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer',
+			title: 'Esri World Physical Map',
+			options: {
+				id: 'esri_phyical_map',
+				opacity: 1.0,
+				visible: false
+			},
+            controlOptions: {
+                scales: true
+            }
 		}],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
 		widgets: {
