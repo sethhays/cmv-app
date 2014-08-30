@@ -81,6 +81,7 @@ layerControl: {
 ```
 
 #### Tiled
+``` javascript
 {
     type: 'tiled',
     url: 'http://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer',
@@ -93,8 +94,10 @@ layerControl: {
         scales: true //include layer scale setting plugin
     }
 }
+```
 
 #### Image
+``` javascript
 {
     type: 'image',
     url: 'http://imagery.arcgisonline.com/ArcGIS/rest/services/LandsatGLS/FalseColor/ImageServer',
@@ -107,6 +110,7 @@ layerControl: {
         scales: true //include layer scale setting plugin
     }
 }
+```
 
 #### Feature
 ``` javascript
