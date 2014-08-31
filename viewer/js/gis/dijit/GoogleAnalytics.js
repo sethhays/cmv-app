@@ -126,20 +126,6 @@ define ( [
                         /* jshint ignore:end */
                     },
 
-                    onMapExtentChange: function( event ) {
-                        /* jshint ignore:start */
-                        ga('send', 'event', 'Map', 'Extent Change');
-                        /* jshint ignore:end */
-                    },
-
-                    onLayerVisibilityChange: function ( event ) {
-
-                        /* jshint ignore:start */
-                        ga( 'send', 'event', 'Layers', 'Visibility Change', event.target.url, event.visible.toString() );
-                        /* jshint ignore:end */
-
-                    },
-
                     onWidgetEvent: function ( event ) {
 
                          /* jshint ignore:start */
