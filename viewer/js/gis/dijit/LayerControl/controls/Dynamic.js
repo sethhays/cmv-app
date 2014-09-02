@@ -116,8 +116,8 @@ define([
                 domStyle.set(this.expandIconNode, 'cursor', 'default');
                 domConst.destroy(this.expandNode);
             }
-            //expand - THIS NEEDS VETTED
-            if (this.controlOptions.expand) {
+            //show expandNode
+            if (this.controlOptions.expanded) {
                 this.expandClickNode.click();
             }
             //layer menu
@@ -264,20 +264,19 @@ define([
                 }
             }).then(lang.hitch(this, function(r) {
                 array.forEach(r.layers, function(_layer) {
-                    var legendContent;
-                        legendContent = '<table class="layerControlLegendTable">';
-                        array.forEach(_layer.legend, function(legend) {
-                            var label = legend.label || '&nbsp;';
-                            legendContent += '<tr><td class="layerControlLegendImage"><img class="' + layer.id + '-layerLegendImage" style="opacity:' + layer.opacity + ';width:' + legend.width + ';height:' + legend.height + ';" src="data:' + legend.contentType + ';base64,' + legend.imageData + '" alt="' + label + '" /></td><td class="layerControlLegendLabel">' + label + '</td></tr>';
-                        }, this);
-                        legendContent += '</table>';
-                        //check for single layer
-                        //if so use expandNode for legend
-                        if (layer.layerInfos.length > 1) {
-                            html.set(registry.byId(layer.id + '-' + _layer.layerId + '-sublayer-control').expandNode, legendContent);
-                        } else {
-                            html.set(this.expandNode, legendContent);
-                        }
+                    var legendContent = '<table class="layerControlLegendTable">';
+                    array.forEach(_layer.legend, function(legend) {
+                        var label = legend.label || '&nbsp;';
+                        legendContent += '<tr><td class="layerControlLegendImage"><img class="' + layer.id + '-layerLegendImage" style="opacity:' + layer.opacity + ';width:' + legend.width + ';height:' + legend.height + ';" src="data:' + legend.contentType + ';base64,' + legend.imageData + '" alt="' + label + '" /></td><td class="layerControlLegendLabel">' + label + '</td></tr>';
+                    }, this);
+                    legendContent += '</table>';
+                    //check for single layer
+                    //if so use expandNode for legend
+                    if (layer.layerInfos.length > 1) {
+                        html.set(registry.byId(layer.id + '-' + _layer.layerId + '-sublayer-control').expandNode, legendContent);
+                    } else {
+                        html.set(this.expandNode, legendContent);
+                    }
                 }, this);
             }), lang.hitch(this, function(e) {
                 console.log(e);
