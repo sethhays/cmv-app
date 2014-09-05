@@ -217,6 +217,24 @@ define([
             }],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
 		widgets: {
+            googleAnalytics: {
+                include: true,
+                id: 'googAnalytics',
+                type: 'invisible',
+                path: 'gis/dijit/GoogleAnalytics',
+                options: {
+                    map: true,  //reguired to track map and layer events
+                    gaAccount: 'UA-XXX00774-02',
+                    events: {
+                        map: ['extent-change','basemap-change' ],
+                        layer: [ 'visibility-change', 'update-end' ],
+                        widget: [ 'open', 'widget-interact' ] //not yet implemented, not sure this is possible
+                    },
+                    //trackLayerVisibility: true,  //track layer visibility changes
+                    //trackMapZoomChange: true,  //track map extent changes
+                    trackWidgetEvents: true    //track custom widget events
+                }
+            },
             layerControl: {
                 include: true,
                 id: 'layerControl',
@@ -225,6 +243,7 @@ define([
                 title: 'Layers',
                 open: true,
                 position: 0,
+                placeAt: 'right',
                 options: {
                     map: true,
                     layerControlLayerInfos: true,
@@ -237,27 +256,137 @@ define([
                 type: 'titlePane',
                 title: 'Historical Imagery',
                 path: 'gis/dijit/LayerSwapper',
+                placeAt: 'left',
+                position: 0,
                 open: true,
                 options: {
                     map: true,
                     layerInfos: [
                         {
-                            label: '2012 (June 19th)',
-                            url: 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2012_jun19/MapServer',
-                            type: 'tiled'
+                            'label': '1950',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu1950/MapServer',
+                            'type': 'tiled'
                         },
                         {
-                            label: '2011 (Nov 15th)',
-                            url: 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2011_nov15/MapServer',
-                            type: 'tiled'
+                            'label': '1953 (Oct 15)',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/campus1953_oct15/MapServer',
+                            'type': 'tiled'
                         },
                         {
-                            label: 'Detailed Basemap',
-                            url: 'https://fis.ipf.msu.edu/arcgis/rest/services/Basemaps/DetailedBasemap/MapServer',
-                            type: 'dynamic'
+                            'label': '1953 (Oct 17)',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/campus1953_oct17/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '1955',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu1955/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '1956',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/campus1956/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '1958 (Oct 4)',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/campus1958_oct4/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '1958 (Nov 12)',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/campus1958_nov12/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '1963',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu1963/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '1965',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu1965/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '1967',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/campus1967/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '1969',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/campus1969/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '1974',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu1974/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '1980',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/campus1980/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '1984',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu1984/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '1987',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu1987/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '1995',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/campus1995/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '2001',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2001_tif/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '2005',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2005_mar01/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '2006 (Spring)',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/campus2006spring/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '2006 (Summer)',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/campus2006summer/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '2007',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2007_apr1/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '2011',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2011_nov15/MapServer',
+                            'type': 'tiled'
+                        },
+                        {
+                            'label': '2012',
+                            'url': 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2012_jun19/MapServer',
+                            'type': 'tiled'
                         }
                     ]
                 }
+            },
+            basemaps: {
+                include: true,
+                id: 'basemaps',
+                type: 'domNode',
+                path: 'gis/dijit/Basemaps',
+                srcNodeRef: 'basemapsDijit',
+                options: 'config/basemaps'
             }
 		}
 	};

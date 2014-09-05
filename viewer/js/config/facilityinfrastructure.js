@@ -30,6 +30,13 @@ define([
     var utilityLayerInfoTemplates = new UtilityLayerInfoTemplates();
 
 	return {
+		//optional page and browser titles
+        titles: {
+            headerTitle: 'Facility and Infrastructure Viewer',
+            subHeaderTitle: '',
+            pageTitle: 'Facility and Infrastructure  | Facility Information Services'
+        },
+
 		//default mapClick mode, mapClickMode lets widgets know what mode the map is in to avoid multipult map click actions from taking place (ie identify while drawing).
 		defaultMapClickMode: 'click',
 		// map options, passed to map constructor. see: https://developers.arcgis.com/javascript/jsapi/map-amd.html#map1
@@ -528,26 +535,7 @@ define([
                 open: false,
                 position: 2,
                 canFloat: true,
-                options: {
-                    map: true,
-                    layerInfos: [
-                        {
-                            label: '2012 (June 19th)',
-                            url: 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2012_jun19/MapServer',
-                            type: 'tiled'
-                        },
-                        {
-                            label: '2011 (Nov 15th)',
-                            url: 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2011_nov15/MapServer',
-                            type: 'tiled'
-                        },
-                        {
-                            label: 'Detailed Basemap',
-                            url: 'https://fis.ipf.msu.edu/arcgis/rest/services/Basemaps/DetailedBasemap/MapServer',
-                            type: 'dynamic'
-                        }
-                    ]
-                }
+                options: 'config/layerSwapperHistoricalImagery'
             },
             campusInfoFeatures: {
                 include: true,
