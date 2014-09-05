@@ -1,8 +1,7 @@
-/* ags feature control */
+/* ags image control */
 define([
     'dojo/_base/declare',
     'dojo/_base/lang',
-    'dojo/_base/array',
     'dojo/on',
     'dojo/dom-class',
     'dojo/dom-style',
@@ -13,14 +12,12 @@ define([
     'dijit/Menu',
     'dijit/MenuItem',
     'dijit/MenuSeparator',
-    //'esri/request',
     'gis/dijit/LayerControl/plugins/Transparency',
     'gis/dijit/LayerControl/plugins/Scales',
     'dojo/text!./templates/Control.html'
 ], function (
     declare,
     lang,
-    array,
     on,
     domClass,
     domStyle,
@@ -31,7 +28,6 @@ define([
     Menu,
     MenuItem,
     MenuSeparator,
-    //esriRequest, //may need for legend
     Transparency,
     Scales,
     controlTemplate
@@ -40,7 +36,7 @@ define([
     return declare([WidgetBase, TemplatedMixin, Contained], {
         templateString: controlTemplate,
         layerTitle: 'Layer Title',
-        _layerType: 'vector', //for reoredering
+        _layerType: 'overlay', //for reoredering
         _scaleRangeHandler: null,
         constructor: function(options) {
             options = options || {};
@@ -48,12 +44,12 @@ define([
         },
         postCreate: function() {
             if (!this.controller) {
-                console.log('Feature error::controller option is required');
+                console.log('Image error::controller option is required');
                 this.destroy();
                 return;
             }
             if (!this.layer) {
-                console.log('Feature error::layer option is required');
+                console.log('Image error::layer option is required');
                 this.destroy();
                 return;
             }
@@ -95,26 +91,11 @@ define([
             layer.on('update-end', lang.hitch(this, function() {
                 domStyle.set(this.layerUpdateNode, 'display', 'none');
             }));
-            //wire up expand click
-            on(this.expandClickNode, 'click', lang.hitch(this, function() {
-                var expandNode = this.expandNode,
-                    iconNode = this.expandIconNode;
-                if (domStyle.get(expandNode, 'display') === 'none') {
-                    domStyle.set(expandNode, 'display', 'block');
-                    domClass.replace(iconNode, 'fa-minus-square-o', 'fa-plus-square-o');
-                } else {
-                    domStyle.set(expandNode, 'display', 'none');
-                    domClass.replace(iconNode, 'fa-plus-square-o', 'fa-minus-square-o');
-                }
-            }));
-            //show expandNode
-            if (this.controlOptions.expanded) {
-                this.expandClickNode.click();
-            }
+            //remove expandIconNode icon
+            //  retain .layerControlIcon
+            domClass.remove(this.expandIconNode, ['fa', 'fa-minus-square-o', 'fa-plus-square-o']);
             //layer menu
             this._menu();
-            //legend
-            this._legend(layer);
             //if layer has scales set
             if (layer.minScale !== 0 || layer.maxScale !== 0) {
                 this._checkboxScaleRange();
@@ -142,7 +123,7 @@ define([
                 leftClickToOpen: true
             });
             //reorder menu items
-            if (this.controller.vectorReorder) {
+            if (this.controller.overlayReorder) {
                 menu.addChild(new MenuItem({
                     label: 'Move Up',
                     onClick: lang.hitch(this, function() {
@@ -178,32 +159,6 @@ define([
                 }));
             }
             menu.startup();
-        },
-        //build feature 
-        //
-        //  IN PROGESS
-        //  having an issue with a particular layer, renderer, etc? help out and let @btfou know!
-        _legend: function(layer) {
-            //  layer.renderer.symbol = single symbols (esri.renderer.SimpleRenderer, etc)
-            //  layer.renderer.infos = multiple symbols (esri.renderer.UniqueValueRenderer, etc)
-            //  TODO: read up on every single renderer!
-            //
-            
-            var symbol = layer.renderer.symbol,
-                infos = layer.renderer.infos,
-                legendContent = '<table class="layerControlLegendTable">';
-            if (symbol) {
-                legendContent += '<tr><td class="layerControlLegendImage"><img class="' + layer.id + '-layerLegendImage" style="opacity:' + layer.opacity + ';width:' + symbol.width + ';height:' + symbol.height + ';" src="' + symbol.url + '" alt="' + layer.name + '" /></td></tr>';
-            } else if (infos) {
-                array.forEach(infos, function (info) {
-                    var sym = info.symbol;
-                    legendContent += '<tr><td class="layerControlLegendImage"><img class="' + layer.id + '-layerLegendImage" style="opacity:' + layer.opacity + ';width:' + sym.width + ';height:' + sym.height + ';" src="' + sym.url + '" alt="' + info.label + '" /></td><td class="layerControlLegendLabel">' + info.label + '</td></tr>';
-                });
-            } else {
-                html.set(this.expandNode, 'No Legend');
-            }
-            legendContent += '</table>';
-            html.set(this.expandNode, legendContent);
         },
         //check scales and add/remove disabled classes from checkbox
         _checkboxScaleRange: function() {

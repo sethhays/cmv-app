@@ -38,6 +38,7 @@ define ( [
                         declare.safeMixin( this, {
                             map: null,
                             gaAccount: null,
+                            events: { map: [], layer: [], widget: [] },
                             trackLayerVisibility: false,
                             trackMapZoomChange: false,
                             trackWidgetEvents: false
@@ -73,35 +74,56 @@ define ( [
 
                     initEventHandlers: function () {
 
-                        if ( this.trackMapZoomChange && this.map ) {
-                            this.map.on( 'extent-change', lang.hitch( this, 'onMapExtentChange' ) );
-                        }
-
-                        if ( this.trackLayerVisibility && this.map ) {
-
-                            array.forEach( this.map.layerIds, function ( layerId ) {
-                                var lyr = this.map.getLayer( layerId );
-                                lyr.on( 'visibility-change', lang.hitch( this, 'onLayerVisibilityChange' ) );
-                            }, this );
-
-                        }
-
+                        this.initMapEvents ();
+                        this.initLayerEvents ();
                         this.own( topic.subscribe( 'googleAnaytics/widgetEvent', lang.hitch( this, 'onWidgetEvent' ) ) );
 
                     },
 
-                    onMapExtentChange: function( event ) {
+                    initMapEvents: function () {
+
+                        if ( !this.map ) {
+                            return;
+                        }
+
+                        var mapEvents = this.events.map;
+                        array.forEach ( mapEvents, function ( mapEvent ) {
+
+                                this.map.on ( mapEvent, lang.hitch ( this, 'onMapEventFired', mapEvent ) );
+
+                            }, this
+                        );
+                    },
+
+                    initLayerEvents: function () {
+
+                        if ( !this.map ) {
+                            return;
+                        }
+
+                        var layerEvents = this.events.layer;
+                        array.forEach ( layerEvents, function ( layerEvent ) {
+
+                                array.forEach ( this.map.layerIds, function ( layerId ) {
+                                                    var lyr = this.map.getLayer ( layerId );
+                                                    lyr.on ( layerEvent, lang.hitch ( this, 'onLayerEventFired', layerEvent ) );
+                                                }, this
+                                );
+
+                            }, this
+                        );
+                    },
+
+                    onMapEventFired: function( eventType ) {
                         /* jshint ignore:start */
-                        ga('send', 'event', 'Map', 'Extent Change');
+                        ga('send', 'event', 'Map', eventType, eventType );
                         /* jshint ignore:end */
                     },
 
-                    onLayerVisibilityChange: function ( event ) {
-
+                    onLayerEventFired: function( eventType, event ) {
                         /* jshint ignore:start */
-                        ga( 'send', 'event', 'Layers', 'Visibility Change', event.target.url, event.visible.toString() );
+                        ga('send', 'event', 'Layer', eventType, event.target.id, event.target.url );
                         /* jshint ignore:end */
-
                     },
 
                     onWidgetEvent: function ( event ) {

@@ -505,7 +505,7 @@ define([
                 title: 'Layers',
                 open: true,
                 placeAt: 'right',
-                position: 0,
+                position: 2,
                 options: {
                     map: true,
                     layerControlLayerInfos: true,
@@ -524,6 +524,7 @@ define([
                 },
                 canFloat: true,
                 open: false,
+                placeAt: 'right',
                 position: 1
             },
             layerSwapper: {
@@ -533,7 +534,8 @@ define([
                 title: 'Historical Imagery',
                 path: 'gis/dijit/LayerSwapper',
                 open: false,
-                position: 2,
+                placeAt: 'right',
+                position: 1,
                 canFloat: true,
                 options: 'config/layerSwapperHistoricalImagery'
             },
