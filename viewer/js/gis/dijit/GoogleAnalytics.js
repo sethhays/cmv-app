@@ -76,7 +76,8 @@ define ( [
 
                         this.initMapEvents ();
                         this.initLayerEvents ();
-                        this.own( topic.subscribe( 'googleAnaytics/widgetEvent', lang.hitch( this, 'onWidgetEvent' ) ) );
+                        this.initTitlePaneEvents ();
+                        this.own( topic.subscribe( 'googleAnalytics/events', lang.hitch( this, 'onTopicEvent' ) ) );
 
                     },
 
@@ -93,6 +94,7 @@ define ( [
 
                             }, this
                         );
+
                     },
 
                     initLayerEvents: function () {
@@ -112,23 +114,43 @@ define ( [
 
                             }, this
                         );
+
+                    },
+
+                    initTitlePaneEvents: function () {
+
+                        if ( this.events.titlePane.length > 0 ) {
+                            this.own( topic.subscribe( 'widgetState/events', lang.hitch( this, 'onTitlePaneEventFired' ) ) );
+                        }
+
                     },
 
                     onMapEventFired: function( eventType ) {
+
                         /* jshint ignore:start */
                         ga('send', 'event', 'Map', eventType, eventType );
                         /* jshint ignore:end */
+
                     },
 
                     onLayerEventFired: function( eventType, event ) {
+
                         /* jshint ignore:start */
                         ga('send', 'event', 'Layer', eventType, event.target.id, event.target.url );
                         /* jshint ignore:end */
+
                     },
 
-                    onWidgetEvent: function ( event ) {
+                    onTitlePaneEventFired: function ( event ) {
 
-                         /* jshint ignore:start */
+                        if ( event.action && this.events.titlePane.indexOf( event.action ) > -1 ) {
+                            this.onTopicEvent( event );
+                        }
+
+                    },
+
+                    onTopicEvent: function ( event ) {
+                        /* jshint ignore:start */
                         var msg = lang.mixin(
                             {
                                 category: null,
