@@ -226,13 +226,10 @@ define([
                     map: true,  //reguired to track map and layer events
                     gaAccount: 'UA-XXX00774-02',
                     events: {
-                        map: ['extent-change','basemap-change' ],
-                        layer: [ 'visibility-change', 'update-end' ],
-                        widget: [ 'open', 'widget-interact' ] //not yet implemented, not sure this is possible
-                    },
-                    //trackLayerVisibility: true,  //track layer visibility changes
-                    //trackMapZoomChange: true,  //track map extent changes
-                    trackWidgetEvents: true    //track custom widget events
+                        map: ['extent-change','basemap-change' ], //array of map events
+                        layer: [ 'visibility-change', 'update-end' ], //array of layer events
+                        titlePane: [ 'open', 'close', 'dock', 'undock' ] //array of 'open', 'close', 'dock', 'undock'
+                    }
                 }
             },
             layerControl: {
@@ -244,6 +241,7 @@ define([
                 open: true,
                 position: 0,
                 placeAt: 'right',
+                canFloat: true,
                 options: {
                     map: true,
                     layerControlLayerInfos: true,
@@ -259,6 +257,7 @@ define([
                 placeAt: 'left',
                 position: 0,
                 open: true,
+                canFloat: true,
                 options: {
                     map: true,
                     layerInfos: [

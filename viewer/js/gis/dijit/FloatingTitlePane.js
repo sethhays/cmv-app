@@ -7,13 +7,14 @@ define([
 	'dojo/aspect',
 	'dojo/_base/window',
 	'dojo/window',
+    'dojo/topic',
 	'dojo/dom-geometry',
 	'dojo/dom-style',
 	'dojo/dom-construct',
 	'dojo/dom-attr',
 	'dojo/dom-class',
 	'xstyle/css!./FloatingTitlePane/css/FloatingTitlePane.css'
-], function(declare, TitlePane, on, lang, Moveable, aspect, win, winUtils, domGeom, domStyle, domConstruct, domAttr, domClass, css) {
+], function(declare, TitlePane, on, lang, Moveable, aspect, win, winUtils, topic, domGeom, domStyle, domConstruct, domAttr, domClass, css) {
 	return declare([TitlePane], {
 		postCreate: function() {
 			if (this.canFloat) {
@@ -37,6 +38,8 @@ define([
 					evt.stopImmediatePropagation();
 				})));
 				this.own(on(window, 'resize', lang.hitch(this, '_endDrag')));
+                on(this, 'show', lang.hitch(this, '_onOpenClose', true));
+                on(this, 'hide', lang.hitch(this, '_onOpenClose', false));
 			}
 			this.inherited(arguments);
 		},
@@ -64,6 +67,7 @@ define([
 			domClass.remove(this.moveHandleNode, 'floatingWidgetMove');
 			domClass.add(this.moveHandleNode, 'floatingWidgetPopout');
 			this.isFloating = false;
+            this._updateTopic( 'dock' );
 		},
 		_moveDom: function() {
 			if (!this.isFloating) {
@@ -81,6 +85,7 @@ define([
 				// }, computedStyle);
 				this.isFloating = true;
 				this.placeAt(win.body());
+                this._updateTopic( 'undock' );
 			}
 		},
 		_endDrag: function() {
@@ -112,6 +117,19 @@ define([
 					top: t + 'px'
 				});
 			}
-		}
+		},
+        _updateTopic: function ( msg ) {
+            topic.publish( 'widgetState/events', {
+                category: 'Widget Event',
+                action: msg,
+                label: this.title,
+                value: msg
+            } );
+
+        },
+        _onOpenClose: function( isOpen ) {
+            var evt = isOpen ? 'open' : 'close';
+            this._updateTopic( evt );
+        }
 	});
 });

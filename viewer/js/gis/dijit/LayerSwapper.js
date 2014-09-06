@@ -82,10 +82,10 @@ define ( [
                          }
                          lyr.layer.show();
 
-                         topic.publish( 'googleAnaytics/widgetEvent', {
-                             category: 'Widget Event',
+                         topic.publish( 'googleAnalytics/events', {
+                             category: 'Custom Event',
                              action: 'Visible Layer Change',
-                             label: 'Layer Swapper',
+                             label: this.title,
                              value: lyr.label
                          } );
                      }
