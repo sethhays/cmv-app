@@ -497,6 +497,21 @@ define([
             }],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
 		widgets: {
+            googleAnalytics: {
+                include: true,
+                id: 'googAnalytics',
+                type: 'invisible',
+                path: 'gis/dijit/GoogleAnalytics',
+                options: {
+                    map: true,  //reguired to track map and layer events
+                    gaAccount: 'UA-47767747-5',  //CMV Apps code, for testing, probably want separate code for separate apps
+                    events: {
+                        map: ['extent-change','basemap-change' ], //array of map events
+                        layer: [ 'visibility-change', 'update-end' ], //array of layer events
+                        titlePane: [ 'open', 'close', 'dock', 'undock' ] //array of 'open', 'close', 'dock', 'undock'
+                    }
+                }
+            },
             layerControl: {
                 include: true,
                 id: 'layerControl',

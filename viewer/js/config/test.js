@@ -232,8 +232,22 @@ define([
                     }
                 }
             },
-            layerControl: {
+            plantDb: {
                 include: true,
+                id: 'plantDb',
+                type: 'titlePane',
+                path: 'fis/dijit/campus/PlantDb',
+                title: 'Plant Database',
+                open: true,
+                position: 0,
+                placeAt: 'right',
+                canFloat: true,
+                options: {
+                    map: true
+                }
+            },
+            layerControl: {
+                include: false,
                 id: 'layerControl',
                 type: 'titlePane',
                 path: 'gis/dijit/LayerControl',
