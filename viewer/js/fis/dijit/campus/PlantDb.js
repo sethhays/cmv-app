@@ -78,19 +78,24 @@ define( [
                 map: null
             }, options );
 
+            this.inherited( arguments );
+
         },
 
-        postCreate: function () {
+        startup: function () {
 
-            var accordionContainer = new AccordionContainer( { style: "height: 100%;"}, this.plantDbContainer );
-
+            console.log( this );
             for ( var i = 0; i < this.plantLists.length; i++ ) {
 
                 var plantList = this.plantLists[ i ];
-                accordionContainer.addChild( {
-                    title: plantList.label
-                });
+                console.log( plantList );
+                //this.accContainerDijit.addChild( new ContentPane( {
+                 //   title: plantList.label,
+                 //   content: plantList.endPoint
+                //} ) );
             }
+
+            this.inherited( arguments );
 
         }
 
