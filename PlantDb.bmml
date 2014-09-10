@@ -1,3 +1,29 @@
-<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="0" measuredH="0" mockupW="0" mockupH="0">
-  <controls/>
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1855" measuredH="713" mockupW="1855" mockupH="713">
+  <controls>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="0" y="0" w="-1" h="-1" measuredW="1440" measuredH="713" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./assets/app-background.png</src>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::ComboBox" x="1144" y="117" w="284" h="-1" measuredW="127" measuredH="24" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>-%20select%20search%20-</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::TextInput" x="1144" y="156" w="284" h="-1" measuredW="161" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Plant%20name%2C%20species%2C%20acc</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::ComboBox" x="1571" y="156" w="284" h="-1" measuredW="98" measuredH="62" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>2014*0002%0A2014*0003%0AAC76*02</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::List" x="1144" y="198" w="284" h="493" measuredW="100" measuredH="126" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>2014*0002%0A2014*0003%0AAC76*02</text>
+      </controlProperties>
+    </control>
+  </controls>
 </mockup>
