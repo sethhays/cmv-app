@@ -6,6 +6,9 @@ define( [
             'dijit/form/Form',
             'dijit/form/Select',
             'dijit/form/ValidationTextBox',
+            'dgrid/OnDemandGrid',
+            'dgrid/Selection',
+            'dgrid/Keyboard',
             'dojo/data/ObjectStore',
             'dojo/dom',
             'dojo/dom-class',
@@ -16,6 +19,7 @@ define( [
             'dojo/on',
             'dojo/request',
             'dojo/store/Memory',
+            'esri/geometry/Extent',
             'esri/layers/FeatureLayer',
             'esri/InfoTemplate',
             'esri/tasks/query',
@@ -29,6 +33,9 @@ define( [
             Form,
             Select,
             ValidationTextBox,
+            OnDemandGrid,
+            Selection,
+            Keyboard,
             ObjectStore,
             dom,
             domClass,
@@ -39,6 +46,7 @@ define( [
             on,
             request,
             Memory,
+            Extent,
             FeatureLayer,
             InfoTemplate,
             query,
@@ -76,6 +84,7 @@ define( [
                     label: 'By Common Name',
                     endPoint: 5,
                     queryWhere: 'LOWER(COMMON_NAME) LIKE \'%{TOKEN}%\'',
+                    nameField: 'COMMON_NAME',
                     autoLoad: false,
                     plants: {}
                 },
@@ -105,19 +114,32 @@ define( [
 
         postCreate: function () {
 
+            this._createFeatureLayer();
+
+        },
+
+        startup: function () {
+
+            this._initializeSearches();
+            this._createResultsGrid();
+
+        },
+
+        _createFeatureLayer: function () {
+
             this.featureLayer = new FeatureLayer( this.baseServiceUrl, {
                 visible: true,
                 mode: FeatureLayer.MODE_ONDEMAND,
                 outFields: [ "*" ]
             } );
             this.featureLayer.setDefinitionExpression( '1=2' );
-            this.featureLayer.on( 'update-end', lang.hitch( this, this._onFeatureLayerUpdate ) );
+            on( this.featureLayer, 'update-end', lang.hitch( this, this._onFeatureLayerUpdate ) );
 
             this.map.addLayer( this.featureLayer );
 
         },
 
-        startup: function () {
+        _initializeSearches: function () {
 
             for (var k=0; k < this.searches.length; k++ ) {
                 this.searches[ k ].id = k;
@@ -126,9 +148,78 @@ define( [
             var searchStore = new ObjectStore( new Memory( { data: this.searches } ) );
             this.searchSelectDijit.setStore( searchStore );
 
+            this._onSearchChange( 0 );
+
             this.inherited( arguments );
 
-            this._onSearchChange( 0 );
+        },
+
+        _createResultsGrid: function () {
+
+            this.resultsStore = new Memory( {
+                idProperty: 'id',
+                data: []
+            } );
+
+            var Grid = declare( [ OnDemandGrid, Keyboard, Selection ] );
+            this.resultsGrid = new Grid( {
+
+                selectionMode: 'single',
+                cellNavigation: 'false',
+                showHeader: true,
+                store: this.resultsStore,
+                columns: {
+                    NAME: 'Plant Name',
+                    ACC_NUM_AN: 'Acc No'
+                },
+                sort: [ {
+                    attribute: 'attributes.PLANT_NAME',
+                    descedning: false
+                       }]
+
+            }, this.searchResultsGrid );
+
+            this.resultsGrid.startup();
+            this.resultsGrid.on( 'dgrid-select', lang.hitch( this, '_selectResult' ) );
+
+        },
+
+        _selectResult: function ( event ) {
+
+            var result = event.rows;
+
+            if ( result.length ) {
+                var data = result[ 0 ].data;
+
+                if ( data ) {
+
+                    var graphic = data.graphic;
+                    console.log( graphic );
+
+                    var pt = graphic.geometry.points[ 0 ];
+                    console.log( pt );
+
+                    var sz = 25;
+                    var newExtent = new Extent( {
+
+                        'xmin': pt[ 0 ] - sz,
+                        'ymin': pt[ 1 ] - sz,
+                        'xmax': pt[ 0 ] + sz,
+                        'ymax': pt[ 1 ] + sz,
+                        'spatialReference': {
+                            wkid: this.map.spatialReference.wkid
+                        }
+
+                    } );
+                    console.log( newExtent ) ;
+
+                    if ( graphic && graphic.geometry._extent ) {
+                        this.map.setExtent( newExtent.expand( 1.2 ) );
+                    }
+
+                }
+
+            }
 
         },
 
@@ -201,7 +292,39 @@ define( [
         _onFeatureLayerUpdate: function ( event ) {
 
             console.log( this.featureLayer.graphics );
-            this.plantGraphics = this.featureLayer.graphics;
+
+            var storeItems = this._createStoreItemsFromGraphics( this.featureLayer.graphics );
+
+            this.resultsGrid.store.setData( storeItems );
+            this.resultsGrid.refresh();
+
+            if ( this.featureLayer.graphics.length > 0 ) {
+                this.searchResultsGrid.style.display = 'block';
+            } else {
+                this.searchResultsGrid.style.display = 'none';
+            }
+
+        },
+
+        _createStoreItemsFromGraphics: function ( graphics ) {
+
+            return array.map( graphics, function( item, index ) {
+
+                var nameField = 'PLANT_NAME';
+
+                if ( this.searches[ this.selectedSearchIndex ].nameField ) {
+                    nameField = this.searches[ this.selectedSearchIndex ].nameField;
+                }
+
+                var mappedItem = lang.mixin( {
+                                            id: index,
+                                            graphic: item,
+                                            NAME: item.attributes[ nameField ]
+                                        }, item.attributes );
+
+                return mappedItem;
+
+            }, this );
 
         },
 

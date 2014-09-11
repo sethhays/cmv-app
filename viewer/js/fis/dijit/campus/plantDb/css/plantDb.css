@@ -16,3 +16,34 @@
     width: 100%;
 }
 
+.plantDbDijit .resultsGrid {
+    font-size: small;
+    width: 100%;
+}
+
+.plantDbDijit .dgrid {
+    width: 100%;
+    display: none;
+}
+
+.plantDbDijit .dgrid .dgrid-scroller {
+    margin-top: 35px !important;
+}
+
+.plantDbDijit .dgrid .dgrid-header th {
+    font-weight: bolder;
+}
+
+.plantDbDijit .dgrid .dgrid-cell {
+    font-size: 11px;
+    padding: 8px !important;
+    cursor: pointer;
+}
+
+.plantDbDijit .dgrid .field-NAME {
+    width: 70%;
+}
+
+.plantDbDijit .dgrid .field-ACC_NUM_AN {
+    text-align: right;
+}
