@@ -2,16 +2,23 @@
 
     <div class="formContainer">
 
-        <div data-dojo-attach-point="searchSelectContainer">
-            <label>Select plant search:</label><br />
+        <div data-dojo-attach-point="searchSelectContainer" class="searchSelectDom">
+            <label>Select plant search:</label>
+            <br />
             <input type="select"
                    data-dojo-type="dijit/form/Select"
                    data-dojo-props="class: 'searchSelect'"
                    data-dojo-attach-point="searchSelectDijit"
                    data-dojo-attach-event="onChange:_onSearchChange" />
+
+            <span class="layerControlUpdate">
+                <i data-dojo-attach-point="layerUpdateNode"
+                   class="fa fa-refresh fa-spin layerControlUpdateIcon"
+                   style="display:none;"></i>
+            </span>
         </div>
 
-        <div data-dojo-attach-point="queryTextContainer">
+        <div data-dojo-attach-point="queryTextContainer" style="display: none">
             <label>Search For Text:</label><br/>
             <input type="text"
                    data-dojo-type="dijit.form.ValidationTextBox"

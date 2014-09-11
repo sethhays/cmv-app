@@ -9,6 +9,7 @@ define( [
             'dgrid/OnDemandGrid',
             'dgrid/Selection',
             'dgrid/Keyboard',
+            'dojo/aspect',
             'dojo/data/ObjectStore',
             'dojo/dom',
             'dojo/dom-class',
@@ -36,6 +37,7 @@ define( [
             OnDemandGrid,
             Selection,
             Keyboard,
+            aspect,
             ObjectStore,
             dom,
             domClass,
@@ -116,6 +118,13 @@ define( [
 
             this._createFeatureLayer();
 
+            if (this.parentWidget.toggleable) {
+                // domStyle.set(this.buttonActionBar, 'display', 'none');
+                this.own(aspect.after(this.parentWidget, 'toggle', lang.hitch(this, function() {
+                    this._onWidgetLayoutChange(this.parentWidget.open);
+                })));
+            }
+
         },
 
         startup: function () {
@@ -133,10 +142,59 @@ define( [
                 outFields: [ "*" ]
             } );
             this.featureLayer.setDefinitionExpression( '1=2' );
-            on( this.featureLayer, 'update-end', lang.hitch( this, this._onFeatureLayerUpdate ) );
+            this.featureLayer.infoTemplate = this._createFeatureLayerInfoTemplate();
+
+            on( this.featureLayer, 'update-end', lang.hitch( this, this._onFeatureLayerUpdateEnd ) );
+            on( this.featureLayer, 'update-start', lang.hitch( this, this._onFeatureLayerUpdateStart ) );
 
             this.map.addLayer( this.featureLayer );
 
+        },
+
+        _createFeatureLayerInfoTemplate: function () {
+
+            var infoTemplate = new InfoTemplate();
+            infoTemplate.setTitle( '${PLANT_NAME}' );
+            infoTemplate.setContent(
+                '<ul class="list-unstyled">' +
+                     '<li><label>Accession No:&nbsp;</label>${ACC_NUM_AN}"</li>' +
+                     '<li><label>Comm. Name:&nbsp;</label>${COMMON_NAME}</li>' +
+                     '<li><label>SubType:&nbsp;</label>${PLANT_SUBTYPE}</li>' +
+                     '<li><label>Status:&nbsp;</label>${PLANT_STATUS}</li>' +
+                     '<li><label>Conditon:&nbsp;</label>${PLANT_COND}</li>' +
+                     '<li><label>DBH:&nbsp;</label>${PLANT_DBH:NumberFormat(places:0)}"</li>' +
+                     '<li><label>Height:&nbsp;</label>${PLANT_HEIGHT:NumberFormat(places:0)}\'</li>' +
+                     '<li><label>Spread:&nbsp;</label>${PLANT_SPREAD:NumberFormat(places:0)}\'</li>' +
+                     '<li><label>Species Cnt:&nbsp;</label>${SPECIES_COUNT:NumberFormat(places:0)}</li>' +
+                     '<li><label>Stem Cnt:&nbsp;</label>${STEM_COUNT:NumberFormat(places:0)}</li>' +
+                '</ul>' +
+                '<ul class="list-unstyled list-inline">' +
+                    '<li><a href="https://www.google.com/search?q=${GENUS}+${SPECIES}" target="_blank">Genus/Species</a></li>' +
+                    '<li><a href="https://www.google.com/search?tbm=isch&q=${GENUS}+${SPECIES}" target="_blank">Genus/Species (Images)</a></li>' +
+                    '<li><a href="https://www.google.com/search?q=${PLANT_NAME}" target="_blank">Plant Name</a></li>' +
+                    '<li><a href="https://www.google.com/search?tbm=isch&q=${PLANT_NAME}" target="_blank">Plant Name (Images)</a></li>' +
+                '</ul>'
+            );
+
+            return infoTemplate;
+
+        },
+
+        _onWidgetLayoutChange: function(open) {
+            if (open) {
+                this._onWidgetOpen();
+            } else {
+                this._onWidgetClose();
+            }
+        },
+
+        _onWidgetOpen: function () {
+            this.featureLayer.show();
+        },
+
+        _onWidgetClose: function () {
+            this.featureLayer.hide();
+            this.map.infoWindow.hide();
         },
 
         _initializeSearches: function () {
@@ -194,10 +252,8 @@ define( [
                 if ( data ) {
 
                     var graphic = data.graphic;
-                    console.log( graphic );
 
                     var pt = graphic.geometry.points[ 0 ];
-                    console.log( pt );
 
                     var sz = 25;
                     var newExtent = new Extent( {
@@ -211,7 +267,6 @@ define( [
                         }
 
                     } );
-                    console.log( newExtent ) ;
 
                     if ( graphic && graphic.geometry._extent ) {
                         this.map.setExtent( newExtent.expand( 1.2 ) );
@@ -224,13 +279,14 @@ define( [
         },
 
         _onSearchChange: function ( newIndex ) {
-            console.log( "new index: " + newIndex );
 
             this.selectedSearchIndex = newIndex;
 
             var search = this.searches[ newIndex ];
             var query = search.autoLoad ? search.queryWhere : '1=2';
-            console.log ( "new query: " + query );
+
+            this.queryTextContainer.style.display = search.autoLoad ? 'none' : 'block';
+            this.searchResultsGrid.style.display = 'none';
 
             this._setFeatureLayerDefinitionExpression( query );
 
@@ -252,7 +308,7 @@ define( [
         },
 
         _removeSearchInputResponder: function () {
-            console.log( 'removing current event handler' );
+
             if ( this.currentSearchInputResponder ) {
                 this.currentSearchInputResponder.remove();
             }
@@ -264,7 +320,7 @@ define( [
             if ( event.keyCode !== keys.ENTER ) {
                 return;
             }
-            console.log( 'filtering plant graphics' );
+
         },
 
         _updateFeatureLayerDefinitionExpression: function ( event ) {
@@ -272,11 +328,8 @@ define( [
             if ( event.keyCode !== keys.ENTER ) {
                 return;
             }
-            console.log( 'updating definition expression' );
-            console.log( this.searchInputDijit.attr( 'value' ) );
 
             var query = this.searches[ this.selectedSearchIndex ].queryWhere.replace( '{TOKEN}', this.searchInputDijit.attr( 'value' ).toLowerCase() );
-            console.log( 'new definition expresssion:\n' + query );
             this._setFeatureLayerDefinitionExpression( query );
         },
 
@@ -289,9 +342,7 @@ define( [
 
         },
 
-        _onFeatureLayerUpdate: function ( event ) {
-
-            console.log( this.featureLayer.graphics );
+        _onFeatureLayerUpdateEnd: function ( event ) {
 
             var storeItems = this._createStoreItemsFromGraphics( this.featureLayer.graphics );
 
@@ -303,6 +354,13 @@ define( [
             } else {
                 this.searchResultsGrid.style.display = 'none';
             }
+
+            this.layerUpdateNode.style.display = 'none';
+        },
+
+        _onFeatureLayerUpdateStart: function ( event ) {
+
+            this.layerUpdateNode.style.display = 'block';
 
         },
 
@@ -325,18 +383,6 @@ define( [
                 return mappedItem;
 
             }, this );
-
-        },
-
-        _toggleSearchLayer: function ( searchLayer, visible ) {
-            console.log( searchLayer );
-            if ( searchLayer.featureLayer ) {
-                if ( visible && ( item.autoLoad || item.results.length > 0 ) ) {
-                    searchLayer.featureLayer.show();
-                } else {
-                    searchLayer.featureLayer.hide();
-                }
-            }
 
         }
 

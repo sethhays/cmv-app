@@ -2,8 +2,26 @@
     width: 100%;
 }
 
-.plantDbDijit .searchSelect, .plantDbDijit .searchText {
+.plantDbDijit .layerControlUpdate {
+    width: 50px;
+    height: 40px;
+    line-height: 15px;
+    text-align: center;
+    padding-right: 5px;
+    margin-left:10px;
+}
+
+.plantDbDijit .searchSelectDom {
+    display: inline-block;
+}
+
+.plantDbDijit .searchText {
     width: 100%;
+    margin-bottom: 10px;
+}
+
+.plantDbDijit .searchSelect {
+    width: 250px;
     margin-bottom: 10px;
 }
 
@@ -19,10 +37,14 @@
 .plantDbDijit .resultsGrid {
     font-size: small;
     width: 100%;
+    height: 100%;
+    min-height: 300px;
 }
 
 .plantDbDijit .dgrid {
     width: 100%;
+    height: 100%;
+    min-height: 300px;
     display: none;
 }
 
@@ -47,3 +69,4 @@
 .plantDbDijit .dgrid .field-ACC_NUM_AN {
     text-align: right;
 }
+
