@@ -252,7 +252,6 @@ define( [
                 if ( data ) {
 
                     var graphic = data.graphic;
-
                     var pt = graphic.geometry.points[ 0 ];
 
                     var sz = 25;
@@ -268,7 +267,7 @@ define( [
 
                     } );
 
-                    if ( graphic && graphic.geometry._extent ) {
+                    if ( newExtent ) {
                         this.map.setExtent( newExtent.expand( 1.2 ) ).then( lang.hitch( this, function () {
                             this.map.infoWindow.hide();
                             this.map.infoWindow.clearFeatures();
