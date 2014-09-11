@@ -157,7 +157,7 @@ define( [
             infoTemplate.setTitle( '${PLANT_NAME}' );
             infoTemplate.setContent(
                 '<ul class="list-unstyled">' +
-                     '<li><label>Accession No:&nbsp;</label>${ACC_NUM_AN}"</li>' +
+                     '<li><label>Accession No:&nbsp;</label>${ACC_NUM_AN}</li>' +
                      '<li><label>Comm. Name:&nbsp;</label>${COMMON_NAME}</li>' +
                      '<li><label>SubType:&nbsp;</label>${PLANT_SUBTYPE}</li>' +
                      '<li><label>Status:&nbsp;</label>${PLANT_STATUS}</li>' +
@@ -269,7 +269,12 @@ define( [
                     } );
 
                     if ( graphic && graphic.geometry._extent ) {
-                        this.map.setExtent( newExtent.expand( 1.2 ) );
+                        this.map.setExtent( newExtent.expand( 1.2 ) ).then( lang.hitch( this, function () {
+                            this.map.infoWindow.hide();
+                            this.map.infoWindow.clearFeatures();
+                            this.map.infoWindow.setFeatures( [ graphic ] );
+                            this.map.infoWindow.show( newExtent.getCenter() );
+                        } ) );
                     }
 
                 }

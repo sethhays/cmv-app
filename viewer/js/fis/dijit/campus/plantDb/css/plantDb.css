@@ -3,16 +3,17 @@
 }
 
 .plantDbDijit .layerControlUpdate {
-    width: 50px;
-    height: 40px;
+    width: 40px;
     line-height: 15px;
     text-align: center;
     padding-right: 5px;
     margin-left:10px;
+    float: right;
 }
 
-.plantDbDijit .searchSelectDom {
-    display: inline-block;
+.plantDbDijit .searchSelectDom .searchSelect {
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .plantDbDijit .searchText {
@@ -20,14 +21,10 @@
     margin-bottom: 10px;
 }
 
-.plantDbDijit .searchSelect {
-    width: 250px;
-    margin-bottom: 10px;
-}
-
 .plantDbDijit label {
     font-weight: bold;
     margin-left: 5px;
+    display: inline;
 }
 
 .dijitStretch {
