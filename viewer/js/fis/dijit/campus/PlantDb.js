@@ -1,3 +1,15 @@
+///////////////////// Notes ///////////////////////////
+// - add heatmap
+// - add controls to turn plant map on
+// - use highlight symbol over plant map
+// - use unique value renderer without map, get symbols from legend service
+// - reset function
+// - plant_name search
+// - warrantied plant searches
+// - display total records
+// - display extent message
+
+
 define( [
             'dojo/_base/declare',
             'dijit/_WidgetBase',
