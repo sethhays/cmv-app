@@ -520,7 +520,7 @@ define([
                 title: 'Layers',
                 open: true,
                 placeAt: 'right',
-                position: 2,
+                position: 3,
                 options: {
                     map: true,
                     layerControlLayerInfos: true,
@@ -540,7 +540,21 @@ define([
                 canFloat: true,
                 open: false,
                 placeAt: 'right',
-                position: 1
+                position: 0
+            },
+            plantDb: {
+                include: true,
+                id: 'plantDb',
+                type: 'titlePane',
+                path: 'fis/dijit/campus/PlantDb',
+                title: 'Plant Database',
+                open: false,
+                position: 1,
+                placeAt: 'right',
+                canFloat: true,
+                options: {
+                    map: true
+                }
             },
             layerSwapper: {
                 include: true,
@@ -550,7 +564,7 @@ define([
                 path: 'gis/dijit/LayerSwapper',
                 open: false,
                 placeAt: 'right',
-                position: 1,
+                position: 2,
                 canFloat: true,
                 options: 'config/layerSwapperHistoricalImagery'
             },
@@ -701,6 +715,39 @@ define([
 					defaultLengthUnit: units.MILES
 				}
 			},
+            draw: {
+                include: true,
+                id: 'draw',
+                type: 'titlePane',
+                canFloat: true,
+                path: 'gis/dijit/Draw',
+                title: 'Draw',
+                open: false,
+                position: 8,
+                options: {
+                    map: true,
+                    mapClickMode: true
+                }
+            },
+            print: {
+                include: false,
+                id: 'print',
+                type: 'titlePane',
+                canFloat: true,
+                path: 'gis/dijit/Print',
+                title: 'Print',
+                open: false,
+                position: 6,
+                options: {
+                    map: true,
+                    printTaskURL: 'https://utility.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task',
+                    copyrightText: 'Copyright 2014',
+                    authorText: 'Me',
+                    defaultTitle: 'Viewer Map',
+                    defaultFormat: 'PDF',
+                    defaultLayout: 'Letter ANSI A Landscape'
+                }
+            },
 			streetview: {
 				include: true,
 				id: 'streetview',

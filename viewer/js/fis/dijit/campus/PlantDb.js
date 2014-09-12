@@ -1,12 +1,6 @@
 ///////////////////// Notes ///////////////////////////
 // - add heatmap
-// - add controls to turn plant map on
-// - use highlight symbol over plant map
-// - use unique value renderer without map, get symbols from legend service
-// - - https://fis.ipf.msu.edu/arcgis/rest/services/PlantDatabase/PlantDatabaseMap/MapServer/5?f=pjson
 // - reset function
-// - plant_name search
-// - warrantied plant searches
 // - display total records
 // - display extent message
 
@@ -38,6 +32,10 @@ define( [
             'esri/layers/FeatureLayer',
             'esri/InfoTemplate',
             'esri/tasks/query',
+            'esri/symbols/SimpleMarkerSymbol',
+            'esri/symbols/SimpleLineSymbol',
+            'esri/Color',
+            'esri/renderers/SimpleRenderer',
             'dojo/text!./PlantDb/templates/plantDb.html',
             'xstyle/css!./PlantDb/css/plantDb.css'
         ], function (
@@ -67,6 +65,10 @@ define( [
             FeatureLayer,
             InfoTemplate,
             query,
+            SimpleMarkerSymbol,
+            SimpleLineSymbol,
+            Color,
+            SimpleRenderer,
             rootTemplate,
             css
 
@@ -101,7 +103,14 @@ define( [
             this.featureLayerIndex = 5,
             this.searches = [
                 {
-                    label: 'By Common Name',
+                    label: 'By plant name',
+                    endPoint: 5,
+                    queryWhere: 'LOWER(PLANT_NAME) LIKE \'%{TOKEN}%\'',
+                    autoLoad: false,
+                    plants: {}
+                },
+                {
+                    label: 'By common name',
                     endPoint: 5,
                     queryWhere: 'LOWER(COMMON_NAME) LIKE \'%{TOKEN}%\'',
                     nameField: 'COMMON_NAME',
@@ -109,16 +118,65 @@ define( [
                     plants: {}
                 },
                 {
-                    label: 'Threatened Plants: less than 5',
+                    label: 'By genus',
+                    endPoint: 5,
+                    queryWhere: 'LOWER(GENUS) LIKE \'%{TOKEN}%\'',
+                    autoLoad: false,
+                    plants: {}
+                },
+                {
+                    label: 'By species',
+                    endPoint: 5,
+                    queryWhere: 'LOWER(SPECIES) LIKE \'%{TOKEN}%\'',
+                    autoLoad: false,
+                    plants: {}
+                },
+                {
+                    label: 'Threatened: less than 2',
+                    endPoint: 5,
+                    queryWhere: 'SPECIES_COUNT <= 2',
+                    autoLoad: true,
+                    plants: {}
+                },
+                {
+                    label: 'Threatened: less than 5',
                     endPoint: 5,
                     queryWhere: 'SPECIES_COUNT <= 5',
                     autoLoad: true,
                     plants: {}
                 },
                 {
-                    label: 'Threatened Plants: less than 2',
+                    label: 'Threatened: less than 10',
                     endPoint: 5,
-                    queryWhere: 'SPECIES_COUNT <= 2',
+                    queryWhere: 'SPECIES_COUNT <= 10',
+                    autoLoad: true,
+                    plants: {}
+                },
+                {
+                    label: 'Planted this year',
+                    endPoint: 5,
+                    queryWhere: 'EXTRACT( YEAR FROM DATE_PLANTED) = EXTRACT( YEAR FROM SYSDATE )',
+                    autoLoad: true,
+                    plants: {}
+                },
+                {
+                    label: 'Planted last year',
+                    endPoint: 5,
+                    queryWhere: 'EXTRACT( YEAR FROM DATE_PLANTED) = EXTRACT( YEAR FROM SYSDATE ) - 1',
+                    autoLoad: true,
+                    plants: {}
+                },
+                {
+                    label: 'Planted two years ago',
+                    endPoint: 5,
+                    queryWhere: 'EXTRACT( YEAR FROM DATE_PLANTED) = EXTRACT( YEAR FROM SYSDATE ) - 2',
+                    autoLoad: true,
+                    plants: {}
+                },
+                {
+                    label: 'Planted in the last 5 years',
+                    endPoint: 5,
+                    queryWhere: 'EXTRACT( YEAR FROM DATE_PLANTED) >= EXTRACT( YEAR FROM SYSDATE ) - 5',
                     autoLoad: true,
                     plants: {}
                 }
@@ -134,8 +192,8 @@ define( [
 
         postCreate: function () {
 
-            this.featureLayer = this._createFeatureLayer();
             this.plantDbMapLayer = this._getPlantDbMapLayer();
+            this.featureLayer = this._createFeatureLayer();
 
             if (this.parentWidget.toggleable) {
                 // domStyle.set(this.buttonActionBar, 'display', 'none');
@@ -144,17 +202,18 @@ define( [
                 })));
             }
 
+            on( this.map, 'extent-change', lang.hitch( this, function ( event ) {
+
+                this._updateFeatureLayerRenderer();
+
+            } ) );
+
         },
 
         startup: function () {
 
             this._initializeSearches();
             this._createResultsGrid();
-
-            if ( this.plantDbMapLayer ) {
-                this.plantDbMapLayerCheckBoxDom.style.display = 'block';
-                this.showPlantDbMapLayerDijit.set( 'checked', this.plantDbMapLayer.visible );
-            }
 
         },
 
@@ -167,6 +226,7 @@ define( [
             } );
             featureLayer.setDefinitionExpression( '1=2' );
             featureLayer.infoTemplate = this._createFeatureLayerInfoTemplate();
+            featureLayer.setRenderer( this._getFeatureLayerRenderer() );
 
             on( featureLayer, 'update-end', lang.hitch( this, this._onFeatureLayerUpdateEnd ) );
             on( featureLayer, 'update-start', lang.hitch( this, this._onFeatureLayerUpdateStart ) );
@@ -188,14 +248,39 @@ define( [
 
                 if ( layer && layer.url === this.baseServiceUrl ) {
                     plantDbMaplayer = layer;
-                    on( plantDbMaplayer, 'visibility-change', lang.hitch( this, function( event ) {
-                        this.showPlantDbMapLayerDijit.set( 'checked', event.visible );
-                    } ) );
+                    on( plantDbMaplayer, 'visibility-change', lang.hitch( this, this._onPlantDbVisibilityChange ) );
                 }
 
             }, this );
 
             return plantDbMaplayer;
+        },
+
+        _onPlantDbVisibilityChange: function( event ) {
+
+            this._updateFeatureLayerRenderer();
+
+        },
+
+        _updateFeatureLayerRenderer: function () {
+
+            var renderer = this._getFeatureLayerRenderer();
+            this.featureLayer.setRenderer( renderer );
+            this.featureLayer.redraw();
+
+        },
+
+        _getFeatureLayerRenderer: function () {
+
+            var fillcolor = this.plantDbMapLayer.visible ? new Color( [ 0,0,0,0 ] ) : new Color( 'red' );
+            zoomLevelScaleFactor = this.map.getLevel() / 5;
+            var size = this.plantDbMapLayer.visible ? 12 * zoomLevelScaleFactor : 8 * zoomLevelScaleFactor;
+
+            var outline = new SimpleLineSymbol( SimpleLineSymbol.STYLE_SOLID, new Color('red'), 3 );
+            var circle = SimpleMarkerSymbol( SimpleMarkerSymbol.STYLE_CIRCLE, size, outline, fillcolor );
+
+            return new SimpleRenderer( circle );
+
         },
 
         _createFeatureLayerInfoTemplate: function () {
@@ -435,19 +520,6 @@ define( [
 
             }, this );
 
-        },
-
-        _setPlantDbMapLayerVisibility: function ( visible ) {
-
-            if ( !this.plantDbMapLayer ) {
-                return;
-            }
-
-            if ( visible ) {
-                this.plantDbMapLayer.show();
-            } else {
-                this.plantDbMapLayer.hide();
-            }
         }
 
     } );

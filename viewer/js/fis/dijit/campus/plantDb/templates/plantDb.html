@@ -2,15 +2,6 @@
 
     <div class="formContainer">
 
-        <div data-dojo-attach-point="plantDbMapLayerCheckBoxDom" class="plantDbMapLayerDom" style="display: none">
-            <input type="checkbox"
-                   data-dojo-type="dijit.form.CheckBox"
-                   data-dojo-attach-point="showPlantDbMapLayerDijit"
-                   data-dojo-props="class:'checkbox'"
-                   data-dojo-attach-event="onChange:_setPlantDbMapLayerVisibility"/>
-            <label style="font-weight: normal"> Show PlantDb Map</label>
-        </div>
-
         <div data-dojo-attach-point="searchSelectContainer" class="searchSelectDom">
 
             <label>Select plant search:</label>
@@ -24,7 +15,7 @@
 
             <input type="select"
                    data-dojo-type="dijit/form/Select"
-                   data-dojo-props="class: 'searchSelect'"
+                   data-dojo-props="class: 'searchSelect',sortByLabel:false"
                    data-dojo-attach-point="searchSelectDijit"
                    data-dojo-attach-event="onChange:_onSearchChange" />
 

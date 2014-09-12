@@ -2,14 +2,6 @@
     width: 100%;
 }
 
-.plantDbDijit .plantDbMapLayerDom {
-   margin-bottom: 10px;
-}
-
-.plantDbDijit .plantDbMapLayerDom label {
-    font-weight: bold !important;
-}
-
 .plantDbDijit .layerControlUpdate {
     width: 40px;
     line-height: 15px;
