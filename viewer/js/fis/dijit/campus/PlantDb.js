@@ -17,6 +17,7 @@ define( [
             'dijit/_TemplatedMixin',
             'dijit/_WidgetsInTemplateMixin',
             'dijit/form/Form',
+            'dijit/form/CheckBox',
             'dijit/form/Select',
             'dijit/form/ValidationTextBox',
             'dgrid/OnDemandGrid',
@@ -45,6 +46,7 @@ define( [
             _TemplatedMixin,
             _WidgetsInTemplateMixin,
             Form,
+            CheckBox,
             Select,
             ValidationTextBox,
             OnDemandGrid,
@@ -81,6 +83,8 @@ define( [
         baseClass: 'fisPlantDb',
 
         baseServiceUrl: '',
+        featureLayerIndex: null,
+        plantDbMapLayer: null,
         featureLayer: {},
         heatMap: {},
         query: {},
@@ -93,7 +97,8 @@ define( [
 
             options = options || {};
 
-            this.baseServiceUrl = 'https://fis.ipf.msu.edu/arcgis/rest/services/PlantDatabase/PlantDatabaseMap/MapServer/5';
+            this.baseServiceUrl = 'https://fis.ipf.msu.edu/arcgis/rest/services/PlantDatabase/PlantDatabaseMap/MapServer';
+            this.featureLayerIndex = 5,
             this.searches = [
                 {
                     label: 'By Common Name',
@@ -129,7 +134,8 @@ define( [
 
         postCreate: function () {
 
-            this._createFeatureLayer();
+            this.featureLayer = this._createFeatureLayer();
+            this.plantDbMapLayer = this._getPlantDbMapLayer();
 
             if (this.parentWidget.toggleable) {
                 // domStyle.set(this.buttonActionBar, 'display', 'none');
@@ -145,23 +151,51 @@ define( [
             this._initializeSearches();
             this._createResultsGrid();
 
+            if ( this.plantDbMapLayer ) {
+                this.plantDbMapLayerCheckBoxDom.style.display = 'block';
+                this.showPlantDbMapLayerDijit.set( 'checked', this.plantDbMapLayer.visible );
+            }
+
         },
 
         _createFeatureLayer: function () {
 
-            this.featureLayer = new FeatureLayer( this.baseServiceUrl, {
+            var featureLayer = new FeatureLayer( this.baseServiceUrl + '/' + this.featureLayerIndex, {
                 visible: true,
                 mode: FeatureLayer.MODE_ONDEMAND,
                 outFields: [ "*" ]
             } );
-            this.featureLayer.setDefinitionExpression( '1=2' );
-            this.featureLayer.infoTemplate = this._createFeatureLayerInfoTemplate();
+            featureLayer.setDefinitionExpression( '1=2' );
+            featureLayer.infoTemplate = this._createFeatureLayerInfoTemplate();
 
-            on( this.featureLayer, 'update-end', lang.hitch( this, this._onFeatureLayerUpdateEnd ) );
-            on( this.featureLayer, 'update-start', lang.hitch( this, this._onFeatureLayerUpdateStart ) );
+            on( featureLayer, 'update-end', lang.hitch( this, this._onFeatureLayerUpdateEnd ) );
+            on( featureLayer, 'update-start', lang.hitch( this, this._onFeatureLayerUpdateStart ) );
 
-            this.map.addLayer( this.featureLayer );
+            this.map.addLayer( featureLayer );
 
+            return featureLayer;
+
+        },
+
+
+        _getPlantDbMapLayer: function () {
+
+            var plantDbMaplayer = null;
+
+            array.forEach( this.map.layerIds, function ( layerId ) {
+
+                var layer = this.map.getLayer( layerId );
+
+                if ( layer && layer.url === this.baseServiceUrl ) {
+                    plantDbMaplayer = layer;
+                    on( plantDbMaplayer, 'visibility-change', lang.hitch( this, function( event ) {
+                        this.showPlantDbMapLayerDijit.set( 'checked', event.visible );
+                    } ) );
+                }
+
+            }, this );
+
+            return plantDbMaplayer;
         },
 
         _createFeatureLayerInfoTemplate: function () {
@@ -401,6 +435,19 @@ define( [
 
             }, this );
 
+        },
+
+        _setPlantDbMapLayerVisibility: function ( visible ) {
+
+            if ( !this.plantDbMapLayer ) {
+                return;
+            }
+
+            if ( visible ) {
+                this.plantDbMapLayer.show();
+            } else {
+                this.plantDbMapLayer.hide();
+            }
         }
 
     } );

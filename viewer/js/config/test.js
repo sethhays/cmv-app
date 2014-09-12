@@ -214,6 +214,20 @@ define([
                     infoTemplates: panoInfoTemplates,
                     outFields: ['LOCATIONID']
                 }
+            },
+            {
+                type   : 'dynamic',
+                url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/PlantDatabase/PlantDatabaseMap/MapServer',
+                title  : 'Plant Database',
+                slider: false,
+                noLegend: false,
+                collapsed: false,
+                options: {
+                    id     : 'plantDatabaseMapLayer',
+                    opacity: 1.0,
+                    visible: false,
+                    imageParameters: imageParameters
+                }
             }],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
 		widgets: {
@@ -247,14 +261,14 @@ define([
                 }
             },
             layerControl: {
-                include: false,
+                include: true,
                 id: 'layerControl',
                 type: 'titlePane',
                 path: 'gis/dijit/LayerControl',
                 title: 'Layers',
                 open: true,
-                position: 0,
-                placeAt: 'right',
+                position: 2,
+                placeAt: 'left',
                 canFloat: true,
                 options: {
                     map: true,
