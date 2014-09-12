@@ -3,6 +3,7 @@
 // - add controls to turn plant map on
 // - use highlight symbol over plant map
 // - use unique value renderer without map, get symbols from legend service
+// - - https://fis.ipf.msu.edu/arcgis/rest/services/PlantDatabase/PlantDatabaseMap/MapServer/5?f=pjson
 // - reset function
 // - plant_name search
 // - warrantied plant searches
