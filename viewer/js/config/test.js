@@ -214,9 +214,52 @@ define([
                     infoTemplates: panoInfoTemplates,
                     outFields: ['LOCATIONID']
                 }
+            },
+            {
+                type   : 'dynamic',
+                url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/PlantDatabase/PlantDatabaseMap/MapServer',
+                title  : 'Plant Database',
+                slider: false,
+                noLegend: false,
+                collapsed: false,
+                options: {
+                    id     : 'plantDatabaseMapLayer',
+                    opacity: 1.0,
+                    visible: false,
+                    imageParameters: imageParameters
+                }
             }],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
 		widgets: {
+            googleAnalytics: {
+                include: true,
+                id: 'googAnalytics',
+                type: 'invisible',
+                path: 'gis/dijit/GoogleAnalytics',
+                options: {
+                    map: true,  //reguired to track map and layer events
+                    gaAccount: 'UA-XXX00774-02',
+                    events: {
+                        map: ['extent-change','basemap-change' ], //array of map events
+                        layer: [ 'visibility-change', 'update-end' ], //array of layer events
+                        titlePane: [ 'open', 'close', 'dock', 'undock' ] //array of 'open', 'close', 'dock', 'undock'
+                    }
+                }
+            },
+            plantDb: {
+                include: true,
+                id: 'plantDb',
+                type: 'titlePane',
+                path: 'fis/dijit/campus/PlantDb',
+                title: 'Plant Database',
+                open: true,
+                position: 0,
+                placeAt: 'right',
+                canFloat: true,
+                options: {
+                    map: true
+                }
+            },
             layerControl: {
                 include: true,
                 id: 'layerControl',
@@ -224,8 +267,9 @@ define([
                 path: 'gis/dijit/LayerControl',
                 title: 'Layers',
                 open: true,
-                position: 0,
-                placeAt: 'right',
+                position: 2,
+                placeAt: 'left',
+                canFloat: true,
                 options: {
                     map: true,
                     layerControlLayerInfos: true,
@@ -238,7 +282,10 @@ define([
                 type: 'titlePane',
                 title: 'Historical Imagery',
                 path: 'gis/dijit/LayerSwapper',
+                placeAt: 'right',
+                position: 0,
                 open: true,
+                canFloat: true,
                 options: {
                     map: true,
                     layerInfos: [
@@ -359,6 +406,36 @@ define([
                         }
                     ]
                 }
+            },
+            mapInfo: {
+                include: true,
+                id: 'mapInfo',
+                type: 'domNode',
+                path: 'gis/dijit/MapInfo',
+                srcNodeRef: 'mapInfoDijit',
+                options: {
+                    map: true, //required
+                    mode: 'map', //'map', 'dec' or 'dms'
+                    firstCoord: 'x', //which coord to display first ('x')
+                    unitScale: 6, //coord decimal places (2)(affects seconds in 'dms' format)
+                    showScale: true, //show map scale (false)
+                    showZoom: true, //show zoom level (false)
+                    xLabel: 'X:', //label for x coord ('X:')
+                    yLabel: 'Y:', //label for y coord ('Y:')
+                    scaleLabel: '1:', //label for map scale ('1:')
+                    zoomLabel: 'Z', //label for zoom level ('Z')
+                    minWidth: 286, //minimum width in pixels of widget (0)(when 0 widget fits content)
+                    proj4Catalog: 'EPSG', //'ESRI', 'EPSG' or 'SR-ORG' **
+                    proj4Wkid: 102100 //wkid of the map **
+                }
+            },
+            basemaps: {
+                include: true,
+                id: 'basemaps',
+                type: 'domNode',
+                path: 'gis/dijit/Basemaps',
+                srcNodeRef: 'basemapsDijit',
+                options: 'config/basemaps'
             }
 		}
 	};

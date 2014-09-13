@@ -392,8 +392,8 @@ define([
             var sz = this.pointExtentSize; // hack
             var pt = point.geometry;
             var extent = new Extent({
-                'xmin': pt.x - sz,
-                'ymin': pt.y - sz,
+                'xmin': pt[ 0 ] - sz,
+                'ymin': pt[ 1 ] - sz,
                 'xmax': pt.x + sz,
                 'ymax': pt.y + sz,
                 'spatialReference': {

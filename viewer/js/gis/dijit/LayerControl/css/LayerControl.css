@@ -1,95 +1,101 @@
-.vectorLayerContainer {
+.layerControlDijit .vectorLayerContainer {
 
 }
 
-.overlayLayerContainer {
+.layerControlDijit .overlayLayerContainer {
 
 }
 
-.layerControl {
-    margin-bottom: 6px;
-    padding-bottom: 4px;
-    border-bottom: solid 1px #e5e5e5;
+.layerControlDijit .layerControl {
+	margin-bottom: 6px;
+	padding-bottom: 4px;
+	border-bottom: solid 1px #e5e5e5;
 }
 
-.layerControlTable {
-    width: 100%;
+.layerControlDijit .layerControl:last-child {
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+	border-bottom-width: 0px;
 }
 
-.layerControlTable tr {
-    vertical-align: middle;
+.layerControlDijit .layerControlTable {
+	width: 100%;
 }
 
-.layerControlTable td {
-    padding: 0;
+.layerControlDijit .layerControlTable tr {
+	vertical-align: middle;
 }
 
-.layerControlTableExpand {
-    cursor: pointer;
-    width: 18px;
-    height: 15px;
-    line-height: 15px;
+.layerControlDijit .layerControlTable td {
+	padding: 0;
 }
 
-.layerControlTableCheck {
-    cursor: pointer;
-    width: 19px;
-    height: 16px;
-    line-height: 16px;
+.layerControlDijit .layerControlTableExpand {
+	cursor: pointer;
+	width: 18px;
+	height: 15px;
+	line-height: 15px;
 }
 
-.layerControlTableLabel {
-    font-size: 15px;
-    height: 16px;
-    line-height: 16px;
+.layerControlDijit .layerControlTableCheck {
+	cursor: pointer;
+	width: 19px;
+	height: 16px;
+	line-height: 16px;
 }
 
-.layerControlTableUpdate {
-    width: 21px;
-    height: 16px;
-    line-height: 16px;
-    text-align: center;
+.layerControlDijit .layerControlTableLabel {
+	font-size: 15px;
+	height: 16px;
+	line-height: 16px;
 }
 
-.layerControlIndent {
-    padding-left: 22px;
+.layerControlDijit .layerControlTableUpdate {
+	width: 21px;
+	height: 16px;
+	line-height: 16px;
+	text-align: center;
 }
 
-.layerControlIcon {
-    font-size: 16px;
+.layerControlDijit .layerControlIndent {
+	padding-left: 22px;
 }
 
-.layerControlUpdateIcon {
-    font-size: 12px
+.layerControlDijit .layerControlIcon {
+	font-size: 16px;
 }
 
-.layerControlCheckIconOutScale {
-    color: #BBB;
+.layerControlDijit .layerControlUpdateIcon {
+	font-size: 12px
 }
 
-.layerControlClick {
-    cursor: pointer;
-    color: #1f78af;
-    text-decoration: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+.layerControlDijit .layerControlCheckIconOutScale {
+	color: #BBB;
 }
 
-.layerControlClick:hover {
-    text-decoration: underline;
+.layerControlDijit .layerControlClick {
+	cursor: pointer;
+	color: #1f78af;
+	text-decoration: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
-.layerControlLegendTable tr {
-    vertical-align: middle;
+.layerControlDijit .layerControlClick:hover {
+	text-decoration: underline;
 }
 
-.layerControlLegendImage > img {
-    border: none;
-    padding: 0;
+.layerControlDijit .layerControlLegendTable tr {
+	vertical-align: middle;
 }
 
-.layerControlLegendLabel {
-    padding: 0 0 0 4px;
+.layerControlDijit .layerControlLegendImage > img {
+	border: none;
+	padding: 0;
+}
+
+.layerControlDijit .layerControlLegendLabel {
+	padding: 0 0 0 4px;
 }

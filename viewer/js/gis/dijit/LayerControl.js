@@ -22,14 +22,15 @@ define([
 ) {
     'use strict';
     return declare([WidgetBase, Container], {
+        baseClass: 'layerControlDijit',
         _vectorContainer: null, //vector layer control container
         _overlayContainer: null, //overlay layer control container
         _controls: {
             dynamic: 'gis/dijit/LayerControl/controls/Dynamic',
-            feature: 'gis/dijit/LayerControl/controls/Feature'
-                //image: 'gis/dijit/LayerController/controls/Image',
-                //tiled: 'gis/dijit/LayerController/controls/Tiled',
-                //webTiled: 'gis/dijit/LayerController/controls/WebTiled'
+            feature: 'gis/dijit/LayerControl/controls/Feature',
+            image: 'gis/dijit/LayerControl/controls/Image',
+            tiled: 'gis/dijit/LayerControl/controls/Tiled'
+                //webTiled: 'gis/dijit/LayerControl/controls/WebTiled'
         },
         constructor: function(options) {
             options = options || {};
@@ -66,6 +67,13 @@ define([
             }
             //push used controls
             array.forEach(this.layerInfos, function(layerInfo) {
+
+                // if a layer is excluded, no need to load the control for that layer type
+                var controlOptions = layerInfo.controlOptions;
+                if (controlOptions && controlOptions.exclude === true) {
+                    return;
+                }
+
                 var mod = this._controls[layerInfo.type];
                 if (mod) {
                     modules.push(mod);
@@ -73,9 +81,16 @@ define([
                     console.log('LayerControl error::the layer type "' + layerInfo.type + '" is not valid');
                 }
             }, this);
+
             //load and go
             require(modules, lang.hitch(this, function() {
                 array.forEach(this.layerInfos, function(layerInfo) {
+                    // allow layer to be excluded from widget
+                    var controlOptions = layerInfo.controlOptions;
+                    if (controlOptions && controlOptions.exclude === true) {
+                        return;
+                    }
+
                     var control = this._controls[layerInfo.type];
                     if (control) {
                         require([control], lang.hitch(this, '_addControl', layerInfo));

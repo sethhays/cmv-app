@@ -1,0 +1,49 @@
+<div class="plantDbDijit">
+
+    <div class="formContainer">
+
+        <div data-dojo-attach-point="searchSelectContainer" class="searchSelectDom">
+
+            <label>Select plant search:</label>
+            <span class="layerControlUpdate">
+                <i data-dojo-attach-point="layerUpdateNode"
+                   class="fa fa-refresh fa-spin layerControlUpdateIcon"
+                   style="display:none;"></i>
+            </span>
+            <br />
+
+
+            <input type="select"
+                   data-dojo-type="dijit/form/Select"
+                   data-dojo-props="class: 'searchSelect',sortByLabel:false"
+                   data-dojo-attach-point="searchSelectDijit"
+                   data-dojo-attach-event="onChange:_onSearchChange" />
+
+        </div>
+
+        <div data-dojo-attach-point="queryTextContainer" style="display: none">
+            <label>Search For Text:</label><br/>
+            <input type="text"
+                   data-dojo-type="dijit.form.ValidationTextBox"
+                   data-dojo-attach-point="searchInputDijit"
+                   data-dojo-props="name:'searchText',trim:true,required:true,value:'',placeholder:'Enter the text you want to search for.',class:'searchText'" /><br/>
+        </div>
+
+    </div>
+
+    <div data-dojo-attach-point="noResultsMessage" style="display: none">
+        <p class="text-warning">
+            <em>No results found.  Please try adjusting your query or changing the map extent.</em>
+        </p>
+    </div>
+
+    <div data-dojo-attach-point="searchResultsGridContainer" class="searchResultsGridContainer">
+
+        <div data-dojo-attach-point="searchResultsGrid"
+             class="resultsGrid"></div>
+
+        <p class="text-muted" data-dojo-attach-point="searchResultsRecordCount"></p>
+
+    </div>
+
+</div>
