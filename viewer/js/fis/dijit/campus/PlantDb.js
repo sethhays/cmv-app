@@ -423,7 +423,7 @@ define( [
             var query = search.autoLoad ? search.queryWhere : '1=2';
 
             this.queryTextContainer.style.display = search.autoLoad ? 'none' : 'block';
-            this.searchResultsGrid.style.display = 'none';
+            this.searchResultsGridContainer.style.display = 'none';
 
             this._setFeatureLayerDefinitionExpression( query );
 
@@ -506,10 +506,11 @@ define( [
             this.resultsGrid.refresh();
 
             if ( this.featureLayer.graphics.length > 0 ) {
-                this.searchResultsGrid.style.display = 'block';
+                this.searchResultsGridContainer.style.display = 'block';
                 this.noResultsMessage.style.display = 'none';
+                this.searchResultsRecordCount.innerText = this.featureLayer.graphics.length + ' total records..';
             } else {
-                this.searchResultsGrid.style.display = 'none';
+                this.searchResultsGridContainer.style.display = 'none';
                 this.noResultsMessage.style.display = 'block';
             }
 
@@ -521,7 +522,7 @@ define( [
 
             this.layerUpdateNode.style.display = 'block';
             this.noResultsMessage.style.display = 'none';
-            this.searchResultsGrid.style.display = 'none';
+            this.searchResultsGridContainer.style.display = 'none';
             this.featureLayerUpdating = true;
 
         },
