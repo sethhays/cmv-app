@@ -7,6 +7,8 @@ define([
     'dojo/dom-class',
     'dojo/on',
     'dojo/_base/array',
+    'dojo/router',
+    'dojo/hash',
     'dijit/layout/BorderContainer',
     'dijit/layout/ContentPane',
     'gis/dijit/FloatingTitlePane',
@@ -19,7 +21,7 @@ define([
     'dojo/has',
     'esri/dijit/PopupMobile',
     'dijit/Menu'
-], function(declare, Map, dom, domStyle, domGeom, domClass, on, array, BorderContainer, ContentPane, FloatingTitlePane, lang, mapOverlay, IdentityManager, FloatingWidgetDialog, put, aspect, has, PopupMobile, Menu) {
+], function(declare, Map, dom, domStyle, domGeom, domClass, on, array, router, hash, BorderContainer, ContentPane, FloatingTitlePane, lang, mapOverlay, IdentityManager, FloatingWidgetDialog, put, aspect, has, PopupMobile, Menu) {
 
     return {
         legendLayerInfos: [],
@@ -42,7 +44,61 @@ define([
             }
         },
         collapseButtons: {},
-        startup: function(config) {
+        currentConfig: null,
+
+        startup: function(config){
+
+            console.log( hash() );
+
+            router.register( '/:config/:lng/:lat/:zoom', lang.hitch( this, this._onHashChange ) );
+            router.register( '/:config/:lng/:lat', lang.hitch( this, this._onHashChange ) );
+            router.register( '/:config', lang.hitch( this, this._onHashChange ) );
+            router.startup();
+
+            if ( hash() !== '' ) {
+                router.go( hash() );
+            } else {
+                this.initialize( config );
+            }
+
+        },
+
+        _onHashChange: function ( event ) {
+            console.log( event );
+
+            var config = event.params.config || 'viewer';
+            var configPath = 'config/' + config;
+
+            var lng = event.params.lng || null;
+            var lat = event.params.lat || null;
+            var zoom = event.params.zoom || null;
+
+            if ( this.currentConfig && this.currentConfig === configPath ) {
+                return;
+            }
+
+            if ( this.currentConfig ) {
+                location.reload();
+            } else {
+                this.currentConfig = configPath;
+            }
+
+            require( [ this.currentConfig ], lang.hitch( this, function( lng, lat, zoom, config ) {
+
+                var center = config.mapOptions.center || [ lng,lat ];
+                var newLng = lng || center[0];
+                var newLat = lat || center[1];
+                config.mapOptions.center = [ newLng, newLat ];
+
+                var newZoom = zoom || config.mapOptions.zoom;
+                config.mapOptions.zoom = newZoom;
+
+                this.initialize( config );
+                
+            }, lng, lat, zoom ) );
+        },
+
+        initialize: function(config) {
             this.config = config;
             this.mapClickMode = {
                 current: config.defaultMapClickMode,
