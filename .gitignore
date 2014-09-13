@@ -125,3 +125,4 @@ ConfigurableViewerJSAPI-GitLab.iml
 jsLibraryMappings.xml
 libraries
 workspace.xml
+deployment.xml
