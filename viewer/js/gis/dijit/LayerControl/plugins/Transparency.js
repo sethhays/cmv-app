@@ -32,7 +32,8 @@ define([
                 value: this.layer.opacity,
                 minimum: 0,
                 maximum: 1,
-                discreteValues: 11,
+                discreteValues: 21,
+                intermediateChanges: true,
                 showButtons: false,
                 onChange: lang.hitch(this, function(value) {
                     this.layer.setOpacity(value);
