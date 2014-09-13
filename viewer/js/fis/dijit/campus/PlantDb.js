@@ -86,6 +86,7 @@ define( [
 
         baseServiceUrl: '',
         featureLayerIndex: null,
+        featureLayerUpdating: false,
         plantDbMapLayer: null,
         featureLayer: {},
         heatMap: {},
@@ -220,7 +221,7 @@ define( [
         _createFeatureLayer: function () {
 
             var featureLayer = new FeatureLayer( this.baseServiceUrl + '/' + this.featureLayerIndex, {
-                visible: true,
+                visible: false,
                 mode: FeatureLayer.MODE_ONDEMAND,
                 outFields: [ "*" ]
             } );
@@ -228,8 +229,8 @@ define( [
             featureLayer.infoTemplate = this._createFeatureLayerInfoTemplate();
             featureLayer.setRenderer( this._getFeatureLayerRenderer() );
 
-            on( featureLayer, 'update-end', lang.hitch( this, this._onFeatureLayerUpdateEnd ) );
-            on( featureLayer, 'update-start', lang.hitch( this, this._onFeatureLayerUpdateStart ) );
+            on( featureLayer, 'update-end', lang.hitch( this, this._debounce( this._onFeatureLayerUpdateEnd, 200 ) ) );
+            on( featureLayer, 'update-start', lang.hitch( this, this._debounce( this._onFeatureLayerUpdateStart, 200 ) ) );
 
             this.map.addLayer( featureLayer );
 
@@ -471,14 +472,33 @@ define( [
 
         _setFeatureLayerDefinitionExpression: function( query ) {
 
+            if ( query === '1=2' ) {
+                this.featureLayer.hide();
+                return;
+            }
+
+
             this.featureLayer.suspend();
             this.featureLayer.setDefinitionExpression( query );
+
+            this.featureLayer.show();
             this.featureLayer.refresh();
             this.featureLayer.resume();
 
         },
 
         _onFeatureLayerUpdateEnd: function ( event ) {
+
+            this.featureLayerUpdating = false;
+            this._updateResultsGrid();
+
+        },
+
+        _updateResultsGrid: function ( event ) {
+
+            if ( this.featureLayerUpdating ) {
+                return;
+            }
 
             var storeItems = this._createStoreItemsFromGraphics( this.featureLayer.graphics );
 
@@ -487,16 +507,22 @@ define( [
 
             if ( this.featureLayer.graphics.length > 0 ) {
                 this.searchResultsGrid.style.display = 'block';
+                this.noResultsMessage.style.display = 'none';
             } else {
                 this.searchResultsGrid.style.display = 'none';
+                this.noResultsMessage.style.display = 'block';
             }
 
             this.layerUpdateNode.style.display = 'none';
+
         },
 
         _onFeatureLayerUpdateStart: function ( event ) {
 
             this.layerUpdateNode.style.display = 'block';
+            this.noResultsMessage.style.display = 'none';
+            this.searchResultsGrid.style.display = 'none';
+            this.featureLayerUpdating = true;
 
         },
 
@@ -519,6 +545,22 @@ define( [
                 return mappedItem;
 
             }, this );
+
+        },
+
+        _debounce: function(func, wait, immediate) {
+            var timeout;
+            return function () {
+                var context = this, args = arguments;
+                var later = function () {
+                    timeout = null;
+                    if ( !immediate ) func.apply ( context, args );
+                };
+                var callNow = immediate && !timeout;
+                clearTimeout ( timeout );
+                timeout = setTimeout ( later, wait );
+                if ( callNow ) func.apply ( context, args );
+            }
 
         }
 
