@@ -83,13 +83,13 @@ define([
 
             if ( routeEvent ) {
 
-                config = 'viewer';
+                config = 'facilityinfrastructure';
                 config = routeEvent.params.config || config;
                 config  = 'config/' + config;
 
             } else {
 
-                config = 'config/viewer';
+                config = 'config/facilityinfrastructure';
                 var s = window.location.search,
                     q = s.match(/config=([^&]*)/i);
                 if (q && q.length > 0) {
