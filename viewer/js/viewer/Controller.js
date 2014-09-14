@@ -89,10 +89,12 @@ define([
 
             } else {
 
-                config = 'config/viewer', s = window.location.search, q = s.match(/config=([^&]*)/i);
+                config = 'config/viewer';
+                var s = window.location.search,
+                    q = s.match(/config=([^&]*)/i);
                 if (q && q.length > 0) {
                     config = q[1];
-                    if(file.indexOf('/') < 0) {
+                    if(config.indexOf('/') < 0) {
                         config = 'config/' + config;
                     }
                 }
