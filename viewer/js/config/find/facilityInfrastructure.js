@@ -16,6 +16,13 @@ define({
                    minChars: 2
                },
                {
+                   description: 'Project Boundaries',
+                   url: 'https://fis.ipf.msu.edu/arcgis/rest/services/CampusInfo/ProjectandDetourInformation/MapServer/',
+                   layerIds: [1,2],
+                   searchFields: ['PROJECT','DESCRIPTION','ASSIGNED_TO','PROJECT_MANAGER', 'AE', 'CM'],
+                   minChars: 2
+               },
+               {
                    description: 'Chilled Water Valves',
                    url: 'https://fis.ipf.msu.edu/arcgis/rest/services/UtilityInfrastructure/ChilledWater/MapServer',
                    layerIds: [1,2,8,9,15,16,21,22],
