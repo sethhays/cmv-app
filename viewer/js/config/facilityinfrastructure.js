@@ -222,6 +222,10 @@ define([
                     minScale: 2500,
                     infoTemplates: panoInfoTemplates,
                     outFields: ['LOCATIONID']
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -236,6 +240,10 @@ define([
                     opacity: 1.0,
                     visible: false,
                     imageParameters: imageParameters
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -250,6 +258,10 @@ define([
                     opacity: 1.0,
                     visible: false,
                     imageParameters: imageParameters
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -264,6 +276,10 @@ define([
                     opacity: 1.0,
                     visible: false,
                     imageParameters: imageParameters
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -278,6 +294,10 @@ define([
                     opacity: 1.0,
                     visible: false,
                     imageParameters: imageParameters
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -293,6 +313,10 @@ define([
                     visible: false,
                     imageParameters: imageParameters,
                     infoTemplates: utilityLayerInfoTemplates.chilledWater
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -308,6 +332,10 @@ define([
                     visible: false,
                     imageParameters: imageParameters,
                     infoTemplates: utilityLayerInfoTemplates.communication
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -323,6 +351,10 @@ define([
                     visible: false,
                     imageParameters: imageParameters,
                     infoTemplates: utilityLayerInfoTemplates.electric
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -337,6 +369,10 @@ define([
                     opacity: 1.0,
                     visible: false,
                     imageParameters: imageParameters
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -351,6 +387,10 @@ define([
                     opacity: 1.0,
                     visible: false,
                     imageParameters: imageParameters
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -365,6 +405,10 @@ define([
                     opacity: 1.0,
                     visible: false,
                     imageParameters: imageParameters
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -379,6 +423,10 @@ define([
                     opacity: 1.0,
                     visible: false,
                     imageParameters: imageParameters
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -394,6 +442,10 @@ define([
                     visible: false,
                     imageParameters: imageParameters,
                     infoTemplates: utilityLayerInfoTemplates.potableWater
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -409,6 +461,10 @@ define([
                     visible: false,
                     imageParameters: imageParameters,
                     infoTemplates: utilityLayerInfoTemplates.rawWater
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -423,6 +479,10 @@ define([
                     opacity: 1.0,
                     visible: false,
                     imageParameters: imageParameters
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -437,6 +497,10 @@ define([
                     opacity: 1.0,
                     visible: false,
                     imageParameters: imageParameters
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -451,6 +515,10 @@ define([
                     opacity: 1.0,
                     visible: false,
                     imageParameters: imageParameters
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -465,6 +533,10 @@ define([
                     opacity: 1.0,
                     visible: false,
                     imageParameters: imageParameters
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -479,6 +551,10 @@ define([
                     opacity: 0.75,
                     visible: true,
                     imageParameters: imageParameters
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             },
             {
@@ -493,6 +569,10 @@ define([
                     opacity: 1.0,
                     visible: false,
                     imageParameters: imageParameters
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
                 }
             }],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
@@ -507,7 +587,7 @@ define([
                     gaAccount: 'UA-47767747-5',  //CMV Apps code, for testing, probably want separate code for separate apps
                     events: {
                         map: ['extent-change','basemap-change' ], //array of map events
-                        layer: [ 'visibility-change', 'update-end' ], //array of layer events
+                        layer: [ 'visibility-change' ], //array of layer events
                         titlePane: [ 'open', 'close', 'dock', 'undock' ] //array of 'open', 'close', 'dock', 'undock'
                     }
                 }
