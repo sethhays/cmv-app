@@ -478,7 +478,8 @@ define([
                     id     : 'sanitaryMapLayer',
                     opacity: 1.0,
                     visible: false,
-                    imageParameters: imageParameters
+                    imageParameters: imageParameters,
+                    infoTemplates: utilityLayerInfoTemplates.sanitary
                 },
                 controlOptions: {
                     transparency: true, //include transparency plugin
@@ -514,7 +515,8 @@ define([
                     id     : 'stormWaterMapLayer',
                     opacity: 1.0,
                     visible: false,
-                    imageParameters: imageParameters
+                    imageParameters: imageParameters,
+                    infoTemplates: utilityLayerInfoTemplates.storm
                 },
                 controlOptions: {
                     transparency: true, //include transparency plugin
@@ -646,7 +648,7 @@ define([
                 placeAt: 'right',
                 position: 2,
                 canFloat: true,
-                options: 'config/layerSwapperHistoricalImagery'
+                options: 'config/layerSwapper/historicalImagery'
             },
             campusInfoFeatures: {
                 include: true,
@@ -777,7 +779,7 @@ define([
 				title: 'Find',
 				open: true,
 				position: 0,
-				options: 'config/find'
+				options: 'config/find/facilityinfrastructure'
 			},
 			measure: {
 				include: true,

@@ -19,15 +19,15 @@ define ( [
             _buildInfoTemplates: function () {
 
                 array.forEach( this.chwsLayers.pipes, function( layerId ) {
-                    this.infoTemplates[ layerId ] = { infoTemplate: this._getRouteInfoTemplates( 'CHWS' ) };
+                    this.infoTemplates[ layerId ] = { infoTemplate: this._getPipeInfoTemplates( 'CHWS' ) };
                 }, this );
 
                 array.forEach( this.chwrLayers.pipes, function( layerId ) {
-                    this.infoTemplates[ layerId ] = { infoTemplate: this._getRouteInfoTemplates( 'CHWR' ) };
+                    this.infoTemplates[ layerId ] = { infoTemplate: this._getPipeInfoTemplates( 'CHWR' ) };
                 }, this );
 
                 array.forEach( this.geoLayers.pipes, function( layerId ) {
-                    this.infoTemplates[ layerId ] = { infoTemplate: this._getRouteInfoTemplates( 'GEOTH' ) };
+                    this.infoTemplates[ layerId ] = { infoTemplate: this._getPipeInfoTemplates( 'GEOTH' ) };
                 }, this );
 
                 array.forEach( this.chwsLayers.nodes, function( layerId ) {
@@ -44,7 +44,7 @@ define ( [
 
             },
 
-            _getRouteInfoTemplates: function ( watCategory ) {
+            _getPipeInfoTemplates: function ( watCategory ) {
 
                 var infoTemplate = new InfoTemplate();
                 infoTemplate.setTitle( watCategory + ' Water Pipe' );
