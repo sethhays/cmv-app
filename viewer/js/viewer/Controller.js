@@ -15,13 +15,14 @@ define([
     'dojo/_base/lang',
     'dojo/text!./templates/mapOverlay.html',
     'esri/IdentityManager',
+    'esri/geometry/webMercatorUtils',
     'gis/dijit/FloatingWidgetDialog',
     'put-selector',
     'dojo/aspect',
     'dojo/has',
     'esri/dijit/PopupMobile',
     'dijit/Menu'
-], function(declare, Map, dom, domStyle, domGeom, domClass, on, array, router, hash, BorderContainer, ContentPane, FloatingTitlePane, lang, mapOverlay, IdentityManager, FloatingWidgetDialog, put, aspect, has, PopupMobile, Menu) {
+], function(declare, Map, dom, domStyle, domGeom, domClass, on, array, router, hash, BorderContainer, ContentPane, FloatingTitlePane, lang, mapOverlay, IdentityManager, webMercatorUtils, FloatingWidgetDialog, put, aspect, has, PopupMobile, Menu) {
 
     return {
         legendLayerInfos: [],
@@ -45,45 +46,71 @@ define([
         },
         collapseButtons: {},
         currentConfig: null,
+        mapUpdating: false,
+        hashUpdating: false,
 
-        startup: function(config){
+        startup: function(){
 
-            console.log( hash() );
-
-            router.register( '/:config/:lng/:lat/:zoom', lang.hitch( this, this._onHashChange ) );
-            router.register( '/:config/:lng/:lat', lang.hitch( this, this._onHashChange ) );
-            router.register( '/:config', lang.hitch( this, this._onHashChange ) );
+            router.register( '/:config/:lng/:lat/:zoom', lang.hitch( this, this.onHashChange ) );
+            router.register( '/:config/:lng/:lat', lang.hitch( this, this.onHashChange ) );
+            router.register( '/:config', lang.hitch( this, this.onHashChange ) );
             router.startup();
 
             if ( hash() !== '' ) {
                 router.go( hash() );
             } else {
-                this.initialize( config );
+                this.loadConfigFromUrl();
             }
 
         },
+        onHashChange: function ( event ) {
 
-        _onHashChange: function ( event ) {
-            console.log( event );
+            var config = this.getConfig( event );
 
-            var config = event.params.config || 'viewer';
-            var configPath = 'config/' + config;
-
-            var lng = event.params.lng || null;
-            var lat = event.params.lat || null;
-            var zoom = event.params.zoom || null;
-
-            if ( this.currentConfig && this.currentConfig === configPath ) {
-                return;
-            }
-
-            if ( this.currentConfig ) {
+            if ( this.currentConfig && this.currentConfig !== config ) {
                 location.reload();
+            } else if ( this.currentConfig && this.currentConfig === config ) {
+                this.setCenterAndZoom( event );
             } else {
-                this.currentConfig = configPath;
+                this.loadConfigFromRoute( event );
+
             }
 
-            require( [ this.currentConfig ], lang.hitch( this, function( lng, lat, zoom, config ) {
+        },
+        getConfig: function ( routeEvent ) {
+
+            var config;
+
+            if ( routeEvent ) {
+
+                config = 'viewer';
+                config = routeEvent.params.config || config;
+                config  = 'config/' + config;
+
+            } else {
+
+                config = 'config/viewer', s = window.location.search, q = s.match(/config=([^&]*)/i);
+                if (q && q.length > 0) {
+                    config = q[1];
+                    if(file.indexOf('/') < 0) {
+                        config = 'config/' + config;
+                    }
+                }
+
+            }
+
+            return config;
+        },
+        loadConfigFromRoute: function ( routeEvent ) {
+
+            var config = this.getConfig( routeEvent );
+            this.currentConfig = config;
+
+            var lng = routeEvent.params.lng || null;
+            var lat = routeEvent.params.lat || null;
+            var zoom = routeEvent.params.zoom || null;
+
+            require( [ config ], lang.hitch( this, function( lng, lat, zoom, config ) {
 
                 var center = config.mapOptions.center || [ lng,lat ];
                 var newLng = lng || center[0];
@@ -94,16 +121,41 @@ define([
                 config.mapOptions.zoom = newZoom;
 
                 this.initialize( config );
-                
-            }, lng, lat, zoom ) );
-        },
 
+            }, lng, lat, zoom ) );
+
+        },
+        loadConfigFromUrl: function () {
+
+            var config = this.getConfig( null );
+            this.currentConfig = config;
+
+            require( [ config ], lang.hitch( this, function( config ) {
+                this.initialize( config );
+            } ) );
+
+        },
+        setCenterAndZoom: function ( routeEvent ) {
+
+            if ( !this.hashUpdating ) {
+
+                this.mapUpdating = true;
+                var zoom = routeEvent.params.zoom || this.map.getLevel();
+
+                this.map.centerAndZoom([routeEvent.params.lng, routeEvent.params.lat], zoom).then( lang.hitch( this, function () {
+                    this.mapUpdating = false;
+                }));
+
+            }
+        },
         initialize: function(config) {
+
             this.config = config;
             this.mapClickMode = {
                 current: config.defaultMapClickMode,
                 defaultMode: config.defaultMapClickMode
             };
+
             // simple feature detection. kinda like dojox/mobile without the overhead
             if (has('touch') && (has('ios') || has('android') || has('bb'))) {
                 has.add('mobile', true);
@@ -113,8 +165,10 @@ define([
                     has.add('tablet', true);
                 }
             }
+
             this.initTitles();
             this.initPanes();
+
         },
         initTitles: function() {
           var titles = lang.mixin( {
@@ -209,10 +263,14 @@ define([
             this.panes.outer.resize();
         },
         initMap: function() {
+
             if (has('phone') && !this.config.mapOptionsinfoWindow) {
                 this.config.mapOptions.infoWindow = new PopupMobile(null, put('div'));
             }
             this.map = new Map('mapCenter', this.config.mapOptions);
+
+            on( this.map, 'extent-change', lang.hitch( this, this.updateLocationHash ) );
+
             // create right-click menu
             this.mapRightClickMenu = new Menu({
                 targetNodeIds: [this.map.root],
@@ -220,16 +278,41 @@ define([
             });
             this.mapRightClickMenu.startup();
 
+
+
             if (this.config.mapOptions.basemap) {
                 this.map.on('load', lang.hitch(this, 'initLayers'));
             } else {
                 this.initLayers();
             }
+
             if (this.config.operationalLayers && this.config.operationalLayers.length > 0) {
                 on.once(this.map, 'layers-add-result', lang.hitch(this, 'initWidgets'));
             } else {
                 this.initWidgets();
             }
+
+        },
+        updateLocationHash: function( event ) {
+
+            if ( !this.mapUpdating ) {
+
+                this.hashUpdating = true;
+
+                var x = (event.extent.xmax + event.extent.xmin) / 2,
+                    y = (event.extent.ymax + event.extent.ymin) / 2;
+                var geographicLocation = webMercatorUtils.xyToLngLat( x, y );
+
+                var currentHash = hash().split( '/' );
+                currentHash[ 1 ] = this.currentConfig.replace( 'config/', '' );
+                currentHash[ 2 ] = geographicLocation[0];
+                currentHash[ 3 ] = geographicLocation[1];
+                currentHash[ 4 ] = this.map.getLevel();
+
+                hash( currentHash.join('/') );
+                this.hashUpdating = false;
+            }
+
         },
         initLayers: function(evt) {
             this.map.on('resize', function(evt) {
