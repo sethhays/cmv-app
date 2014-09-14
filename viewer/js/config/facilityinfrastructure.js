@@ -5,8 +5,9 @@ define([
 	'esri/tasks/GeometryService',
 	'esri/layers/ImageParameters',
     'esri/InfoTemplate',
-    'fis/infoTemplates/UtilityLayerInfoTemplates'
-], function( units, Extent, esriConfig, GeometryService, ImageParameters, InfoTemplate, UtilityLayerInfoTemplates ) {
+    'fis/infoTemplates/UtilityLayerInfoTemplates',
+    'fis/infoTemplates/MiscLayerInfoTemplates'
+], function( units, Extent, esriConfig, GeometryService, ImageParameters, InfoTemplate, UtilityLayerInfoTemplates, MiscLayerInfoTemplates ) {
 
 	// url to your proxy page, must be on same machine hosting you app. See proxy folder for readme.
 	//esriConfig.defaults.io.proxyUrl = 'proxy/proxy.ashx';
@@ -28,6 +29,7 @@ define([
 
 
     var utilityLayerInfoTemplates = new UtilityLayerInfoTemplates();
+    var miscLayerInfoTemplates = new MiscLayerInfoTemplates();
 
 	return {
 		//optional page and browser titles
@@ -552,7 +554,8 @@ define([
                     id     : 'capitalProjectsDetoursMapLayer',
                     opacity: 0.75,
                     visible: true,
-                    imageParameters: imageParameters
+                    imageParameters: imageParameters,
+                    infoTemplates: miscLayerInfoTemplates.projectAndDetours
                 },
                 controlOptions: {
                     transparency: true, //include transparency plugin
