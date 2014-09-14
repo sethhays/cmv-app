@@ -203,12 +203,6 @@ define( [
                 })));
             }
 
-            on( this.map, 'extent-change', lang.hitch( this, function ( event ) {
-
-                this._updateFeatureLayerRenderer();
-
-            } ) );
-
         },
 
         startup: function () {
@@ -273,11 +267,10 @@ define( [
 
         _getFeatureLayerRenderer: function () {
 
-            var fillcolor = this.plantDbMapLayer.visible ? new Color( [ 0,0,0,0 ] ) : new Color( 'red' );
-            zoomLevelScaleFactor = this.map.getLevel() / 5;
-            var size = this.plantDbMapLayer.visible ? 12 * zoomLevelScaleFactor : 8 * zoomLevelScaleFactor;
-
-            var outline = new SimpleLineSymbol( SimpleLineSymbol.STYLE_SOLID, new Color('red'), 3 );
+            var fillcolor = this.plantDbMapLayer.visible ? new Color( [ 70,247,55,0.5 ] ) : new Color( [106,156,103,0.90] );
+            var outlineColor = this.plantDbMapLayer.visible ? new Color( [2,207,32,1.0 ] ) : new Color( [48,99,45,1.0] );
+            var size = 25;
+            var outline = new SimpleLineSymbol( SimpleLineSymbol.STYLE_SOLID, outlineColor, 3 );
             var circle = SimpleMarkerSymbol( SimpleMarkerSymbol.STYLE_CIRCLE, size, outline, fillcolor );
 
             return new SimpleRenderer( circle );
@@ -287,9 +280,9 @@ define( [
         _createFeatureLayerInfoTemplate: function () {
 
             var infoTemplate = new InfoTemplate();
-            infoTemplate.setTitle( '${PLANT_NAME}' );
+            infoTemplate.setTitle( 'BG-Base Plant' );
             infoTemplate.setContent(
-                '<ul class="list-unstyled">' +
+                '<h5>${PLANT_NAME}</h5><ul class="list-unstyled">' +
                      '<li><label>Accession No:&nbsp;</label>${ACC_NUM_AN}</li>' +
                      '<li><label>Comm. Name:&nbsp;</label>${COMMON_NAME}</li>' +
                      '<li><label>SubType:&nbsp;</label>${PLANT_SUBTYPE}</li>' +
