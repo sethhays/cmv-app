@@ -17,7 +17,7 @@ define ( [
             _buildInfoTemplates: function () {
 
                 array.forEach( this.layers.pipes, function( layerId ) {
-                    this.infoTemplates[ layerId ] = { infoTemplate: this._getRouteInfoTemplates( 'WEL' ) };
+                    this.infoTemplates[ layerId ] = { infoTemplate: this._getPipeInfoTemplates( 'WEL' ) };
                 }, this );
 
                 array.forEach( this.layers.nodes, function( layerId ) {
@@ -26,7 +26,7 @@ define ( [
 
             },
 
-            _getRouteInfoTemplates: function ( watCategory ) {
+            _getPipeInfoTemplates: function ( watCategory ) {
 
                 var infoTemplate = new InfoTemplate();
                 infoTemplate.setTitle( watCategory + ' Water Pipe' );

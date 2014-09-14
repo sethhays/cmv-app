@@ -8,7 +8,7 @@ define ( [
 
             infoTemplates: {},
 
-            layers: { pipes: [ 2,5,8,11 ], nodes: [ 1,4,7,10 ] },
+            layers: { pipes: [ 2,7,11,16 ], nodes: [ 1,6,10,15 ] },
 
             constructor: function () {
                 this._buildInfoTemplates();
@@ -17,34 +17,46 @@ define ( [
             _buildInfoTemplates: function () {
 
                 array.forEach( this.layers.pipes, function( layerId ) {
-                    this.infoTemplates[ layerId ] = { infoTemplate: this._getPipeInfoTemplates( 'WTR' ) };
+                    this.infoTemplates[ layerId ] = { infoTemplate: this._getPipeInfoTemplates() };
                 }, this );
 
                 array.forEach( this.layers.nodes, function( layerId ) {
-                    this.infoTemplates[ layerId ] = { infoTemplate: this._getNodeInfoTemplate( 'WTR' ) };
+                    this.infoTemplates[ layerId ] = { infoTemplate: this._getNodeInfoTemplate() };
                 }, this );
 
             },
 
-            _getPipeInfoTemplates: function ( watCategory ) {
+            _getPipeInfoTemplates: function () {
 
                 var infoTemplate = new InfoTemplate();
-                infoTemplate.setTitle( watCategory + ' Water Pipe' );
-                infoTemplate.setContent( '<ul class="list-unstyled">' +
+                infoTemplate.setTitle( 'Sanitary Pipe' );
+                infoTemplate.setContent( '<h5>${LABEL}</h5><ul class="list-unstyled">' +
                     '<li><label>Diameter:&nbsp;</label>${PIPE_DIA:NumberFormat(places:0)}"</li>' +
                     '<li><label>Material:&nbsp;</label>${PIPE_MATRL}</li>' +
+                    '<li><label>Shape:&nbsp;</label>${PIPE_SHAPE}</li>' +
+                    '<li><label>Type:&nbsp;</label>${PIPE_TYPE}</li>' +
+                    '<li><label>Slope:&nbsp;</label>${PIPE_SLOPE:NumberFormat(places:2)}</li>' +
+                    '<hr /> ' +
+                    '<li><label>St Node:&nbsp;</label>${START_NODE}</li>' +
+                    '<li><label>Grnd Elev:&nbsp;</label>${START_GRNDELEV:NumberFormat(places:2)}</li>' +
+                    '<li><label>Inv Elev:&nbsp;</label>${START_INVELEV:NumberFormat(places:2)}</li>' +
+                    '<hr /> ' +
+                    '<li><label>End Node:&nbsp;</label>${END_NODE}</li>' +
+                    '<li><label>Grnd Elev:&nbsp;</label>${END_GRNDELEV:NumberFormat(places:2)}</li>' +
+                    '<li><label>Inv Elev:&nbsp;</label>${END_INVELEV:NumberFormat(places:2)}</li>' +
+                    '<hr /> ' +
                     '<li><label>Status:&nbsp;</label>${STATUS}</li>' +
                     '<li><label>Owner:&nbsp;</label>${OWNER}</li>' +
-                    '<li><label>Length:&nbsp;</label>${GEOM_LENGTH:NumberFormat(places:0)}\'</li>' +
+                    '<li><label>Length:&nbsp;</label>${LENGTH_FT:NumberFormat(places:0)}\'</li>' +
                     '</ul>' );
 
                 return infoTemplate;
             },
 
-            _getNodeInfoTemplate: function ( watCategory ) {
+            _getNodeInfoTemplate: function () {
 
                 var infoTemplate = new InfoTemplate();
-                infoTemplate.setTitle( watCategory + ' Water Node' );
+                infoTemplate.setTitle( 'Sanitary Node' );
                 infoTemplate.setContent( '<h5>${LABEL}</h5><ul class="list-unstyled">' +
                     '<li><label>Node Type:&nbsp;</label>${NODE_TYPE}</li>' +
                     '<li><label>Elevation:&nbsp;</label>${NODE_ELEV:NumberFormat(places:2)}\'</li>' +

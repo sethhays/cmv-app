@@ -4,9 +4,19 @@ define ( [
             'fis/infoTemplates/PotableWaterInfoTemplates',
             'fis/infoTemplates/RawWaterInfoTemplates',
             'fis/infoTemplates/CommunicationInfoTemplates',
-            'fis/infoTemplates/ElectricInfoTemplates'
+            'fis/infoTemplates/ElectricInfoTemplates',
+            'fis/infoTemplates/SanitaryInfoTemplates',
+            'fis/infoTemplates/StormInfoTemplates'
 
-       ], function ( declare, ChilledWaterInfoTemplates, PotableWaterInfoTemplates, RawWaterInfoTemplates, CommunicationInfoTemplates, ElectricInfoTemplates ) {
+       ], function ( declare,
+                     ChilledWaterInfoTemplates,
+                     PotableWaterInfoTemplates,
+                     RawWaterInfoTemplates,
+                     CommunicationInfoTemplates,
+                     ElectricInfoTemplates,
+                     SanitaryInfoTemplates,
+                     StormInfoTemplates
+             ) {
 
              var infoTemplates = declare ( null, {
 
@@ -26,6 +36,12 @@ define ( [
 
                      var electricInfoTemplates = new ElectricInfoTemplates();
                      this.electric = electricInfoTemplates.infoTemplates;
+
+                     var sanitaryInfoTemplates = new SanitaryInfoTemplates();
+                     this.sanitary = sanitaryInfoTemplates.infoTemplates;
+
+                     var stormInfoTemplates = new StormInfoTemplates();
+                     this.storm = stormInfoTemplates.infoTemplates;
 
                  }
 

@@ -478,7 +478,8 @@ define([
                     id     : 'sanitaryMapLayer',
                     opacity: 1.0,
                     visible: false,
-                    imageParameters: imageParameters
+                    imageParameters: imageParameters,
+                    infoTemplates: utilityLayerInfoTemplates.sanitary
                 },
                 controlOptions: {
                     transparency: true, //include transparency plugin
@@ -514,7 +515,8 @@ define([
                     id     : 'stormWaterMapLayer',
                     opacity: 1.0,
                     visible: false,
-                    imageParameters: imageParameters
+                    imageParameters: imageParameters,
+                    infoTemplates: utilityLayerInfoTemplates.storm
                 },
                 controlOptions: {
                     transparency: true, //include transparency plugin
