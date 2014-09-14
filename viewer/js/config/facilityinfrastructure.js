@@ -648,7 +648,7 @@ define([
                 placeAt: 'right',
                 position: 2,
                 canFloat: true,
-                options: 'config/layerSwapperHistoricalImagery'
+                options: 'config/layerSwapper/historicalImagery'
             },
             campusInfoFeatures: {
                 include: true,
@@ -779,7 +779,7 @@ define([
 				title: 'Find',
 				open: true,
 				position: 0,
-				options: 'config/find'
+				options: 'config/find/facilityinfrastructure'
 			},
 			measure: {
 				include: true,
