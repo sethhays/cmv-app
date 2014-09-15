@@ -316,7 +316,6 @@ define( [
 
         _onWidgetOpen: function () {
 
-            console.log( this.featureLayer.getDefinitionExpression() );
             if ( this.featureLayer.getDefinitionExpression() !== '1=2' ) {
                 this.featureLayer.show();
             }
