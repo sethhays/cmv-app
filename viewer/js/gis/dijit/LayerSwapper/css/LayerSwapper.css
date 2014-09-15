@@ -6,6 +6,7 @@
 .gisLayerSwapperDijit label {
     font-weight: bold;
     margin-left: 5px;
+    display: inline;
 }
 
 .gisLayerSwapperDijit ul {
@@ -14,6 +15,10 @@
 
 .gisLayerSwapperDijit ul li {
     margin-bottom: 1em;
+}
+
+.gisLayerSwapperDijit ul li:last-of-type {
+    text-align: right;
 }
 
 .gisLayerSwapperDijit .layerSelectDom .layerSelectInput {
@@ -26,4 +31,21 @@
 
 .gisLayerSwapperDijit .layerSwipeDom .layerSwipeSelect .dijitStretch {
     width: 100%;
+}
+
+.gisLayerSwapperDijit .resetIcon {
+    color: #adadad;
+}
+
+.gisLayerSwapperDijit .layerControlUpdate {
+    width: 40px;
+    line-height: 15px;
+    text-align: center;
+    padding-right: 0px;
+    margin-left:10px;
+    float: right;
+}
+
+.gisLayerSwapperDijit .layerControlUpdate .layerControlUpdateIcon {
+    display: none;
 }

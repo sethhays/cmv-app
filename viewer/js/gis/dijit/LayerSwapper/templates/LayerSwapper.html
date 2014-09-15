@@ -8,6 +8,11 @@
 
                     <div class="layerSelect">
                         <label data-dojo-attach-point="layerSelectLabel">Select layer:</label>
+
+                        <span class="layerControlUpdate">
+                            <i data-dojo-attach-point="layerUpdateNode"
+                               class="fa fa-refresh fa-spin layerControlUpdateIcon"></i>
+                        </span>
                         <br />
                         <input type="select"
                                disabled
@@ -16,11 +21,7 @@
                                data-dojo-props="name:'label', autoComplete:true,required:false,searchAttr:'label',class:'layerSelectInput'"
                                data-dojo-attach-event="onChange:onLayerChange" />
 
-                    <span class="layerControlUpdate">
-                        <i data-dojo-attach-point="layerUpdateNode"
-                           class="fa fa-refresh fa-spin layerControlUpdateIcon"
-                           style="display:none;"></i>
-                    </span>
+
 
                     </div>
 
@@ -86,6 +87,19 @@
                 </div>
 
             </li>
+
+            <li>
+
+                <div data-dojo-type="dijit.form.Button"
+                     data-dojo-props="class:'resetButton'"
+                     data-dojo-attach-event="onClick:reset"
+                     data-dojo-attach-point="clearButtonDijit">
+                    Reset
+                    <i class="fa fa-refresh fa-fw resetIcon"></i>
+                </div>
+
+            </li>
+
         </ul>
 
     </div>

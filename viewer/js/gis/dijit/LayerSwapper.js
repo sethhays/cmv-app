@@ -229,6 +229,12 @@ define ( [
 
                      this.layerSwipeTypeSelect.set( 'value', 'none' );
 
+                 },
+
+                 reset: function () {
+
+                     this.layerSelectDijit.set( 'value', 0 );
+
                  }
 
 
