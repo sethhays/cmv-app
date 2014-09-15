@@ -315,7 +315,12 @@ define( [
         },
 
         _onWidgetOpen: function () {
-            this.featureLayer.show();
+
+            console.log( this.featureLayer.getDefinitionExpression() );
+            if ( this.featureLayer.getDefinitionExpression() !== '1=2' ) {
+                this.featureLayer.show();
+            }
+
         },
 
         _onWidgetClose: function () {
@@ -467,6 +472,7 @@ define( [
 
             if ( query === '1=2' ) {
                 this.featureLayer.hide();
+                this.featureLayer.setDefinitionExpression( query );
                 return;
             }
 
