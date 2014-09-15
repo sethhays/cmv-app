@@ -1,79 +1,92 @@
 <div class="gisLayerSwapperDijit">
     <div class="formContainer">
 
-        <div data-dojo-type="dijit/form/Form" data-dojo-attach-point="layerSwapperFormDijit">
+        <ul class="list-unstyled">
 
-            <div class="layerSelectDom">
+            <li>
+                <div class="layerSelectDom">
 
-                <div class="layerSelect">
-                    <label data-dojo-attach-point="layerSelectLabel">Select layer:</label>
-                    <br />
-                    <input type="select"
-                           disabled
-                           data-dojo-type="dijit/form/FilteringSelect"
-                           data-dojo-attach-point="layerSelectDijit"
-                           data-dojo-props="name:'label', autoComplete:true,required:false,searchAttr:'label',class:'layerSelectInput'"
-                           data-dojo-attach-event="onChange:onLayerChange" />
+                    <div class="layerSelect">
+                        <label data-dojo-attach-point="layerSelectLabel">Select layer:</label>
+                        <br />
+                        <input type="select"
+                               disabled
+                               data-dojo-type="dijit/form/FilteringSelect"
+                               data-dojo-attach-point="layerSelectDijit"
+                               data-dojo-props="name:'label', autoComplete:true,required:false,searchAttr:'label',class:'layerSelectInput'"
+                               data-dojo-attach-event="onChange:onLayerChange" />
 
                     <span class="layerControlUpdate">
                         <i data-dojo-attach-point="layerUpdateNode"
                            class="fa fa-refresh fa-spin layerControlUpdateIcon"
                            style="display:none;"></i>
                     </span>
+
+                    </div>
+
+
                 </div>
+            </li>
 
+            <li>
 
-            </div>
+                <div class="layerFadeDom">
 
-            <div class="layerFadeDom" >
-
-                <div data-dojo-attach-point="layerFadeSlider"
-                     data-dojo-type="dijit/form/HorizontalSlider"
-                     minimum="0"
-                     maximum="1"
-                     data-dojo-props="value:1.0"
-                     discreetValues="11"
-                     intermediateChanges="true"
-                     showButtons="false"
-                     data-dojo-attach-event="onChange:onLayerFaderChange">
-
-                    <div data-dojo-type="dijit/form/HorizontalRule"
-                         data-dojo-props="class:'layerFaderHr'"
-                         container="bottomDecoration"
-                         count=11 />
-
-                    <ol data-dojo-type="dijit/form/HorizontalRuleLabels"
-                        container="bottomDecoration"
-                        style="height:1em;font-size:75%;color:gray;">
-                        <li>0%</li>
-                        <li>50%</li>
-                        <li>100%</li>
-                    </ol>
-
-                     </div>
-            </div>
-
-            <div class="layerSwipeDom">
-
-                <div class="layerSelect">
-                    <label>Layer Swipe:</label>
+                    <label>Adjust transparency:</label>
                     <br />
-                    <select name="layerSwipeTypeSelect"
-                            data-dojo-type="dijit/form/Select"
-                            data-dojo-props="class: 'layerSwipeSelect'"
-                            data-dojo-attach-point="layerSwipeTypeSelect"
-                            data-dojo-attach-event="onChange:createLayerSwipeWidget">
+                    <div data-dojo-attach-point="layerFadeSlider"
+                         data-dojo-type="dijit/form/HorizontalSlider"
+                         minimum="0"
+                         maximum="1"
+                         data-dojo-props="value:1.0"
+                         discreetValues="11"
+                         intermediateChanges="true"
+                         showButtons="false"
+                         data-dojo-attach-event="onChange:onLayerFaderChange">
 
-                        <option value="none" selected="selected">None</option>
-                        <option value="horizontal" >Horizontal</option>
-                        <option value="vertical">Vertical</option>
-                        <option value="scope">Scope</option>
+                        <div data-dojo-type="dijit/form/HorizontalRule"
+                             data-dojo-props="class:'layerFaderHr'"
+                             container="bottomDecoration"
+                             count=11 />
 
-                    </select>
+                        <ol data-dojo-type="dijit/form/HorizontalRuleLabels"
+                            container="bottomDecoration"
+                            style="height:1em;font-size:75%;color:gray;">
+                            <li>0%</li>
+                            <li>50%</li>
+                            <li>100%</li>
+                        </ol>
+
+                    </div>
                 </div>
 
-            </div>
-        </div>
+            </li>
+
+            <li>
+
+                <div class="layerSwipeDom">
+
+                    <div class="layerSelect">
+                        <label>Layer swipe:</label>
+                        <br />
+                        <select name="layerSwipeTypeSelect"
+                                data-dojo-type="dijit/form/Select"
+                                data-dojo-props="class: 'layerSwipeSelect'"
+                                data-dojo-attach-point="layerSwipeTypeSelect"
+                                data-dojo-attach-event="onChange:createLayerSwipeWidget">
+
+                            <option value="none" selected="selected">None</option>
+                            <option value="horizontal" >Horizontal</option>
+                            <option value="vertical">Vertical</option>
+                            <option value="scope">Scope</option>
+
+                        </select>
+                    </div>
+
+                </div>
+
+            </li>
+        </ul>
 
     </div>
 </div>

@@ -8,46 +8,22 @@
     margin-left: 5px;
 }
 
-.gisLayerSwapperDijit .layerSelectDom {
+.gisLayerSwapperDijit ul {
     width: 100%;
 }
 
-.gisLayerSwapperDijit .layerSelect {
-    display: inline-block;
-    width: 100%
+.gisLayerSwapperDijit ul li {
+    margin-bottom: 1em;
 }
 
-.gisLayerSwapperDijit .layerSelectInput {
-    width: 250px;
-}
-
-.gisLayerSwapperDijit .layerControlUpdate {
-    width: 50px;
-    height: 40px;
-    line-height: 15px;
-    text-align: center;
-    padding-right: 5px;
-    margin-left:10px;
-}
-
-.gisLayerSwapperDijit .layerFadeDom {
+.gisLayerSwapperDijit .layerSelectDom .layerSelectInput {
     width: 100%;
-    margin-top: 5px;
-}
-
-.gisLayerSwapperDijit .layerFadeDom .layerFaderHr {
-    margin-top: 1px;
-}
-
-.gisLayerSwapperDijit .layerSwipeDom {
-    width: 100%;
-    marging-top: 5px;
 }
 
 .gisLayerSwapperDijit .layerSwipeDom .layerSwipeSelect {
     width: 100%;
 }
 
-.gisLayerSwapperDijit .dijitStretch {
+.gisLayerSwapperDijit .layerSwipeDom .layerSwipeSelect .dijitStretch {
     width: 100%;
 }
