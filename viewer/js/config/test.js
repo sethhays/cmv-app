@@ -214,7 +214,7 @@ define([
                     infoTemplates: panoInfoTemplates,
                     outFields: ['LOCATIONID']
                 }
-            },
+            }/*,
             {
                 type   : 'dynamic',
                 url    : 'https://fis.ipf.msu.edu/arcgis/rest/services/PlantDatabase/PlantDatabaseMap/MapServer',
@@ -228,7 +228,7 @@ define([
                     visible: false,
                     imageParameters: imageParameters
                 }
-            }],
+            }*/],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
 		widgets: {
             googleAnalytics: {
@@ -247,7 +247,7 @@ define([
                 }
             },
             plantDb: {
-                include: true,
+                include: false,
                 id: 'plantDb',
                 type: 'titlePane',
                 path: 'fis/dijit/campus/PlantDb',

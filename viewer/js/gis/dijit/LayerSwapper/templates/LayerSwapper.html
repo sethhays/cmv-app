@@ -13,7 +13,7 @@
                            data-dojo-type="dijit/form/FilteringSelect"
                            data-dojo-attach-point="layerSelectDijit"
                            data-dojo-props="name:'label', autoComplete:true,required:false,searchAttr:'label',class:'layerSelectInput'"
-                           data-dojo-attach-event="onChange:_onLayerChange" />
+                           data-dojo-attach-event="onChange:onLayerChange" />
 
                     <span class="layerControlUpdate">
                         <i data-dojo-attach-point="layerUpdateNode"
@@ -25,8 +25,7 @@
 
             </div>
 
-            <div data-dojo-attach-point="layerFadeDom"
-                    data-dojo-props="class:'layerFadeContainer'">
+            <div class="layerFadeDom" >
 
                 <div data-dojo-attach-point="layerFadeSlider"
                      data-dojo-type="dijit/form/HorizontalSlider"
@@ -36,7 +35,7 @@
                      discreetValues="11"
                      intermediateChanges="true"
                      showButtons="false"
-                     data-dojo-attach-event="onChange:_onLayerFaderChange">
+                     data-dojo-attach-event="onChange:onLayerFaderChange">
 
                     <div data-dojo-type="dijit/form/HorizontalRule"
                          data-dojo-props="class:'layerFaderHr'"
@@ -54,6 +53,27 @@
                      </div>
             </div>
 
+            <div class="layerSwipeDom">
+
+                <div class="layerSelect">
+                    <label>Layer Swipe:</label>
+                    <br />
+                    <select name="layerSwipeTypeSelect"
+                            data-dojo-type="dijit/form/Select"
+                            data-dojo-props="class: 'layerSwipeSelect'"
+                            data-dojo-attach-point="layerSwipeTypeSelect"
+                            data-dojo-attach-event="onChange:createLayerSwipeWidget">
+
+                        <option value="none" selected="selected">None</option>
+                        <option value="horizontal" >Horizontal</option>
+                        <option value="vertical">Vertical</option>
+                        <option value="scope">Scope</option>
+
+                    </select>
+                </div>
+
+            </div>
         </div>
+
     </div>
 </div>

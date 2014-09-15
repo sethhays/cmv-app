@@ -10,7 +10,6 @@
 
 .gisLayerSwapperDijit .layerSelectDom {
     width: 100%;
-    margin-bottom: 2em;
 }
 
 .gisLayerSwapperDijit .layerSelect {
@@ -31,6 +30,24 @@
     margin-left:10px;
 }
 
-.gisLayerSwapperDijit .layerFaderHr {
-    //margin-top: 1px;
+.gisLayerSwapperDijit .layerFadeDom {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.gisLayerSwapperDijit .layerFadeDom .layerFaderHr {
+    margin-top: 1px;
+}
+
+.gisLayerSwapperDijit .layerSwipeDom {
+    width: 100%;
+    marging-top: 5px;
+}
+
+.gisLayerSwapperDijit .layerSwipeDom .layerSwipeSelect {
+    width: 100%;
+}
+
+.gisLayerSwapperDijit .dijitStretch {
+    width: 100%;
 }

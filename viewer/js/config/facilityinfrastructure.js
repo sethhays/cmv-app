@@ -47,6 +47,9 @@ define([
             center     : [-84.482278, 42.723222],
             zoom       : 15,
             sliderStyle: 'small',
+            fadeOnZoom : true,
+            logo       : false,
+            showAttribution: false,
             lods       : [
                 {
                     'level'     : 0,
