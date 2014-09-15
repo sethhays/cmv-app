@@ -50,6 +50,7 @@ define([
             fadeOnZoom : true,
             logo       : false,
             showAttribution: false,
+            showInfoWindowOnClick: true,
             lods       : [
                 {
                     'level'     : 0,

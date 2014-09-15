@@ -142,14 +142,11 @@ define([
         },
         disconnectMapClick: function() {
             this.mapClickMode.current = 'draw';
-            // dojo.disconnect(this.mapClickEventHandle);
-            // this.mapClickEventHandle = null;
+            this.map.setInfoWindowOnClick( false );
         },
         connectMapClick: function() {
             this.mapClickMode.current = this.mapClickMode.defaultMode;
-            // if (this.mapClickEventHandle === null) {
-            //     this.mapClickEventHandle = dojo.connect(this.map, 'onClick', this.mapClickEventListener);
-            // }
+            this.map.setInfoWindowOnClick( true );
         },
         onDrawToolbarDrawEnd: function(evt) {
             this.drawToolbar.deactivate();

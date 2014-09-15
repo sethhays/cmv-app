@@ -136,10 +136,12 @@ define([
         disconnectMapClick: function() {
             this.map.setMapCursor('crosshair');
             this.mapClickMode.current = 'streetview';
+            this.map.setInfoWindowOnClick( false );
         },
         connectMapClick: function() {
             this.map.setMapCursor('auto');
             this.mapClickMode.current = this.mapClickMode.defaultMode;
+            this.map.setInfoWindowOnClick( true );
         },
         clearGraphics: function() {
             this.pointGraphics.clear();

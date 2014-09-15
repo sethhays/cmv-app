@@ -24,6 +24,8 @@ define([
 		},
 		setMapClickMode: function(mode) {
 			this.mapClickMode.current = mode;
+            var showInfoWindows = mode === 'measure' ? false : true;
+            this.map.setInfoWindowOnClick( showInfoWindows );
 		}
 	});
 });

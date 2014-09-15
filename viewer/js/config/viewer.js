@@ -24,7 +24,8 @@ define([
 			basemap: 'streets',
             center: [-84.482278, 42.723222],
 			zoom: 5,
-			sliderStyle: 'small'
+			sliderStyle: 'small',
+            showInfoWindowOnClick: true
 		},
 		// panes: {
 		// 	left: {
@@ -159,7 +160,31 @@ define([
 					layerControlLayerInfos: true,
 					vectorReorder: true
 				}
-			}
+			},
+            identify: {
+                include: true,
+                id: 'identify',
+                type: 'titlePane',
+                path: 'gis/dijit/Identify',
+                title: 'Identify',
+                open: false,
+                position: 3,
+                options: 'config/identify'
+            },
+            draw: {
+                include: true,
+                id: 'draw',
+                type: 'titlePane',
+                canFloat: true,
+                path: 'gis/dijit/Draw',
+                title: 'Draw',
+                open: true,
+                position: 4,
+                options: {
+                    map: true,
+                    mapClickMode: true
+                }
+            }
             /*
             growler: {
 				include: true,
@@ -185,16 +210,6 @@ define([
 						}
 					}
 				}
-			},
-			identify: {
-				include: false,
-				id: 'identify',
-				type: 'titlePane',
-				path: 'gis/dijit/Identify',
-				title: 'Identify',
-				open: false,
-				position: 3,
-				options: 'config/identify'
 			},
 			basemaps: {
 				include: false,
