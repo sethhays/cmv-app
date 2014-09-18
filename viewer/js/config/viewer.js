@@ -3,8 +3,9 @@ define([
 	'esri/geometry/Extent',
 	'esri/config',
 	'esri/tasks/GeometryService',
-	'esri/layers/ImageParameters'
-], function(units, Extent, esriConfig, GeometryService, ImageParameters) {
+	'esri/layers/ImageParameters',
+    'esri/InfoTemplate'
+], function(units, Extent, esriConfig, GeometryService, ImageParameters, InfoTemplate) {
 
 	// url to your proxy page, must be on same machine hosting you app. See proxy folder for readme.
 	esriConfig.defaults.io.proxyUrl = 'proxy/proxy.ashx';
@@ -15,6 +16,14 @@ define([
 	//image parameters for dynamic services, set to png32 for higher quality exports.
 	var imageParameters = new ImageParameters();
 	imageParameters.format = 'png32';
+
+    var panoInfoTemplate = new InfoTemplate();
+    panoInfoTemplate.setTitle( 'Panoramic Photo Location' );
+    panoInfoTemplate.setContent( '<a href="http://prod.gis.msu.edu/campusmap/pano.html?viewer=sphere&locationid=${LOCATIONID}" target="_blank">Open in new window</a>' );
+
+    var panoInfoTemplates = {
+        0: {infoTemplate: panoInfoTemplate}
+    };
 
 	return {
 		// used for debugging your app
@@ -31,8 +40,8 @@ define([
 		// map options, passed to map constructor. see: https://developers.arcgis.com/javascript/jsapi/map-amd.html#map1
 		mapOptions: {
 			basemap: 'streets',
-			center: [-96.59179687497497, 39.09596293629694],
-			zoom: 5,
+			center: [-84.482278, 42.723222],
+			zoom: 18,
 			sliderStyle: 'small'
 		},
 		// panes: {
@@ -66,14 +75,55 @@ define([
 		// operationalLayers: Array of Layers to load on top of the basemap: valid 'type' options: 'dynamic', 'tiled', 'feature'.
 		// The 'options' object is passed as the layers options for constructor. Title will be used in the legend only. id's must be unique and have no spaces.
 		// 3 'mode' options: MODE_SNAPSHOT = 0, MODE_ONDEMAND = 1, MODE_SELECTION = 2
-		operationalLayers: [{
+		operationalLayers: [
+            {
+                type   : 'feature',
+                url    : 'http://prod.gis.msu.edu/arcgis/rest/services/features/gigapan_loc/MapServer/0',
+                title  : 'Panoramic Photos (feat. layer)',
+                slider: false,
+                noLegend: false,
+                collapsed: false,
+                options: {
+                    id     : 'panoFeatureLayer',
+                    opacity: 0.8,
+                    visible: true,
+                    minScale: 2500,
+                    infoTemplate: panoInfoTemplate,
+                    outFields: ['LOCATIONID']
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
+                }
+            },
+            {
+                type   : 'dynamic',
+                url    : 'http://prod.gis.msu.edu/arcgis/rest/services/features/gigapan_loc/MapServer',
+                title  : 'Panoramic Photos (dyn. layer)',
+                slider: false,
+                noLegend: false,
+                collapsed: false,
+                options: {
+                    id     : 'panoDynamicLayer',
+                    opacity: 0.8,
+                    visible: false,
+                    minScale: 2500,
+                    infoTemplates: panoInfoTemplates,
+                    outFields: ['LOCATIONID']
+                },
+                controlOptions: {
+                    transparency: true, //include transparency plugin
+                    scales: true //include layer scale setting plugin
+                }
+            },
+            {
 			type: 'feature',
 			url: 'http://services1.arcgis.com/g2TonOxuRkIqSOFx/arcgis/rest/services/MeetUpHomeTowns/FeatureServer/0',
 			title: 'STLJS Meetup Home Towns',
 			options: {
 				id: 'meetupHometowns',
 				opacity: 1.0,
-				visible: true,
+				visible: false,
 				outFields: ['*'],
 				mode: 0
 			},
@@ -87,7 +137,7 @@ define([
 			options: {
 				id: 'sf311Incidents',
 				opacity: 1.0,
-				visible: true,
+				visible: false,
 				outFields: ['req_type', 'req_date', 'req_time', 'address', 'district'],
 				mode: 0
 			}
@@ -102,7 +152,7 @@ define([
 			options: {
 				id: 'louisvillePubSafety',
 				opacity: 1.0,
-				visible: true,
+				visible: false,
 				imageParameters: imageParameters
 			},
 			identifyLayerInfos: {
@@ -118,7 +168,7 @@ define([
 			options: {
 				id: 'DamageAssessment',
 				opacity: 1.0,
-				visible: true,
+				visible: false,
 				imageParameters: imageParameters
 			}
 		}],
@@ -150,7 +200,7 @@ define([
 				}
 			},
 			identify: {
-				include: true,
+				include: false,
 				id: 'identify',
 				type: 'titlePane',
 				path: 'gis/dijit/Identify',
