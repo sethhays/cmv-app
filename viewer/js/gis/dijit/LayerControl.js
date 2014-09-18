@@ -1,11 +1,14 @@
-/* layer control */
 define([
     'dojo/_base/declare',
     'dojo/_base/array',
     'dojo/_base/lang',
+    'dojo/topic',
+    'dojo/dom-attr',
     'dojo/dom-construct',
     'dijit/_WidgetBase',
     'dijit/_Container',
+    'dijit/layout/ContentPane',
+    'dijit/form/Button',
     'esri/tasks/ProjectParameters',
     'esri/config',
     //the css
@@ -14,9 +17,13 @@ define([
     declare,
     array,
     lang,
+    topic,
+    domAttr,
     domConst,
     WidgetBase,
     Container,
+    ContentPane,
+    Button,
     ProjectParameters,
     esriConfig
 ) {
@@ -25,77 +32,104 @@ define([
         baseClass: 'layerControlDijit',
         _vectorContainer: null, //vector layer control container
         _overlayContainer: null, //overlay layer control container
+        _swiper: null, //layer swipe widget
+        _swipeLayerToggleHandle: null,
         _controls: {
             dynamic: 'gis/dijit/LayerControl/controls/Dynamic',
             feature: 'gis/dijit/LayerControl/controls/Feature',
             image: 'gis/dijit/LayerControl/controls/Image',
             tiled: 'gis/dijit/LayerControl/controls/Tiled'
-                //webTiled: 'gis/dijit/LayerControl/controls/WebTiled'
         },
         constructor: function(options) {
             options = options || {};
             if (!options.map) {
-                console.log('LayerControl error::map option is required');
+                topic.publish('viewer/handleError', {
+                    source: 'LayerControl',
+                    error: 'map option is required'
+                });
                 return;
             }
             declare.safeMixin(this, {
                 map: null,
                 layerInfos: [],
+                separated: true,
                 overlayReorder: false,
+                overlayLabel: 'Map Overlays',
                 vectorReorder: false,
-                basemapCount: 0,
-                fontAwesome: true
+                vectorLabel: 'Feature Layers',
+                fontAwesome: true,
+                fontAwesomeUrl: '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css', //4.2.0 looks funny @ 16px?
+                swiperButtonStyle: 'position:absolute;top:20px;left:120px;z-index:50;'
             }, options);
         },
         postCreate: function() {
-            var ControlContainer = declare([WidgetBase, Container]);
-            //vector layer control container
-            this._vectorContainer = new ControlContainer({
-                className: 'overlayLayerContainer'
-            }, domConst.create('div'));
-            this.addChild(this._vectorContainer, 'first');
-            //overlay layer control container
-            this._overlayContainer = new ControlContainer({
-                className: 'vectorLayerContainer'
-            }, domConst.create('div'));
-            this.addChild(this._overlayContainer, 'last');
+            if (this.separated) {
+                var ControlContainer = declare([WidgetBase, Container]);
+                //vector layer label
+                if (this.vectorLabel !== false) {
+                    this.addChild(new ContentPane({
+                        className: 'vectorLabelContainer',
+                        content: this.vectorLabel
+                    }, domConst.create('div')), 'first');
+                }
+                //vector layer control container
+                this._vectorContainer = new ControlContainer({
+                    className: 'vectorLayerContainer'
+                }, domConst.create('div'));
+                this.addChild(this._vectorContainer, 'last');
+                //overlay layer label
+                if (this.overlayLabel !== false) {
+                    this.addChild(new ContentPane({
+                        className: 'overlayLabelContainer',
+                        content: this.overlayLabel
+                    }, domConst.create('div')), 'last');
+                }
+                //overlay layer control container
+                this._overlayContainer = new ControlContainer({
+                    className: 'overlayLayerContainer'
+                }, domConst.create('div'));
+                this.addChild(this._overlayContainer, 'last');
+            } else {
+                this.overlayReorder = false;
+                this.vectorReorder = false;
+            }
             //load only the modules we need
             var modules = [];
             //load font awesome
             if (this.fontAwesome) {
-                modules.push('xstyle/css!//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css');
+                modules.push('xstyle/css!' + this.fontAwesomeUrl);
             }
-            //push used controls
+            //push layer control mods
             array.forEach(this.layerInfos, function(layerInfo) {
-
-                // if a layer is excluded, no need to load the control for that layer type
+                //check if control is excluded
                 var controlOptions = layerInfo.controlOptions;
                 if (controlOptions && controlOptions.exclude === true) {
                     return;
                 }
-
                 var mod = this._controls[layerInfo.type];
                 if (mod) {
                     modules.push(mod);
                 } else {
-                    console.log('LayerControl error::the layer type "' + layerInfo.type + '" is not valid');
+                    topic.publish('viewer/handleError', {
+                        source: 'LayerControl',
+                        error: 'the layer type "' + layerInfo.type + '" is not supported'
+                    });
                 }
             }, this);
-
             //load and go
             require(modules, lang.hitch(this, function() {
                 array.forEach(this.layerInfos, function(layerInfo) {
-                    // allow layer to be excluded from widget
+                    //exclude from widget
                     var controlOptions = layerInfo.controlOptions;
                     if (controlOptions && controlOptions.exclude === true) {
                         return;
                     }
-
                     var control = this._controls[layerInfo.type];
                     if (control) {
                         require([control], lang.hitch(this, '_addControl', layerInfo));
                     }
                 }, this);
+                this._checkReorder();
             }));
         },
         //create layer control and add to appropriate _container
@@ -104,13 +138,17 @@ define([
                 controller: this,
                 layer: layerInfo.layer,
                 layerTitle: layerInfo.title,
-                controlOptions: layerInfo.controlOptions
+                controlOptions: layerInfo.controlOptions || {}
             });
             layerControl.startup();
-            if (layerControl._layerType === 'overlay') {
-                this._overlayContainer.addChild(layerControl, 'first');
+            if (this.separated) {
+                if (layerControl._layerType === 'overlay') {
+                    this._overlayContainer.addChild(layerControl, 'first');
+                } else {
+                    this._vectorContainer.addChild(layerControl, 'first');
+                }
             } else {
-                this._vectorContainer.addChild(layerControl, 'first');
+                this.addChild(layerControl, 'first');
             }
         },
         //move control up in controller and layer up in map
@@ -119,17 +157,18 @@ define([
                 node = control.domNode,
                 index;
             if (control._layerType === 'overlay') {
-                var count = this.map.layerIds.length;
-                index = array.indexOf(this.map.layerIds, id);
-                if (index < count - 1) {
+                if (control.getPreviousSibling()) {
+                    index = array.indexOf(this.map.layerIds, id);
                     this.map.reorderLayer(id, index + 1);
                     this._overlayContainer.containerNode.insertBefore(node, node.previousSibling);
+                    this._checkReorder();
                 }
             } else if (control._layerType === 'vector') {
                 if (control.getPreviousSibling()) {
                     index = array.indexOf(this.map.graphicsLayerIds, id);
                     this.map.reorderLayer(id, index + 1);
                     this._vectorContainer.containerNode.insertBefore(node, node.previousSibling);
+                    this._checkReorder();
                 }
             }
         },
@@ -139,18 +178,50 @@ define([
                 node = control.domNode,
                 index;
             if (control._layerType === 'overlay') {
-                index = array.indexOf(this.map.layerIds, id);
-                if (index > this.basemapCount) {
-                    this.map.reorderLayer(id, index - 1);
-                    if (node.nextSibling !== null) {
-                        this._overlayContainer.containerNode.insertBefore(node, node.nextSibling.nextSibling);
-                    }
+                if (control.getNextSibling()) {
+                    index = array.indexOf(this.map.layerIds, id);
+                    this.map.reorderLayer(id, index + 1);
+                    this._overlayContainer.containerNode.insertBefore(node, node.nextSibling.nextSibling);
+                    this._checkReorder();
                 }
             } else if (control._layerType === 'vector') {
                 if (control.getNextSibling()) {
                     index = array.indexOf(this.map.graphicsLayerIds, id);
-                    this.map.reorderLayer(id, index - 1);
+                    this.map.reorderLayer(id, index + 1);
                     this._vectorContainer.containerNode.insertBefore(node, node.nextSibling.nextSibling);
+                    this._checkReorder();
+                }
+            }
+        },
+        _checkReorder: function () {
+            if (this.separated) {
+                if (this.vectorReorder) {
+                    array.forEach(this._vectorContainer.getChildren(), function (child) {
+                        if (!child.getPreviousSibling()) {
+                            child._reorderUp.set('disabled', true);
+                        } else {
+                            child._reorderUp.set('disabled', false);
+                        }
+                        if (!child.getNextSibling()) {
+                            child._reorderDown.set('disabled', true);
+                        } else {
+                            child._reorderDown.set('disabled', false);
+                        }
+                    }, this);
+                }
+                if (this.overlayReorder) {
+                    array.forEach(this._overlayContainer.getChildren(), function (child) {
+                        if (!child.getPreviousSibling()) {
+                            child._reorderUp.set('disabled', true);
+                        } else {
+                            child._reorderUp.set('disabled', false);
+                        }
+                        if (!child.getNextSibling()) {
+                            child._reorderDown.set('disabled', true);
+                        } else {
+                            child._reorderDown.set('disabled', false);
+                        }
+                    }, this);
                 }
             }
         },
@@ -167,12 +238,57 @@ define([
                     }), function(r) {
                         map.setExtent(r[0], true);
                     }, function(e) {
-                        console.log(e);
+                        //console.log(e);
                     });
                 } else {
-                    console.log('LayerControl _zoomToLayer::esriConfig.defaults.geometryService is not set');
+                    topic.publish('viewer/handleError', {
+                        source: 'LayerControl._zoomToLayer',
+                        error: 'esriConfig.defaults.geometryService is not set'
+                    });
                 }
             }
+        },
+        //layer swiper
+        _swipeLayer: function(layer, type) {
+            if (!layer || !layer.visible) {
+                return;
+            }
+            if (!this._swiper) {
+                require(['esri/dijit/LayerSwipe'], lang.hitch(this, function (LayerSwipe) {
+                    this._swiper = new LayerSwipe({
+                        type: type || 'vertical',
+                        map: this.map,
+                        layers: [layer]
+                    }, domConst.create('div', {}, this.map.id, 'first'));
+                    this._swiper.startup();
+                    this._swiper.disableBtn = new Button({
+                        label: 'Exit Layer Swipe',
+                        onClick: lang.hitch(this, '_swipeDisable')
+                    }, domConst.create('div', {}, this.map.id));
+                    domAttr.set(this._swiper.disableBtn.domNode, 'style', this.swiperButtonStyle);
+                }));
+            } else {
+                this._swiper.disable();
+                if (this._swipeLayerToggleHandle) {
+                    this._swipeLayerToggleHandle.remove();
+                }
+                this._swiper.set('layers', [layer]);
+                this._swiper.set('type', type);
+                this._swiper.enable();
+                domAttr.set(this._swiper.disableBtn.domNode, 'style', this.swiperButtonStyle);
+            }
+            this._swipeLayerToggleHandle = topic.subscribe('layerControl/layerToggle', lang.hitch(this, function (d) {
+                if (d.id === layer.id && !d.visible) {
+                    this._swipeDisable();
+                }
+            }));
+        },
+        _swipeDisable: function () {
+            this._swiper.disable();
+            if (this._swipeLayerToggleHandle) {
+                this._swipeLayerToggleHandle.remove();
+            }
+            domAttr.set(this._swiper.disableBtn.domNode, 'style', 'display:none;');
         }
     });
 });

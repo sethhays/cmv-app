@@ -1,46 +1,28 @@
-**Layer Control is currently in development and subject to core changes.**
-
-**NOTE:** Layer Control requires a custom LayerInfos array to be populated in `Controller.js`, which is not in the current CMV release. Check this branch's `Contoller.js` file for those dependencies.
-
-#### TODO and such
-1. Feature layer legend **!important** (works w/ picture symbols)
-2. need to find a way to talk with esri basemap widget/CMV basemaps on `basemapCount` (dojo/topic)
-3. add control (web tiled, wms, csv, etc) - need to add web tiled layer to `Controller.js`
-
-#### Other enhancements I've thought about
-* LayerControl options to set font-awesome icons
-* custom layer and sublayer menu items for initiating a identify, query, etc (did it in hardcider but needs reworked for CMV)
-* noLegend layer option
-
 ## Layer Control
-A layer control widget for [Configurable Map Viewer (CMV)](https://github.com/DavidSpriggs/ConfigurableViewerJSAPI).
+A layer control widget for CMV.
 
 ### Features
 * Toggle layer visibility
-* Layer menu (with Zoom To Layer)
+* Layer menu with Zoom To Layer, Transparency and Layer Swipe
 * Legends for ArcGIS layers
 * Sublayer/folder structure and toggling for ArcGIS Dynamic layers
   * can be disabled
   * single layer map services display legend in expand area
 * Layer reordering in map and Layer Control
-* Overlay and vector layer type separation
+* Separate vector and overlay layers (required for layer reordering)
 * Support for several layer types
   * dynamic
-  * feature (legend does not support all renderers)
+  * feature (legend does not support all renderers yet)
   * tiled
   * image
-* Layer menu plugins
-  * Layer transparency
-  * Set layer scales
 
 ### LayerControl Class
 #### Adding Layer Control to CMV
-1. Copy `LayerControl.js` and `LayerControl` folder into `js/gis/dijit/` directory.
-2. Add the widget loading object in `viewer.js`.
-3. Layer Control will do the rest.
-4. Additional options can be passed with each layer via the `controlOptions` object. See Layer Options for said options.
+1. Copy `layerControl.js` and `LayerControl` folder into `js/gis/dijit/` directory.
+2. Add the widget configuration object to the `widgets` object in `viewer.js`.
+3. Additional options can be passed with each layer via the `controlOptions` object. See Layer Options for said options.
 
-**Widget Options**
+**Widget Configuration**
 
 ``` javascript
 layerControl: {
@@ -52,17 +34,37 @@ layerControl: {
     open: true,
     position: 0,
     options: {
-        map: true, //requires the map
-        layerControlLayerInfos: true, //requires custom LayerInfos array - the widget's option is LayerInfos
-        vectorReorder: true, //enable vector layer reordering (false)
-        overlayReorder: true, //enable overlay layer reordering (false)
-        basemapCount: 2 //number of basemaps not to reorder overlay layers below (0)
+        map: true, //required
+        layerControlLayerInfos: true //required
     }
 }
 ```
 
+#### Additional Widget Options
+| Option | Type | Description |
+| :----: | :--: | ----------- |
+| `separated` | Boolean | Separate vector and overlay layer types. Required for `vectorReorder`, `vectorLabel`, `overlayReorder` and `overlayLabel`. Default is `true`. |
+| `vectorReorder` | Boolean | Enable reordering of vector layers in map and Layer Control. Default is `false`. |
+| `vectorLabel` | String | Label for vector layers. Default is `Feature Layers`. Pass html for quick easy custom styling of label text. Pass `false` to disable. |
+| `overlayReorder` | Boolean | Enable reordering of overlay layers in map and Layer Control. Default is `false`. |
+| `overlayLabel` | String | Label for overlay layers. Default is `Map Overlays`. Pass html for quick easy custom styling of label text. Pass `false` to disable. |
+| `swiperButtonStyle` | String | CSS for positioning "Exit Layer Swipe" button in the map. Must include `position:absolute;` and a `z-index`. Default is `position:absolute;top:20px;left:120px;z-index:50;`. |
+| `fontAwesome` | Boolean | Load Font Awesome CSS. Because dbootstrap uses FA v3.x it is necessary to load FA v4.x. Default is `true`. This can be set to `false` if FA v4.x is being loaded with a `link` tag in `index.html` or as a font or with xstyle. |
+| `fontAwesomeUrl` | String | CDN URL from which to load Font Awesome. Default is FA v4.2.0 from the BootstrapCDN. |
+
 ### Layer Options
-#### Dynamic
+Additional options can be passed with each layer via the `controlOptions` object. All layer types have common options while some options are specific to certain layer types. All `controlOptions` are Boolean.
+
+| Option | Description | Affects |
+| :----: | ----------- | ------- |
+| `noZoom` | When `false` removes "Zoom to Layer" menu item. | all layers |
+| `noTransparency` | When `false` removes "Transparency" menu item. | all layers |
+| `noSwipe` | When `false` removes "Layer Swipe" menu item. | all layers |
+| `noLegend` |  When `false` no legend is created. | dynamic and feature |
+| `expanded` | When `true` expands top level exposing sublayers or legend. | dynamic and feature |
+| `sublayers` | When `false` dynamic folder/sublayer structure is not created. | dynamic |
+
+#### Dynamic Example
 ``` javascript
 {
     type: 'dynamic',
@@ -72,47 +74,13 @@ layerControl: {
         //layer options
     },
     controlOptions: {
-        sublayers: false, //build sublayer/folder controls - default is true
-        expanded: true, //expand control on init exposing sublayers or legend
-        transparency: true, //include transparency plugin
-        scales: true //include layer scale setting plugin
+        sublayers: false,
+        noTransparency: true
     }
 }
 ```
 
-#### Tiled
-``` javascript
-{
-    type: 'tiled',
-    url: 'http://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer',
-    title: 'Esri World Physical Map',
-    options: {
-        //layer options
-    },
-    controlOptions: {
-        transparency: true, //include transparency plugin
-        scales: true //include layer scale setting plugin
-    }
-}
-```
-
-#### Image
-``` javascript
-{
-    type: 'image',
-    url: 'http://imagery.arcgisonline.com/ArcGIS/rest/services/LandsatGLS/FalseColor/ImageServer',
-    title: 'Landsat False Color',
-    options: {
-        //layer options
-    },
-    controlOptions: {
-        transparency: true, //include transparency plugin
-        scales: true //include layer scale setting plugin
-    }
-}
-```
-
-#### Feature
+#### Feature Example
 ``` javascript
 {
     type: 'feature',
@@ -122,9 +90,16 @@ layerControl: {
         //layer options
     },
     controlOptions: {
-        expanded: true, //expand control on init exposing legend
-        transparency: true, //include transparency plugin
-        scales: true //include layer scale setting plugin
+        noLegend: true,
+        noZoom: true
     }
 }
 ```
+
+### TODO and such
+1. ~~Feature layer legend **!important** (works w/ picture symbols)~~
+2. ~~Tiled layer legend~~ (needs tested)
+3. Add controls for additional layers (web tiled, wms, csv, etc) - need to add web tiled layer to `Controller.js`
+4. ~~Check for `false` value on `vectorLabel` and `overlayLabel` to disable~~
+5. ~~Rework legend creation to something maybe a bit more "elegant"~~
+6. topic.subscribe to add layers

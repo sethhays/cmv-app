@@ -1,8 +1,8 @@
-/* ags dynamic control */
 define([
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
+    'dojo/topic',
     'dojo/on',
     'dojo/query',
     'dojo/dom-class',
@@ -16,17 +16,18 @@ define([
     'dijit/_Contained',
     'dijit/Menu',
     'dijit/MenuItem',
+    'dijit/PopupMenuItem',
     'dijit/MenuSeparator',
     'esri/request',
-    'gis/dijit/LayerControl/plugins/Transparency',
-    'gis/dijit/LayerControl/plugins/Scales',
     'gis/dijit/LayerControl/controls/DynamicSublayer',
     'gis/dijit/LayerControl/controls/DynamicFolder',
-    'dojo/text!./templates/Control.html'
+    'dojo/text!./templates/Control.html',
+    'gis/dijit/LayerControl/plugins/Transparency'
 ], function (
     declare,
     lang,
     array,
+    topic,
     on,
     query,
     domClass,
@@ -40,13 +41,13 @@ define([
     Contained,
     Menu,
     MenuItem,
+    PopupMenuItem,
     MenuSeparator,
     esriRequest,
-    Transparency,
-    Scales,
     DynamicSublayer,
     DynamicFolder,
-    controlTemplate
+    controlTemplate,
+    Transparency
 ) {
     'use strict';
     return declare([WidgetBase, TemplatedMixin, Contained], {
@@ -54,18 +55,29 @@ define([
         layerTitle: 'Layer Title',
         _layerType: 'overlay', //for reoredering
         _scaleRangeHandler: null,
+        _expandClickHandler: null,
+        _sublayerControls: [], //array of sublayer controls
+        layerMenu: null,
+        _reorderUp: null, //reorder move up menu item
+        _reorderDown: null, //reorder move down menu item
         constructor: function(options) {
             options = options || {};
             declare.safeMixin(this, options);
         },
         postCreate: function() {
             if (!this.controller) {
-                console.log('Dynamic error::controller option is required');
+                topic.publish('viewer/handleError', {
+                    source: 'LayerControl/Dynamic',
+                    error: 'controller option is required'
+                });
                 this.destroy();
                 return;
             }
             if (!this.layer) {
-                console.log('Dynamic error::layer option is required');
+                topic.publish('viewer/handleError', {
+                    source: 'LayerControl/Dynamic',
+                    error: 'layer option is required'
+                });
                 this.destroy();
                 return;
             }
@@ -89,10 +101,18 @@ define([
                     layer.hide();
                     domClass.remove(this.checkNode, 'fa-check-square-o');
                     domClass.add(this.checkNode, 'fa-square-o');
+                    topic.publish('layerControl/layerToggle', {
+                        id: layer.id,
+                        visible: layer.visible
+                    });
                 } else {
                     layer.show();
                     domClass.remove(this.checkNode, 'fa-square-o');
                     domClass.add(this.checkNode, 'fa-check-square-o');
+                    topic.publish('layerControl/layerToggle', {
+                        id: layer.id,
+                        visible: layer.visible
+                    });
                 }
                 if (layer.minScale !== 0 || layer.maxScale !== 0) {
                     this._checkboxScaleRange();
@@ -109,19 +129,19 @@ define([
             }));
             //build sublayers
             if (this.controlOptions.sublayers) {
-                this._sublayers();
                 this._expandClick();
+                this._createSublayers(layer);
             } else {
                 domClass.remove(this.expandIconNode, ['fa', 'fa-plus-square-o', 'layerControlToggleIcon']);
-                domStyle.set(this.expandIconNode, 'cursor', 'default');
+                domStyle.set(this.expandClickNode, 'cursor', 'default');
                 domConst.destroy(this.expandNode);
             }
             //show expandNode
-            if (this.controlOptions.expanded) {
+            if (this.controlOptions.expanded && this.controlOptions.sublayers) {
                 this.expandClickNode.click();
             }
             //layer menu
-            this._menu();
+            this._createMenu(layer);
             //if layer has scales set
             if (layer.minScale !== 0 || layer.maxScale !== 0) {
                 this._checkboxScaleRange();
@@ -143,7 +163,7 @@ define([
         },
         //add on event to expandClickNode
         _expandClick: function () {
-            on(this.expandClickNode, 'click', lang.hitch(this, function() {
+            this._expandClickHandler = on(this.expandClickNode, 'click', lang.hitch(this, function() {
                 var expandNode = this.expandNode,
                     iconNode = this.expandIconNode;
                 if (domStyle.get(expandNode, 'display') === 'none') {
@@ -156,13 +176,13 @@ define([
             }));
         },
         //add folder/sublayer controls per layer.layerInfos
-        _sublayers: function() {
+        _createSublayers: function(layer) {
             //check for single sublayer - if so no sublayer/folder controls
-            if (this.layer.layerInfos.length > 1) {
-                array.forEach(this.layer.layerInfos, lang.hitch(this, function(info) {
+            if (layer.layerInfos.length > 1) {
+                array.forEach(layer.layerInfos, lang.hitch(this, function(info) {
                     var pid = info.parentLayerId,
                         slids = info.subLayerIds,
-                        controlId = this.layer.id + '-' + info.id + '-sublayer-control',
+                        controlId = layer.id + '-' + info.id + '-sublayer-control',
                         control;
                     if (pid === -1 && slids === null) {
                         //it's a top level sublayer
@@ -171,7 +191,6 @@ define([
                             control: this,
                             sublayerInfo: info
                         });
-                        control.startup();
                         domConst.place(control.domNode, this.expandNode, 'last');
                     } else if (pid === -1 && slids !== null) {
                         //it's a top level folder
@@ -180,7 +199,6 @@ define([
                             control: this,
                             folderInfo: info
                         });
-                        control.startup();
                         domConst.place(control.domNode, this.expandNode, 'last');
                     } else if (pid !== -1 && slids !== null) {
                         //it's a nested folder
@@ -189,8 +207,7 @@ define([
                             control: this,
                             folderInfo: info
                         });
-                        control.startup();
-                        domConst.place(control.domNode, registry.byId(this.layer.id + '-' + info.parentLayerId + '-sublayer-control').expandNode, 'last');
+                        domConst.place(control.domNode, registry.byId(layer.id + '-' + info.parentLayerId + '-sublayer-control').expandNode, 'last');
                     } else if (pid !== -1 && slids === null) {
                         //it's a nested sublayer
                         control = new DynamicSublayer({
@@ -198,93 +215,176 @@ define([
                             control: this,
                             sublayerInfo: info
                         });
-                        control.startup();
-                        domConst.place(control.domNode, registry.byId(this.layer.id + '-' + info.parentLayerId + '-sublayer-control').expandNode, 'last');
+                        domConst.place(control.domNode, registry.byId(layer.id + '-' + info.parentLayerId + '-sublayer-control').expandNode, 'last');
                     }
+                    control.startup();
+                    this._sublayerControls.push(control);
                 }));
             }
-            //check ags version and create legends
-            if (this.layer.version >= 10.01) {
-                this._legend(this.layer);
-            }
+            //create legend
+            this._createLegend(layer);
         },
         //create the layer control menu
-        _menu: function() {
-            var menu = new Menu({
+        _createMenu: function(layer) {
+            this.layerMenu = new Menu({
                 contextMenuForWindow: false,
                 targetNodeIds: [this.labelNode],
                 leftClickToOpen: true
             });
+            var menu = this.layerMenu,
+                controlOptions = this.controlOptions;
             //reorder menu items
             if (this.controller.overlayReorder) {
-                menu.addChild(new MenuItem({
+                this._reorderUp = new MenuItem({
                     label: 'Move Up',
                     onClick: lang.hitch(this, function() {
                         this.controller._moveUp(this);
                     })
-                }));
-                menu.addChild(new MenuItem({
+                });
+                menu.addChild(this._reorderUp);
+                this._reorderDown = new MenuItem({
                     label: 'Move Down',
                     onClick: lang.hitch(this, function() {
                         this.controller._moveDown(this);
                     })
-                }));
+                });
+                menu.addChild(this._reorderDown);
                 menu.addChild(new MenuSeparator());
             }
-            //zoom to layer extent
-            menu.addChild(new MenuItem({
-                label: 'Zoom to Layer',
-                onClick: lang.hitch(this, function() {
-                    this.controller._zoomToLayer(this.layer);
-                })
-            }));
-            //add plugins
-            if (this.controlOptions.transparency) {
-                menu.addChild(new Transparency({
-                    label: 'Transparency',
-                    layer: this.layer
+            //zoom to layer
+            if (controlOptions.noZoom !== true) {
+                menu.addChild(new MenuItem({
+                    label: 'Zoom to Layer',
+                    onClick: lang.hitch(this, function() {
+                        this.controller._zoomToLayer(layer);
+                    })
                 }));
             }
-            if (this.controlOptions.scales) {
-                menu.addChild(new Scales({
-                    label: 'Scales',
-                    layer: this.layer
+            //transparency
+            if (controlOptions.noTransparency !== true) {
+                menu.addChild(new Transparency({
+                    label: 'Transparency',
+                    layer: layer
+                }));
+            }
+            //layer swipe
+            if (controlOptions.noSwipe !== true) {
+                var swipeMenu = new Menu();
+                swipeMenu.addChild(new MenuItem({
+                    label: 'Vertical',
+                    onClick: lang.hitch(this, function () {
+                        this.controller._swipeLayer(layer, 'vertical');
+                    })
+                }));
+                swipeMenu.addChild(new MenuItem({
+                    label: 'Horizontal',
+                    onClick: lang.hitch(this, function () {
+                        this.controller._swipeLayer(layer, 'horizontal');
+                    })
+                }));
+                menu.addChild(new PopupMenuItem({
+                    label: 'Layer Swipe',
+                    popup: swipeMenu
                 }));
             }
             menu.startup();
+            //if last child is a separator remove it
+            var lastChild = menu.getChildren()[menu.getChildren().length - 1];
+            if (lastChild.isInstanceOf(MenuSeparator)) {
+                menu.removeChild(lastChild);
+            }
         },
-        //get legend json and build
-        _legend: function(layer) {
-            esriRequest({
-                url: layer.url + '/legend',
-                callbackParamName: 'callback',
-                content: {
-                    f: 'json',
-                    token: (typeof layer._getToken === 'function') ? layer._getToken() : null
-                }
-            }).then(lang.hitch(this, function(r) {
-                array.forEach(r.layers, function(_layer) {
-                    var legendContent = '<table class="layerControlLegendTable">';
-                    array.forEach(_layer.legend, function(legend) {
-                        var label = legend.label || '&nbsp;';
-                        legendContent += '<tr><td class="layerControlLegendImage"><img class="' + layer.id + '-layerLegendImage" style="opacity:' + layer.opacity + ';width:' + legend.width + ';height:' + legend.height + ';" src="data:' + legend.contentType + ';base64,' + legend.imageData + '" alt="' + label + '" /></td><td class="layerControlLegendLabel">' + label + '</td></tr>';
+        //create legend
+        _createLegend: function(layer) {
+            if (this.controlOptions.noLegend === true) {
+                this._noLegend();
+                return;
+            }
+            //check ags version and create legends
+            if (layer.version >= 10.01) {
+                esriRequest({
+                    url: layer.url + '/legend',
+                    callbackParamName: 'callback',
+                    content: {
+                        f: 'json',
+                        token: (typeof layer._getToken === 'function') ? layer._getToken() : null
+                    }
+                }).then(lang.hitch(this, function(r) {
+                    array.forEach(r.layers, function(_layer) {
+                        //create legend table
+                        var table = domConst.create('table');
+                        domClass.add(table, 'layerControlLegendTable');
+                        //iterate through legends
+                        array.forEach(_layer.legend, function(legend) {
+                            //create a table row and symbol & label table data
+                            //  add label too
+                            var row = domConst.create('tr', {}, table, 'last'),
+                                symbol = domConst.create('td', {}, row, 'first'),
+                                label = domConst.create('td', {
+                                    innerHTML: legend.label || '&nbsp;'
+                                }, row, 'last');
+                            domClass.add(symbol, 'layerControlLegendImage');
+                            domClass.add(label, 'layerControlLegendLabel');
+                            //create image
+                            var img = domConst.create('img', {
+                                src: 'data:' + legend.contentType + ';base64,' + legend.imageData
+                            }, symbol);
+                            domStyle.set(img, {
+                                'width': legend.width + 'px',
+                                'height': legend.height + 'px',
+                                'opacity': layer.opacity
+                            });
+                            domClass.add(img, layer.id + '-layerLegendImage');
+                        }, this);
+                        //place it!
+                        //check for single layer, if so use expandNode for legend
+                        if (layer.layerInfos.length > 1) {
+                            var expandNode = registry.byId(layer.id + '-' + _layer.layerId + '-sublayer-control').expandNode;
+                            html.set(expandNode, ''); //clear "No Legend" placeholder
+                            domConst.place(table, expandNode);
+                        } else {
+                            domConst.place(table, this.expandNode);
+                        }
                     }, this);
-                    legendContent += '</table>';
-                    //check for single layer
-                    //if so use expandNode for legend
-                    if (layer.layerInfos.length > 1) {
-                        html.set(registry.byId(layer.id + '-' + _layer.layerId + '-sublayer-control').expandNode, legendContent);
-                    } else {
-                        html.set(this.expandNode, legendContent);
+                }), lang.hitch(this, function(e) {
+                    topic.publish('viewer/handleError', {
+                        source: 'LayerControl/Dynamic',
+                        error: 'an error occurred retrieving legend'
+                    });
+                    topic.publish('viewer/handleError', {
+                        source: 'LayerControl/Dynamic',
+                        error: e
+                    });
+                    this._noLegend();
+                }));
+            } else {
+                this._noLegend();
+            }
+        },
+        //handle no legend checking for number of sublayers in service
+        _noLegend: function () {
+            if (this.layer.layerInfos.length === 1) {
+                this._noLegendRemove(this, false);
+            } else {
+                array.forEach(this._sublayerControls, function (control) {
+                    //layers not folders
+                    if (control.sublayerInfo) {
+                        this._noLegendRemove(control, true);
                     }
                 }, this);
-            }), lang.hitch(this, function(e) {
-                console.log(e);
-                console.log('Dynamic::an error occurred retrieving legend');
-                if (this.layer.layerInfos.length === 1) {
-                    html.set(this.expandNode, 'No Legend');
-                }
-            }));  
+            }
+        },
+        //remove classes and click handler
+        _noLegendRemove: function (obj, unindent) {
+            domClass.remove(obj.expandIconNode, ['fa', 'fa-plus-square-o', 'layerControlToggleIcon']);
+            domStyle.set(obj.expandClickNode, 'cursor', 'default');
+            domConst.destroy(obj.expandNode);
+            if (unindent) {
+                domStyle.set(obj.expandClickNode, 'width', '4px');
+            }
+            if (obj._expandClickHandler) {
+                obj._expandClickHandler.remove();
+            }
         },
         //set dynamic layer visible layers
         _setVisibleLayers: function() {
@@ -297,7 +397,7 @@ define([
                 if (domAttr.get(i, 'data-checked') === 'checked') {
                     setLayers.push(parseInt(domAttr.get(i, 'data-sublayer-id'), 10));
                 }
-            }, this);
+            });
             array.forEach(layer.layerInfos, function(info) {
                 if (info.subLayerIds !== null && array.indexOf(setLayers, info.id) === -1) {
                     array.forEach(info.subLayerIds, function(sub) {
@@ -308,14 +408,13 @@ define([
                 } else if (info.subLayerIds !== null && array.indexOf(setLayers, info.id) !== -1) {
                     setLayers.splice(array.indexOf(setLayers, info.id), 1);
                 }
-            }, this);
+            });
             if (setLayers.length) {
                 layer.setVisibleLayers(setLayers);
-                layer.refresh();
             } else {
                 layer.setVisibleLayers([-1]);
-                layer.refresh();
             }
+            layer.refresh();
         },
         //check scales and add/remove disabled classes from checkbox
         _checkboxScaleRange: function() {

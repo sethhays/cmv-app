@@ -5,16 +5,16 @@ define([
 	'dojo/_base/lang',
 	'dojo/dnd/Moveable',
 	'dojo/aspect',
+	'dojo/topic',
 	'dojo/_base/window',
 	'dojo/window',
-    'dojo/topic',
 	'dojo/dom-geometry',
 	'dojo/dom-style',
 	'dojo/dom-construct',
 	'dojo/dom-attr',
 	'dojo/dom-class',
 	'xstyle/css!./FloatingTitlePane/css/FloatingTitlePane.css'
-], function(declare, TitlePane, on, lang, Moveable, aspect, win, winUtils, topic, domGeom, domStyle, domConstruct, domAttr, domClass, css) {
+], function(declare, TitlePane, on, lang, Moveable, aspect, topic, win, winUtils, domGeom, domStyle, domConstruct, domAttr, domClass) {
 	return declare([TitlePane], {
 		postCreate: function() {
 			if (this.canFloat) {
@@ -38,9 +38,8 @@ define([
 					evt.stopImmediatePropagation();
 				})));
 				this.own(on(window, 'resize', lang.hitch(this, '_endDrag')));
-                on(this, 'show', lang.hitch(this, '_onOpenClose', true));
-                on(this, 'hide', lang.hitch(this, '_onOpenClose', false));
-			}
+            }
+			this.own(aspect.after(this, 'toggle', lang.hitch(this, '_afterToggle')));
 			this.inherited(arguments);
 		},
 		startup: function() {
@@ -67,7 +66,7 @@ define([
 			domClass.remove(this.moveHandleNode, 'floatingWidgetMove');
 			domClass.add(this.moveHandleNode, 'floatingWidgetPopout');
 			this.isFloating = false;
-            this._updateTopic( 'dock' );
+			this._updateTopic('dock');
 		},
 		_moveDom: function() {
 			if (!this.isFloating) {
@@ -85,7 +84,7 @@ define([
 				// }, computedStyle);
 				this.isFloating = true;
 				this.placeAt(win.body());
-                this._updateTopic( 'undock' );
+				this._updateTopic('undock');
 			}
 		},
 		_endDrag: function() {
@@ -118,18 +117,18 @@ define([
 				});
 			}
 		},
-        _updateTopic: function ( msg ) {
-            topic.publish( 'widgetState/events', {
-                category: 'Widget Event',
+		 _updateTopic: function(msg) {
+            topic.publish('titlePane/event', {
+                category: 'Titlepane Event',
                 action: msg,
                 label: this.title,
                 value: msg
-            } );
+            });
 
         },
-        _onOpenClose: function( isOpen ) {
-            var evt = isOpen ? 'open' : 'close';
-            this._updateTopic( evt );
+        _afterToggle: function() {
+            var evt = this.open ? 'open' : 'close';
+            this._updateTopic(evt);
         }
 	});
 });

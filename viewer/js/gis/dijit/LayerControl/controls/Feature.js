@@ -1,39 +1,42 @@
-/* ags feature control */
 define([
     'dojo/_base/declare',
     'dojo/_base/lang',
     'dojo/_base/array',
+    'dojo/topic',
     'dojo/on',
     'dojo/dom-class',
     'dojo/dom-style',
+    'dojo/dom-construct',
     'dojo/html',
+    'dojox/gfx',
     'dijit/_WidgetBase',
     'dijit/_TemplatedMixin',
     'dijit/_Contained',
     'dijit/Menu',
     'dijit/MenuItem',
+    'dijit/PopupMenuItem',
     'dijit/MenuSeparator',
-    //'esri/request',
     'gis/dijit/LayerControl/plugins/Transparency',
-    'gis/dijit/LayerControl/plugins/Scales',
     'dojo/text!./templates/Control.html'
 ], function (
     declare,
     lang,
     array,
+    topic,
     on,
     domClass,
     domStyle,
+    domConst,
     html,
+    gfx,
     WidgetBase,
     TemplatedMixin,
     Contained,
     Menu,
     MenuItem,
+    PopupMenuItem,
     MenuSeparator,
-    //esriRequest, //may need for legend
     Transparency,
-    Scales,
     controlTemplate
 ) {
     'use strict';
@@ -42,18 +45,27 @@ define([
         layerTitle: 'Layer Title',
         _layerType: 'vector', //for reoredering
         _scaleRangeHandler: null,
+        _expandClickHandler: null,
+        _surfaceDims: [20, 20],
+        layerMenu: null,
         constructor: function(options) {
             options = options || {};
             declare.safeMixin(this, options);
         },
         postCreate: function() {
             if (!this.controller) {
-                console.log('Feature error::controller option is required');
+                topic.publish('viewer/handleError', {
+                    source: 'LayerControl/Feature',
+                    error: 'controller option is required'
+                });
                 this.destroy();
                 return;
             }
             if (!this.layer) {
-                console.log('Feature error::layer option is required');
+                topic.publish('viewer/handleError', {
+                    source: 'LayerControl/Feature',
+                    error: 'layer option is required'
+                });
                 this.destroy();
                 return;
             }
@@ -77,10 +89,18 @@ define([
                     layer.hide();
                     domClass.remove(this.checkNode, 'fa-check-square-o');
                     domClass.add(this.checkNode, 'fa-square-o');
+                    topic.publish('layerControl/layerToggle', {
+                        id: layer.id,
+                        visible: layer.visible
+                    });
                 } else {
                     layer.show();
                     domClass.remove(this.checkNode, 'fa-square-o');
                     domClass.add(this.checkNode, 'fa-check-square-o');
+                    topic.publish('layerControl/layerToggle', {
+                        id: layer.id,
+                        visible: layer.visible
+                    });
                 }
                 if (layer.minScale !== 0 || layer.maxScale !== 0) {
                     this._checkboxScaleRange();
@@ -96,25 +116,15 @@ define([
                 domStyle.set(this.layerUpdateNode, 'display', 'none');
             }));
             //wire up expand click
-            on(this.expandClickNode, 'click', lang.hitch(this, function() {
-                var expandNode = this.expandNode,
-                    iconNode = this.expandIconNode;
-                if (domStyle.get(expandNode, 'display') === 'none') {
-                    domStyle.set(expandNode, 'display', 'block');
-                    domClass.replace(iconNode, 'fa-minus-square-o', 'fa-plus-square-o');
-                } else {
-                    domStyle.set(expandNode, 'display', 'none');
-                    domClass.replace(iconNode, 'fa-plus-square-o', 'fa-minus-square-o');
-                }
-            }));
+            this._expandClick();
             //show expandNode
             if (this.controlOptions.expanded) {
                 this.expandClickNode.click();
             }
             //layer menu
-            this._menu();
+            this._createMenu(layer);
             //legend
-            this._legend(layer);
+            this._createLegend(layer);
             //if layer has scales set
             if (layer.minScale !== 0 || layer.maxScale !== 0) {
                 this._checkboxScaleRange();
@@ -134,76 +144,201 @@ define([
                 }
             }));
         },
+        //add on event to expandClickNode
+        _expandClick: function () {
+            this._expandClickHandler = on(this.expandClickNode, 'click', lang.hitch(this, function() {
+                var expandNode = this.expandNode,
+                    iconNode = this.expandIconNode;
+                if (domStyle.get(expandNode, 'display') === 'none') {
+                    domStyle.set(expandNode, 'display', 'block');
+                    domClass.replace(iconNode, 'fa-minus-square-o', 'fa-plus-square-o');
+                } else {
+                    domStyle.set(expandNode, 'display', 'none');
+                    domClass.replace(iconNode, 'fa-plus-square-o', 'fa-minus-square-o');
+                }
+            }));
+        },
         //create the layer control menu
-        _menu: function() {
-            var menu = new Menu({
+        _createMenu: function(layer) {
+            this.layerMenu = new Menu({
                 contextMenuForWindow: false,
                 targetNodeIds: [this.labelNode],
                 leftClickToOpen: true
             });
+            var menu = this.layerMenu,
+                controlOptions = this.controlOptions;
             //reorder menu items
             if (this.controller.vectorReorder) {
-                menu.addChild(new MenuItem({
+                this._reorderUp = new MenuItem({
                     label: 'Move Up',
                     onClick: lang.hitch(this, function() {
                         this.controller._moveUp(this);
                     })
-                }));
-                menu.addChild(new MenuItem({
+                });
+                menu.addChild(this._reorderUp);
+                this._reorderDown = new MenuItem({
                     label: 'Move Down',
                     onClick: lang.hitch(this, function() {
                         this.controller._moveDown(this);
                     })
-                }));
+                });
+                menu.addChild(this._reorderDown);
                 menu.addChild(new MenuSeparator());
             }
-            //zoom to layer extent
-            menu.addChild(new MenuItem({
-                label: 'Zoom to Layer',
-                onClick: lang.hitch(this, function() {
-                    this.controller._zoomToLayer(this.layer);
-                })
-            }));
-            //add plugins
-            if (this.controlOptions.transparency) {
-                menu.addChild(new Transparency({
-                    label: 'Transparency',
-                    layer: this.layer
+            //zoom to layer
+            if (controlOptions.noZoom !== true) {
+                menu.addChild(new MenuItem({
+                    label: 'Zoom to Layer',
+                    onClick: lang.hitch(this, function() {
+                        this.controller._zoomToLayer(layer);
+                    })
                 }));
             }
-            if (this.controlOptions.scales) {
-                menu.addChild(new Scales({
-                    label: 'Scales',
-                    layer: this.layer
+            //transparency
+            if (controlOptions.noTransparency !== true) {
+                menu.addChild(new Transparency({
+                    label: 'Transparency',
+                    layer: layer
+                }));
+            }
+            //layer swipe
+            if (controlOptions.noSwipe !== true) {
+                var swipeMenu = new Menu();
+                swipeMenu.addChild(new MenuItem({
+                    label: 'Vertical',
+                    onClick: lang.hitch(this, function () {
+                        this.controller._swipeLayer(layer, 'vertical');
+                    })
+                }));
+                swipeMenu.addChild(new MenuItem({
+                    label: 'Horizontal',
+                    onClick: lang.hitch(this, function () {
+                        this.controller._swipeLayer(layer, 'horizontal');
+                    })
+                }));
+                menu.addChild(new PopupMenuItem({
+                    label: 'Layer Swipe',
+                    popup: swipeMenu
                 }));
             }
             menu.startup();
+            //if last child is a separator remove it
+            var lastChild = menu.getChildren()[menu.getChildren().length - 1];
+            if (lastChild.isInstanceOf(MenuSeparator)) {
+                menu.removeChild(lastChild);
+            }
         },
-        //build feature 
-        //
-        //  IN PROGESS
-        //  having an issue with a particular layer, renderer, etc? help out and let @btfou know!
-        _legend: function(layer) {
-            //  layer.renderer.symbol = single symbols (esri.renderer.SimpleRenderer, etc)
+        //create legend (check for noLegend and decide how to proceed)
+        _createLegend: function(layer) {
+            if (this.controlOptions.noLegend === true) {
+                domClass.remove(this.expandIconNode, ['fa', 'fa-plus-square-o', 'layerControlToggleIcon']);
+                domStyle.set(this.expandClickNode, 'cursor', 'default');
+                domConst.destroy(this.expandNode);
+                if (this._expandClickHandler) {
+                    this._expandClickHandler.remove();
+                }
+                return;
+            }
+            //  layer.renderer.symbol = single symbol (esri.renderer.SimpleRenderer, etc)
             //  layer.renderer.infos = multiple symbols (esri.renderer.UniqueValueRenderer, etc)
-            //  TODO: read up on every single renderer!
-            //
-            
+            //  TODO: read up on every single renderer! (just to be a better person)
             var symbol = layer.renderer.symbol,
-                infos = layer.renderer.infos,
-                legendContent = '<table class="layerControlLegendTable">';
+                infos = layer.renderer.infos;
+            //are we dealing w/ a single symbol, multiple symbols or nothing
             if (symbol) {
-                legendContent += '<tr><td class="layerControlLegendImage"><img class="' + layer.id + '-layerLegendImage" style="opacity:' + layer.opacity + ';width:' + symbol.width + ';height:' + symbol.height + ';" src="' + symbol.url + '" alt="' + layer.name + '" /></td></tr>';
+                //pass array with single object equivalent to an `infos` object 
+                this._buildLegend([{
+                    symbol: symbol,
+                    description: '',
+                    label: '',
+                    value: ''
+                }]);
             } else if (infos) {
-                array.forEach(infos, function (info) {
-                    var sym = info.symbol;
-                    legendContent += '<tr><td class="layerControlLegendImage"><img class="' + layer.id + '-layerLegendImage" style="opacity:' + layer.opacity + ';width:' + sym.width + ';height:' + sym.height + ';" src="' + sym.url + '" alt="' + info.label + '" /></td><td class="layerControlLegendLabel">' + info.label + '</td></tr>';
-                });
+                this._buildLegend(infos);
             } else {
                 html.set(this.expandNode, 'No Legend');
             }
-            legendContent += '</table>';
-            html.set(this.expandNode, legendContent);
+        },
+        //build and place legend
+        _buildLegend: function (infos) {
+            //create legend table
+            var table = domConst.create('table');
+            domClass.add(table, 'layerControlLegendTable');
+            //iterate over infos
+            array.forEach(infos, function (info) {
+                //create a table row and symbol & label table data
+                //  add label too
+                var row = domConst.create('tr', {}, table, 'last'),
+                    symbol = domConst.create('td', {}, row, 'first'),
+                    label = domConst.create('td', {
+                        innerHTML: info.label || '&nbsp;'
+                    }, row, 'last');
+                domClass.add(symbol, 'layerControlLegendImage');
+                domClass.add(label, 'layerControlLegendLabel');
+                //the symbol and descriptors
+                var sym = info.symbol,
+                    descriptor = sym.getShapeDescriptors(),
+                    ds = descriptor.defaultShape,
+                    fill = descriptor.fill,
+                    stroke = descriptor.stroke;
+                //it's either an image or we're creating a gfx shape representation of the symbol
+                if (!ds.src) {
+                    if (sym) {
+                        //width and height
+                        var w = this._surfaceDims[0],
+                            h = this._surfaceDims[1];
+                        if (sym.width && sym.height) {
+                            w = sym.width;
+                            h = sym.height;
+                        }
+                        //create node for surface
+                        var surfaceNode = domConst.create('span', {}, symbol);
+                        domStyle.set(surfaceNode, {
+                            'width': w + 'px',
+                            'height': h + 'px',
+                            'display': 'inline-block'
+                        });
+                        //create surface and add shape
+                        var surface = gfx.createSurface(surfaceNode, w, h);
+                        var shape = surface.createShape(ds);
+                        if (fill) {
+                            shape.setFill(fill);
+                        }
+                        if (stroke) {
+                            shape.setStroke(stroke);
+                        }
+                        shape.applyTransform({
+                            dx: w / 2,
+                            dy: h / 2
+                        });
+                        //set opacity of td
+                        //  it works but is there a better way?
+                        domStyle.set(symbol, {
+                            'opacity': this.layer.opacity
+                        });
+                        domClass.add(symbol, this.layer.id + '-layerLegendImage');
+                    } else {
+                        html.set(this.expandNode, 'No Legend');
+                        topic.publish('viewer/handleError', {
+                            source: 'LayerControl/Tiled',
+                            error: 'renderer does not contain symbol(s)'
+                        });
+                    }
+                } else {
+                    //create image
+                    var img = domConst.create('img', {
+                        src: ds.src
+                    }, symbol);
+                    domStyle.set(img, {
+                        'width': sym.width + 'px',
+                        'height': sym.height + 'px',
+                        'opacity': this.layer.opacity
+                    });
+                    domClass.add(img, this.layer.id + '-layerLegendImage');
+                }
+                //place it!
+                domConst.place(table, this.expandNode);
+            }, this);
         },
         //check scales and add/remove disabled classes from checkbox
         _checkboxScaleRange: function() {

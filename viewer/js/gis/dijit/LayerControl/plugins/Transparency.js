@@ -12,7 +12,7 @@ define([
 ], function (
     declare,
     lang,
-    arrayUtil,
+    array,
     query,
     domStyle,
     PopupMenuItem,
@@ -37,7 +37,7 @@ define([
                 showButtons: false,
                 onChange: lang.hitch(this, function(value) {
                     this.layer.setOpacity(value);
-                    arrayUtil.forEach(query('.' + this.layer.id + '-layerLegendImage'), function(img) {
+                    array.forEach(query('.' + this.layer.id + '-layerLegendImage'), function(img) {
                         domStyle.set(img, 'opacity', value);
                     });
                 })

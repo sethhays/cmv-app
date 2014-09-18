@@ -2,21 +2,26 @@
 
 }
 
+.layerControlDijit .vectorLabelContainer {
+	
+}
+
 .layerControlDijit .overlayLayerContainer {
 
 }
 
-.layerControlDijit .layerControl {
-	margin-bottom: 6px;
+.layerControlDijit .overlayLabelContainer {
 	padding-bottom: 4px;
-	border-bottom: solid 1px #e5e5e5;
 }
 
-.layerControlDijit .layerControl:last-child {
-	margin-bottom: 0px;
-	padding-bottom: 0px;
-	border-bottom-width: 0px;
+.layerControlDijit .layerControl {
+	padding-bottom: 6px;
 }
+
+.layerControlDijit .layerControlExpand {
+    border-bottom: solid 1px #DDD;
+}
+
 
 .layerControlDijit .layerControlTable {
 	width: 100%;
@@ -62,7 +67,7 @@
 }
 
 .layerControlDijit .layerControlIcon {
-	font-size: 16px;
+	font-size: 17px;
 }
 
 .layerControlDijit .layerControlUpdateIcon {

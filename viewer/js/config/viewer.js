@@ -17,15 +17,17 @@ define([
 	imageParameters.format = 'png32';
 
 	return {
+		// used for debugging your app
+		isDebug: false,
+
 		//default mapClick mode, mapClickMode lets widgets know what mode the map is in to avoid multipult map click actions from taking place (ie identify while drawing).
 		defaultMapClickMode: 'identify',
 		// map options, passed to map constructor. see: https://developers.arcgis.com/javascript/jsapi/map-amd.html#map1
 		mapOptions: {
 			basemap: 'streets',
-            center: [-84.482278, 42.723222],
+			center: [-96.59179687497497, 39.09596293629694],
 			zoom: 5,
-			sliderStyle: 'small',
-            showInfoWindowOnClick: true
+			sliderStyle: 'small'
 		},
 		// panes: {
 		// 	left: {
@@ -65,17 +67,13 @@ define([
 			options: {
 				id: 'meetupHometowns',
 				opacity: 1.0,
-				visible: false,
+				visible: true,
 				outFields: ['*'],
 				mode: 0
 			},
 			editorLayerInfos: {
 				disableGeometryUpdate: false
-			},
-            controlOptions: {
-                expanded: true,
-                transparency: true
-            }
+			}
 		}, {
 			type: 'feature',
 			url: 'http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/SanFrancisco/311Incidents/FeatureServer/0',
@@ -83,7 +81,7 @@ define([
 			options: {
 				id: 'sf311Incidents',
 				opacity: 1.0,
-				visible: false,
+				visible: true,
 				outFields: ['req_type', 'req_date', 'req_time', 'address', 'district'],
 				mode: 0
 			}
@@ -98,15 +96,12 @@ define([
 			options: {
 				id: 'louisvillePubSafety',
 				opacity: 1.0,
-				visible: false,
+				visible: true,
 				imageParameters: imageParameters
 			},
 			identifyLayerInfos: {
 				layerIds: [2, 4, 5, 8, 12, 21]
-			},
-            controlOptions: {
-                expanded: true
-            }
+			}
 		}, {
 			type: 'dynamic',
 			url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/MapServer',
@@ -117,76 +112,13 @@ define([
 			options: {
 				id: 'DamageAssessment',
 				opacity: 1.0,
-				visible: false,
+				visible: true,
 				imageParameters: imageParameters
 			}
-		}, {
-			type: 'image',
-			url: 'http://imagery.arcgisonline.com/ArcGIS/rest/services/LandsatGLS/FalseColor/ImageServer',
-			title: 'Landsat False Color',
-			options: {
-				id: 'landsat_false_color',
-				opacity: 0.7,
-				visible: false
-			},
-            controlOptions: {
-                transparency: true
-            }
-		}, {
-			type: 'tiled',
-			url: 'http://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer',
-			title: 'Esri World Physical Map',
-			options: {
-				id: 'esri_phyical_map',
-				opacity: 1.0,
-				visible: false
-			},
-            controlOptions: {
-                scales: true
-            }
 		}],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
 		widgets: {
-			layerControl: {
-				include: true,
-				id: 'layerControl',
-				type: 'titlePane',
-				path: 'gis/dijit/LayerControl',
-				title: 'Layers',
-				open: true,
-				position: 0,
-				options: {
-					map: true,
-					layerControlLayerInfos: true,
-					vectorReorder: true
-				}
-			},
-            identify: {
-                include: true,
-                id: 'identify',
-                type: 'titlePane',
-                path: 'gis/dijit/Identify',
-                title: 'Identify',
-                open: false,
-                position: 3,
-                options: 'config/identify'
-            },
-            draw: {
-                include: true,
-                id: 'draw',
-                type: 'titlePane',
-                canFloat: true,
-                path: 'gis/dijit/Draw',
-                title: 'Draw',
-                open: true,
-                position: 4,
-                options: {
-                    map: true,
-                    mapClickMode: true
-                }
-            }
-            /*
-            growler: {
+			growler: {
 				include: true,
 				id: 'growler',
 				type: 'domNode',
@@ -195,7 +127,7 @@ define([
 				options: {}
 			},
 			geocoder: {
-				include: false,
+				include: true,
 				id: 'geocoder',
 				type: 'domNode',
 				path: 'gis/dijit/Geocoder',
@@ -211,8 +143,18 @@ define([
 					}
 				}
 			},
+			identify: {
+				include: true,
+				id: 'identify',
+				type: 'titlePane',
+				path: 'gis/dijit/Identify',
+				title: 'Identify',
+				open: false,
+				position: 3,
+				options: 'config/identify'
+			},
 			basemaps: {
-				include: false,
+				include: true,
 				id: 'basemaps',
 				type: 'domNode',
 				path: 'gis/dijit/Basemaps',
@@ -236,36 +178,8 @@ define([
 					minWidth: 286
 				}
 			},
-            layerSwapper: {
-                include: true,
-                id: 'layerSwapper',
-                type: 'titlePane',
-                title: 'Layer Swapper',
-                path: 'gis/dijit/LayerSwapper',
-                open: true,
-                options: {
-                    map: true,
-                    layerInfos: [
-                        {
-                            label: 'Layer 1',
-                            url: 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2012_jun19/MapServer',
-                            type: 'tiled'
-                        },
-                        {
-                            label: 'Layer 2',
-                            url: 'http://prod.gis.msu.edu/arcgis/rest/services/historical/msu2011_nov15/MapServer',
-                            type: 'tiled'
-                        },
-                        {
-                            label: 'Layer 3',
-                            url: 'http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/PublicSafety/PublicSafetyOperationalLayers/MapServer',
-                            type: 'dynamic'
-                        }
-                    ]
-                }
-            },
 			scalebar: {
-				include: false,
+				include: true,
 				id: 'scalebar',
 				type: 'map',
 				path: 'esri/dijit/Scalebar',
@@ -277,7 +191,7 @@ define([
 				}
 			},
 			locateButton: {
-				include: false,
+				include: true,
 				id: 'locateButton',
 				type: 'domNode',
 				path: 'gis/dijit/LocateButton',
@@ -295,7 +209,7 @@ define([
 				}
 			},
 			overviewMap: {
-				include: false,
+				include: true,
 				id: 'overviewMap',
 				type: 'map',
 				path: 'esri/dijit/OverviewMap',
@@ -329,7 +243,7 @@ define([
 				}
 			},
 			legend: {
-				include: false,
+				include: true,
 				id: 'legend',
 				type: 'titlePane',
 				path: 'esri/dijit/Legend',
@@ -341,21 +255,23 @@ define([
 					legendLayerInfos: true
 				}
 			},
-			TOC: {
-				include: false,
-				id: 'toc',
+			layerControl: {
+				include: true,
+				id: 'layerControl',
 				type: 'titlePane',
-				path: 'gis/dijit/TOC',
+				path: 'gis/dijit/LayerControl',
 				title: 'Layers',
 				open: false,
-				position: 1,
+				position: 0,
 				options: {
 					map: true,
-					tocLayerInfos: true
+					layerControlLayerInfos: true,
+					vectorReorder: true,
+					overlayReorder: true
 				}
 			},
 			bookmarks: {
-				include: false,
+				include: true,
 				id: 'bookmarks',
 				type: 'titlePane',
 				path: 'gis/dijit/Bookmarks',
@@ -365,7 +281,7 @@ define([
 				options: 'config/bookmarks'
 			},
 			find: {
-				include: false,
+				include: true,
 				id: 'find',
 				type: 'titlePane',
 				canFloat: true,
@@ -376,7 +292,7 @@ define([
 				options: 'config/find'
 			},
 			draw: {
-				include: false,
+				include: true,
 				id: 'draw',
 				type: 'titlePane',
 				canFloat: true,
@@ -390,7 +306,7 @@ define([
 				}
 			},
 			measure: {
-				include: false,
+				include: true,
 				id: 'measurement',
 				type: 'titlePane',
 				canFloat: true,
@@ -406,7 +322,7 @@ define([
 				}
 			},
 			print: {
-				include: false,
+				include: true,
 				id: 'print',
 				type: 'titlePane',
 				canFloat: true,
@@ -425,7 +341,7 @@ define([
 				}
 			},
 			directions: {
-				include: false,
+				include: true,
 				id: 'directions',
 				type: 'titlePane',
 				path: 'gis/dijit/Directions',
@@ -445,7 +361,7 @@ define([
 				}
 			},
 			editor: {
-				include: false,
+				include: true,
 				id: 'editor',
 				type: 'titlePane',
 				path: 'gis/dijit/Editor',
@@ -472,7 +388,7 @@ define([
 				}
 			},
 			streetview: {
-				include: false,
+				include: true,
 				id: 'streetview',
 				type: 'titlePane',
 				canFloat: true,
@@ -487,14 +403,14 @@ define([
 				}
 			},
 			help: {
-				include: false,
+				include: true,
 				id: 'help',
 				type: 'floating',
 				path: 'gis/dijit/Help',
 				title: 'Help',
 				options: {}
 			}
-            */
+
 		}
 	};
 });
