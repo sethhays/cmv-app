@@ -20,8 +20,9 @@ define([
     'dojo/topic',
     'esri/dijit/PopupMobile',
     'dijit/Menu',
-    'viewer/modules/router/Router'
-], function(declare, Map, dom, domStyle, domGeom, domClass, on, array, BorderContainer, ContentPane, FloatingTitlePane, lang, mapOverlay, IdentityManager, FloatingWidgetDialog, put, aspect, has, topic, PopupMobile, Menu, Router) {
+    'viewer/modules/Router',
+    'viewer/modules/InfoTemplateManager'
+], function(declare, Map, dom, domStyle, domGeom, domClass, on, array, BorderContainer, ContentPane, FloatingTitlePane, lang, mapOverlay, IdentityManager, FloatingWidgetDialog, put, aspect, has, topic, PopupMobile, Menu, Router, InfoTemplateManager) {
 
     return {
         legendLayerInfos: [],
@@ -44,17 +45,20 @@ define([
             }
         },
         collapseButtons: {},
+        router: null,
+        infoTemplateManager: null,
 
         startup: function(){
 
             topic.subscribe( Router.TOPIC_CONFIG_LOADED,
                              lang.hitch( this, this.initialize )
             );
+            this.infoTemplateManager = new InfoTemplateManager();
             this.router = new Router();
 
         },
         initialize: function(config) {
-            console.log(config);
+
             this.config = config;
             this.mapClickMode = {
                 current: config.defaultMapClickMode,
@@ -74,6 +78,7 @@ define([
             }
             this.addTopics();
             this.initPanes();
+
 
             if (config.isDebug) {
                 window.app = this; //dev only
@@ -207,7 +212,9 @@ define([
                 this.config.mapOptions.infoWindow = new PopupMobile(null, put('div'));
             }
             this.map = new Map('mapCenter', this.config.mapOptions);
-            this.router.setMap( this.map );  //do this with aspect?
+
+            //this.router.setMap( this.map );  //do this with aspect?
+            //this.infoTemplateManager.setMap( this.map );
 
             // create right-click menu
             this.mapRightClickMenu = new Menu({
@@ -229,6 +236,8 @@ define([
             } else {
                 this.initWidgets();
             }
+
+            topic.publish( 'map/initialized', this.map );
 
         },
         initLayers: function(evt) {

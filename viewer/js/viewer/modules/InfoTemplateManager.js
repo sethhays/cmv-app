@@ -16,11 +16,14 @@ define ( [
             infoTemplates: {},
             topicHandles: [],
 
-            constructor: function( map ) {
+            constructor: function() {
 
-                this.map = map;
                 this.subscribeTopics();
 
+            },
+
+            setMap: function ( value ) {
+                this.map = value;
             },
 
             subscribeTopics: function () {
@@ -31,6 +34,10 @@ define ( [
                 this.topicHandles.push(
                     topic.subscribe('mapInfoTemplates/enable', lang.hitch(this, this.enableInfoTemplates ) )
                 );
+                this.topicHandles.push(
+                    topic.subscribe( 'map/initialized', lang.hitch( this, this.setMap ) )
+                );
+
 
             },
 

@@ -81,10 +81,7 @@ define( [
                 _subscribeTopics: function () {
 
                     this.topicHandles.push(
-                        //was initially thinking of moving functions that deal with the map to separate class
-                        //  and listening here
-                        //  -Embedded map handlers directly in this module for first implementation
-                        //  -May still want to listen for other notifications that should update route, layer-add, layer-visibility?
+                        topic.subscribe( 'map/initialized', lang.hitch( this, this.setMap ) )
                     );
 
                 },
