@@ -34,8 +34,8 @@ define([
 	return {
 		//optional page and browser titles
         titles: {
-            headerTitle: 'Facility and Infrastructure Viewer',
-            subHeaderTitle: '',
+            header: 'Facility and Infrastructure Viewer',
+            subHeader: '',
             pageTitle: 'Facility and Infrastructure  | Facility Information Services'
         },
 

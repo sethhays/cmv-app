@@ -14,6 +14,10 @@ body, html {
     font-weight: normal;
 }
 
+.appHeader .subHeaderTitle {
+    display: none;
+}
+
 #borderContainerOuter {
     top: 56px;
 }

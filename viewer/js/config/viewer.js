@@ -20,6 +20,12 @@ define([
 		// used for debugging your app
 		isDebug: false,
 
+        titles: {
+            header: 'CMV',
+            subHeader: 'Make it your own right?',
+            pageTitle: 'CMV | Configurable Map Viewer'
+        },
+
 		//default mapClick mode, mapClickMode lets widgets know what mode the map is in to avoid multipult map click actions from taking place (ie identify while drawing).
 		defaultMapClickMode: 'identify',
 		// map options, passed to map constructor. see: https://developers.arcgis.com/javascript/jsapi/map-amd.html#map1

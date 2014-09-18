@@ -17,10 +17,11 @@ define([
     'put-selector',
     'dojo/aspect',
     'dojo/has',
+    'dojo/topic',
     'esri/dijit/PopupMobile',
     'dijit/Menu',
     'viewer/modules/router/Router'
-], function(declare, Map, dom, domStyle, domGeom, domClass, on, array, Router, hash, topic, BorderContainer, ContentPane, FloatingTitlePane, lang, mapOverlay, IdentityManager, webMercatorUtils, FloatingWidgetDialog, put, aspect, has, PopupMobile, Menu, Router) {
+], function(declare, Map, dom, domStyle, domGeom, domClass, on, array, BorderContainer, ContentPane, FloatingTitlePane, lang, mapOverlay, IdentityManager, FloatingWidgetDialog, put, aspect, has, topic, PopupMobile, Menu, Router) {
 
     return {
         legendLayerInfos: [],
@@ -43,9 +44,6 @@ define([
             }
         },
         collapseButtons: {},
-        currentConfig: null,
-        mapUpdating: false,
-        hashUpdating: false,
 
         startup: function(){
 
@@ -56,7 +54,7 @@ define([
 
         },
         initialize: function(config) {
-
+            console.log(config);
             this.config = config;
             this.mapClickMode = {
                 current: config.defaultMapClickMode,
@@ -209,8 +207,7 @@ define([
                 this.config.mapOptions.infoWindow = new PopupMobile(null, put('div'));
             }
             this.map = new Map('mapCenter', this.config.mapOptions);
-
-            on( this.map, 'extent-change', lang.hitch( this, this.updateLocationHash ) );
+            this.router.setMap( this.map );  //do this with aspect?
 
             // create right-click menu
             this.mapRightClickMenu = new Menu({

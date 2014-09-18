@@ -6,7 +6,7 @@ define( [
           'dojo/router',
           'dojo/topic',
           'esri/geometry/webMercatorUtils',
-          'viewer/global'
+          'config/global'
         ],
         function( declare,
                   lang,
@@ -157,7 +157,7 @@ define( [
                         config.mapOptions.zoom = this._getDefaultMapZoomLevel( config );
 
                         this.config = config;
-                        topic.publish( this.TOPIC_CONFIG_LOADED );
+                        topic.publish( this.TOPIC_CONFIG_LOADED, this.config );
 
                     } ) );
 
@@ -191,7 +191,7 @@ define( [
                     require( [ this.configPath ], lang.hitch( this, function( config ) {
 
                         this.config = config;
-                        topic.publish( this.TOPIC_CONFIG_LOADED );
+                        topic.publish( this.TOPIC_CONFIG_LOADED, this.config );
 
                     } ) );
 
