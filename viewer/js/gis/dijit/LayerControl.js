@@ -11,9 +11,8 @@ define([
     'dijit/form/Button',
     'esri/tasks/ProjectParameters',
     'esri/config',
-    //the css
     'xstyle/css!./LayerControl/css/LayerControl.css'
-], function(
+], function (
     declare,
     array,
     lang,
@@ -27,12 +26,26 @@ define([
     ProjectParameters,
     esriConfig
 ) {
-    'use strict';
     return declare([WidgetBase, Container], {
+        map: null,
+        layerInfos: [],
+        separated: false,
+        overlayReorder: false,
+        overlayLabel: false,
+        vectorReorder: false,
+        vectorLabel: false,
+        noLegend: null,
+        noZoom: null,
+        noTransparency: null,
+        swipe: null,
+        fontAwesome: true,
+        fontAwesomeUrl: '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css', // 4.2.0 looks funny @ 16px?
+        swiperButtonStyle: 'position:absolute;top:20px;left:120px;z-index:50;',
+        // ^args
         baseClass: 'layerControlDijit',
-        _vectorContainer: null, //vector layer control container
-        _overlayContainer: null, //overlay layer control container
-        _swiper: null, //layer swipe widget
+        _vectorContainer: null,
+        _overlayContainer: null,
+        _swiper: null,
         _swipeLayerToggleHandle: null,
         _controls: {
             dynamic: 'gis/dijit/LayerControl/controls/Dynamic',
@@ -40,7 +53,7 @@ define([
             image: 'gis/dijit/LayerControl/controls/Image',
             tiled: 'gis/dijit/LayerControl/controls/Tiled'
         },
-        constructor: function(options) {
+        constructor: function (options) {
             options = options || {};
             if (!options.map) {
                 topic.publish('viewer/handleError', {
@@ -49,42 +62,31 @@ define([
                 });
                 return;
             }
-            declare.safeMixin(this, {
-                map: null,
-                layerInfos: [],
-                separated: true,
-                overlayReorder: false,
-                overlayLabel: 'Map Overlays',
-                vectorReorder: false,
-                vectorLabel: 'Feature Layers',
-                fontAwesome: true,
-                fontAwesomeUrl: '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css', //4.2.0 looks funny @ 16px?
-                swiperButtonStyle: 'position:absolute;top:20px;left:120px;z-index:50;'
-            }, options);
         },
-        postCreate: function() {
+        postCreate: function () {
+            this.inherited(arguments);
             if (this.separated) {
                 var ControlContainer = declare([WidgetBase, Container]);
-                //vector layer label
+                // vector layer label
                 if (this.vectorLabel !== false) {
                     this.addChild(new ContentPane({
                         className: 'vectorLabelContainer',
                         content: this.vectorLabel
                     }, domConst.create('div')), 'first');
                 }
-                //vector layer control container
+                // vector layer control container
                 this._vectorContainer = new ControlContainer({
                     className: 'vectorLayerContainer'
                 }, domConst.create('div'));
                 this.addChild(this._vectorContainer, 'last');
-                //overlay layer label
+                // overlay layer label
                 if (this.overlayLabel !== false) {
                     this.addChild(new ContentPane({
                         className: 'overlayLabelContainer',
                         content: this.overlayLabel
                     }, domConst.create('div')), 'last');
                 }
-                //overlay layer control container
+                // overlay layer control container
                 this._overlayContainer = new ControlContainer({
                     className: 'overlayLayerContainer'
                 }, domConst.create('div'));
@@ -93,15 +95,15 @@ define([
                 this.overlayReorder = false;
                 this.vectorReorder = false;
             }
-            //load only the modules we need
+            // load only the modules we need
             var modules = [];
-            //load font awesome
+            // load font awesome
             if (this.fontAwesome) {
                 modules.push('xstyle/css!' + this.fontAwesomeUrl);
             }
-            //push layer control mods
-            array.forEach(this.layerInfos, function(layerInfo) {
-                //check if control is excluded
+            // push layer control mods
+            array.forEach(this.layerInfos, function (layerInfo) {
+                // check if control is excluded
                 var controlOptions = layerInfo.controlOptions;
                 if (controlOptions && controlOptions.exclude === true) {
                     return;
@@ -116,10 +118,10 @@ define([
                     });
                 }
             }, this);
-            //load and go
-            require(modules, lang.hitch(this, function() {
-                array.forEach(this.layerInfos, function(layerInfo) {
-                    //exclude from widget
+            // load and go
+            require(modules, lang.hitch(this, function () {
+                array.forEach(this.layerInfos, function (layerInfo) {
+                    // exclude from widget
                     var controlOptions = layerInfo.controlOptions;
                     if (controlOptions && controlOptions.exclude === true) {
                         return;
@@ -132,13 +134,20 @@ define([
                 this._checkReorder();
             }));
         },
-        //create layer control and add to appropriate _container
-        _addControl: function(layerInfo, LayerControl) {
+        // create layer control and add to appropriate _container
+        _addControl: function (layerInfo, LayerControl) {
             var layerControl = new LayerControl({
                 controller: this,
                 layer: layerInfo.layer,
                 layerTitle: layerInfo.title,
-                controlOptions: layerInfo.controlOptions || {}
+                controlOptions: lang.mixin({
+                    noLegend: null,
+                    noZoom: null,
+                    noTransparency: null,
+                    swipe: null,
+                    expanded: false,
+                    sublayers: true
+                }, layerInfo.controlOptions)
             });
             layerControl.startup();
             if (this.separated) {
@@ -151,8 +160,8 @@ define([
                 this.addChild(layerControl, 'first');
             }
         },
-        //move control up in controller and layer up in map
-        _moveUp: function(control) {
+        // move control up in controller and layer up in map
+        _moveUp: function (control) {
             var id = control.layer.id,
                 node = control.domNode,
                 index;
@@ -172,27 +181,28 @@ define([
                 }
             }
         },
-        //move control down in controller and layer down in map
-        _moveDown: function(control) {
+        // move control down in controller and layer down in map
+        _moveDown: function (control) {
             var id = control.layer.id,
                 node = control.domNode,
                 index;
             if (control._layerType === 'overlay') {
                 if (control.getNextSibling()) {
                     index = array.indexOf(this.map.layerIds, id);
-                    this.map.reorderLayer(id, index + 1);
+                    this.map.reorderLayer(id, index - 1);
                     this._overlayContainer.containerNode.insertBefore(node, node.nextSibling.nextSibling);
                     this._checkReorder();
                 }
             } else if (control._layerType === 'vector') {
                 if (control.getNextSibling()) {
                     index = array.indexOf(this.map.graphicsLayerIds, id);
-                    this.map.reorderLayer(id, index + 1);
+                    this.map.reorderLayer(id, index - 1);
                     this._vectorContainer.containerNode.insertBefore(node, node.nextSibling.nextSibling);
                     this._checkReorder();
                 }
             }
         },
+        // enable/disable move up/down menu items when the last or first child respectively
         _checkReorder: function () {
             if (this.separated) {
                 if (this.vectorReorder) {
@@ -225,8 +235,8 @@ define([
                 }
             }
         },
-        //zoom to layer
-        _zoomToLayer: function(layer) {
+        // zoom to layer
+        _zoomToLayer: function (layer) {
             var map = this.map;
             if (layer.spatialReference === map.spatialReference) {
                 map.setExtent(layer.fullExtent, true);
@@ -235,10 +245,13 @@ define([
                     esriConfig.defaults.geometryService.project(lang.mixin(new ProjectParameters(), {
                         geometries: [layer.fullExtent],
                         outSR: map.spatialReference
-                    }), function(r) {
+                    }), function (r) {
                         map.setExtent(r[0], true);
-                    }, function(e) {
-                        //console.log(e);
+                    }, function (e) {
+                        topic.publish('viewer/handleError', {
+                            source: 'LayerControl._zoomToLayer',
+                            error: e
+                        });
                     });
                 } else {
                     topic.publish('viewer/handleError', {
@@ -248,8 +261,8 @@ define([
                 }
             }
         },
-        //layer swiper
-        _swipeLayer: function(layer, type) {
+        // layer swiper
+        _swipeLayer: function (layer, type) {
             if (!layer || !layer.visible) {
                 return;
             }

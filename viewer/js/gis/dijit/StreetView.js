@@ -1,10 +1,10 @@
 /*global google */
+/*jshint unused:true */
 define([
 	'dojo/_base/declare',
 	'dijit/_WidgetBase',
 	'dijit/_TemplatedMixin',
 	'dijit/_WidgetsInTemplateMixin',
-	'dijit/form/Button',
 	'dojo/_base/lang',
 	'dojo/aspect',
 	'dojo/topic',
@@ -12,16 +12,16 @@ define([
 	'esri/graphic',
 	'esri/renderers/SimpleRenderer',
 	'dojo/text!./StreetView/templates/StreetView.html',
-	'esri/renderers/UniqueValueRenderer',
 	'esri/symbols/PictureMarkerSymbol',
 	'dojo/dom-style',
 	'esri/geometry/Point',
 	'esri/SpatialReference',
 	'dijit/MenuItem',
+	'//cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.2/proj4.js',
+	'dijit/form/Button',
 	'xstyle/css!./StreetView/css/StreetView.css',
-	'gis/plugins/async!//maps.google.com/maps/api/js?v=3&sensor=false',
-	'//cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.2/proj4.js'
-], function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Button, lang, aspect, topic, GraphicsLayer, Graphic, SimpleRenderer, template, UniqueValueRenderer, PictureMarkerSymbol, domStyle, Point, SpatialReference, MenuItem, css, gmaps, proj4) {
+	'gis/plugins/async!//maps.google.com/maps/api/js?v=3&sensor=false'
+], function (declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, lang, aspect, topic, GraphicsLayer, Graphic, SimpleRenderer, template, PictureMarkerSymbol, domStyle, Point, SpatialReference, MenuItem, proj4) {
 
 	return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
 		widgetsInTemplate: true,
@@ -52,37 +52,20 @@ define([
 		// i.e., http://server/projections/102642.js
 		projCustomURL: null,
 
-		postCreate: function() {
+		postCreate: function () {
 			this.inherited(arguments);
-			this.pointSymbol = new PictureMarkerSymbol(require.toUrl('gis/dijit/StreetView/images/blueArrow.png'), 30, 30);
-			this.pointGraphics = new GraphicsLayer({
-				id: 'streetview_graphics',
-				title: 'Street View'
-			});
-			this.pointRenderer = new SimpleRenderer(this.pointSymbol);
-			this.pointRenderer.label = 'Street View';
-			this.pointRenderer.description = 'Street View';
-			this.pointGraphics.setRenderer(this.pointRenderer);
-			this.map.addLayer(this.pointGraphics);
+			this.createGraphicsLayer();
 			this.map.on('click', lang.hitch(this, 'getStreetView'));
 
 			this.own(topic.subscribe('mapClickMode/currentSet', lang.hitch(this, 'setMapClickMode')));
-			this.own(topic.subscribe('attributesTable/selectFeatures', lang.hitch(this, function (evt) {
-				if (evt.allowStreetView) {
-					var mc = this.mapClickMode.current;
-					this.getStreetView(evt, true);
-					this.mapClickMode.current = mc;
-				}
-			})));
-
-			if (this.parentWidget && this.parentWidget.toggleable) {
-				this.own(aspect.after(this.parentWidget, 'toggle', lang.hitch(this, function() {
-					this.onLayoutChange(this.parentWidget.open);
-				})));
-			}
 
 			if (this.parentWidget) {
-				this.own(aspect.after(this.parentWidget, 'resize', lang.hitch(this, function() {
+				if (this.parentWidget.toggleable) {
+					this.own(aspect.after(this.parentWidget, 'toggle', lang.hitch(this, function () {
+						this.onLayoutChange(this.parentWidget.open);
+					})));
+				}
+				this.own(aspect.after(this.parentWidget, 'resize', lang.hitch(this, function () {
 					if (this.panorama) {
 						google.maps.event.trigger(this.panorama, 'resize');
 					}
@@ -95,16 +78,31 @@ define([
 			window.Proj4js = proj4;
 
 			if (this.mapRightClickMenu) {
-				this.map.on('MouseDown', lang.hitch(this, function(evt) {
-					this.mapRightClickPoint = evt.mapPoint;
-				}));
-				this.mapRightClickMenu.addChild(new MenuItem({
-					label: 'See Street View here',
-					onClick: lang.hitch(this, 'streetViewFromMapRightClick')
-				}));
+				this.addRightClickMenu();
 			}
 		},
-		onOpen: function() {
+		createGraphicsLayer: function () {
+			this.pointSymbol = new PictureMarkerSymbol(require.toUrl('gis/dijit/StreetView/images/blueArrow.png'), 30, 30);
+			this.pointGraphics = new GraphicsLayer({
+				id: 'streetview_graphics',
+				title: 'Street View'
+			});
+			this.pointRenderer = new SimpleRenderer(this.pointSymbol);
+			this.pointRenderer.label = 'Street View';
+			this.pointRenderer.description = 'Street View';
+			this.pointGraphics.setRenderer(this.pointRenderer);
+			this.map.addLayer(this.pointGraphics);
+		},
+		addRightClickMenu: function () {
+			this.map.on('MouseDown', lang.hitch(this, function (evt) {
+				this.mapRightClickPoint = evt.mapPoint;
+			}));
+			this.mapRightClickMenu.addChild(new MenuItem({
+				label: 'See Street View here',
+				onClick: lang.hitch(this, 'streetViewFromMapRightClick')
+			}));
+		},
+		onOpen: function () {
 			this.pointGraphics.show();
 			if (!this.panorama || !this.panoramaService) {
 				this.panorama = new google.maps.StreetViewPanorama(this.panoNode, this.panoOptions);
@@ -114,45 +112,43 @@ define([
 				google.maps.event.trigger(this.panorama, 'resize');
 			}
 		},
-		onClose: function() {
-	  		// end streetview on close of title pane
+		onClose: function () {
+			// end streetview on close of title pane
 			this.pointGraphics.hide();
 			if (this.mapClickMode === 'streetview') {
 				this.connectMapClick();
 			}
 		},
-		onLayoutChange: function(open) {
+		onLayoutChange: function (open) {
 			if (open) {
 				this.onOpen();
 			} else {
 				this.onClose();
 			}
 		},
-		placePoint: function() {
+		placePoint: function () {
 			this.disconnectMapClick();
 			//get map click, set up listener in post create
 		},
-		disconnectMapClick: function() {
+		disconnectMapClick: function () {
 			this.map.setMapCursor('crosshair');
-            topic.publish('mapClickMode/setCurrent', 'streetview');
-            topic.publish( 'mapInfoTemplates/disable' );
+			topic.publish('mapClickMode/setCurrent', 'streetview');
 		},
-		connectMapClick: function() {
+		connectMapClick: function () {
 			this.map.setMapCursor('auto');
-            topic.publish('mapClickMode/setDefault');
-            topic.publish( 'mapInfoTemplates/enable' );
+			topic.publish('mapClickMode/setDefault');
 		},
-		clearGraphics: function() {
+		clearGraphics: function () {
 			this.pointGraphics.clear();
 			domStyle.set(this.noStreetViewResults, 'display', 'block');
 		},
-		enableStreetViewClick: function() {
+		enableStreetViewClick: function () {
 			this.disconnectMapClick();
 		},
-		disableStreetViewClick: function() {
+		disableStreetViewClick: function () {
 			this.connectMapClick();
 		},
-		getStreetView: function(evt, overRide) {
+		getStreetView: function (evt, overRide) {
 			if (this.mapClickMode === 'streetview' || overRide) {
 				var mapPoint = evt.mapPoint;
 				if (!mapPoint) {
@@ -197,7 +193,7 @@ define([
 			}
 
 		},
-		getPanoramaLocation: function(geoPoint) {
+		getPanoramaLocation: function (geoPoint) {
 			var place = new google.maps.LatLng(geoPoint.y, geoPoint.x);
 			this.panoramaService.getPanoramaByLocation(place, 50, lang.hitch(this, 'getPanoramaByLocationComplete', geoPoint));
 			// Panorama Events -- Changed location
@@ -205,7 +201,7 @@ define([
 			// Panorama Events -- Changed Rotation
 			google.maps.event.addListener(this.panorama, 'pov_changed', lang.hitch(this, 'setPlaceMarkerRotation'));
 		},
-		getPanoramaByLocationComplete: function(geoPoint, StreetViewPanoramaData, StreetViewStatus) {
+		getPanoramaByLocationComplete: function (geoPoint, StreetViewPanoramaData, StreetViewStatus) {
 			domStyle.set(this.loadingStreetView, 'display', 'none');
 			if (StreetViewStatus === 'OK') {
 				this.disableStreetViewClick();
@@ -228,7 +224,7 @@ define([
 				});
 			}
 		},
-		setPlaceMarkerPosition: function() {
+		setPlaceMarkerPosition: function () {
 			if (!this.placeMarker || this.pointGraphics.graphics.length === 0) {
 				this.placeMarker = new Graphic();
 				// Add graphic to the map
@@ -268,7 +264,7 @@ define([
 							heading: heading,
 							pitch: 0
 						});
-						setTimeout(lang.hitch(this, function() {
+						setTimeout(lang.hitch(this, function () {
 							this.setPanoPlace = null;
 						}), 1000);
 					} else {
@@ -277,14 +273,14 @@ define([
 				}
 			}
 		},
-		setPlaceMarkerRotation: function() {
+		setPlaceMarkerRotation: function () {
 			if (this.placeMarker) {
 				var pov = this.panorama.getPov();
 				this.pointSymbol.setAngle(pov.heading);
 				this.pointGraphics.refresh();
 			}
 		},
-		streetViewFromMapRightClick: function() {
+		streetViewFromMapRightClick: function () {
 			var evt = {
 				mapPoint: this.mapRightClickPoint
 			};

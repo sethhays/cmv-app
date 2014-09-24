@@ -3,27 +3,32 @@ define ( [
              'dijit/_WidgetBase',
              'dijit/_TemplatedMixin',
              'dijit/_WidgetsInTemplateMixin',
-             'dijit/form/Form',
-             'dijit/form/FilteringSelect',
-             'dijit/form/ValidationTextBox',
-             'dijit/form/CheckBox',
-             'dojo/dom',
-             'dojo/dom-construct',
-             'dojo/dom-class',
              'dojo/_base/lang',
-             'dojo/_base/Color',
-             'dojo/_base/array',
              'dojo/on',
-             'dojo/request',
              'dojo/store/Memory',
              'esri/layers/ArcGISDynamicMapServiceLayer',
              'esri/layers/ImageParameters',
              'esri/InfoTemplate',
-             'esri/IdentityManager',
-             'esri/Credential',
+             'gis/dijit/LayerControl',
              'dojo/text!./Floorplans/templates/Floorplans.html',
+             'dijit/form/Form',
+             'dijit/form/FilteringSelect',
+             'dijit/form/ValidationTextBox',
+             'dijit/form/CheckBox',
              'xstyle/css!./Floorplans/css/floorplans.css'
-         ], function ( declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Form, FilteringSelect, ValidationTextBox, CheckBox, dom, domConstruct, domClass, lang, Color, array, on, request, Memory, DynamicMapServiceLayer, ImageParameters, InfoTemplate, IdentityManager, Credential, FloorplansTemplate, css ) {
+         ], function ( declare,
+                       _WidgetBase,
+                       _TemplatedMixin,
+                       _WidgetsInTemplateMixin,
+                       lang,
+                       on,
+                       Memory,
+                       DynamicMapServiceLayer,
+                       ImageParameters,
+                       InfoTemplate,
+                       LayerControl,
+                       FloorplansTemplate
+             ) {
 
              var Floorplans = declare ( [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
 
@@ -32,6 +37,8 @@ define ( [
                                             baseClass: 'fisFloorplansDijit',
 
                                             _floorList: [],
+
+                                            _layerControl: null,
 
                                             postCreate: function () {
                                                 this.inherited ( arguments );
@@ -42,6 +49,9 @@ define ( [
                                                 this.map.addLayer(this.floorplansLayer);
                                                 this.floorplansLayer.hide();
 
+                                                this._layerControl = this._createLayerControl();
+                                                this._layerControl.startup();
+
                                                 on.once( this.floorplansLayer, 'load', lang.hitch( this, this._processFloorplansLayer ));
 
                                             },
@@ -51,13 +61,47 @@ define ( [
                                                 imageParameters.format = 'png32';
 
                                                 var floorplansLayer = new DynamicMapServiceLayer('https://fis.ipf.msu.edu/arcgis/rest/services/BuildingInformation/SpaceByFloor/MapServer',
-                                                                                               {
-                                                                                                   visible: false,
-                                                                                                   imageParameters: imageParameters
-                                                                                               });
+                                                                                                 {
+                                                                                                     visible: false,
+                                                                                                     imageParameters: imageParameters
+                                                                                                 });
                                                 return floorplansLayer;
 
 
+                                            },
+
+                                            _createLayerControl: function () {
+
+                                                var layerControl = new LayerControl( {
+                                                    map: this.map,
+                                                    separated: false,
+                                                    noZoom: true,
+                                                    swipe: true,
+                                                    layerInfos: [ this._getFloorPlanLayerLayerInfo() ]
+                                                }, this.layerControlNode );
+
+                                                console.log( layerControl );
+                                                return layerControl;
+
+                                            },
+
+                                            _getFloorPlanLayerLayerInfo: function () {
+
+                                                var info = {
+                                                    layer: this.floorplansLayer,
+                                                    title: 'Floor Info',
+                                                    noLegend: false,
+                                                    noZoom: true,
+                                                    noTransparency: false,
+                                                    expanded: true,
+                                                    sublayers: true,
+                                                    swipe: true,
+                                                    swipeScope: true,
+                                                    type: 'dynamic',
+                                                    url: this.floorplansLayer.url
+                                                };
+
+                                                return info;
                                             },
 
                                             _processFloorplansLayer: function () {
@@ -177,8 +221,8 @@ define ( [
 
                                             },
 
-                                            _onSubLayerChange: function ( checked ) {
-                                              this._updateLayerProperties();
+                                            _onSubLayerChange: function () {
+                                                this._updateLayerProperties();
                                             },
 
                                             _updateLayerProperties: function () {
@@ -218,7 +262,7 @@ define ( [
 
                                                 if ( showAdditions ) {
                                                     var additionLayers = [
-                                                      layerInfo.id + 19
+                                                            layerInfo.id + 19
                                                     ];
 
                                                     visibleLayers = visibleLayers.concat( additionLayers );

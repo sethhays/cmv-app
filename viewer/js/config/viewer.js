@@ -3,9 +3,8 @@ define([
 	'esri/geometry/Extent',
 	'esri/config',
 	'esri/tasks/GeometryService',
-	'esri/layers/ImageParameters',
-    'esri/InfoTemplate'
-], function(units, Extent, esriConfig, GeometryService, ImageParameters, InfoTemplate) {
+	'esri/layers/ImageParameters'
+], function (units, Extent, esriConfig, GeometryService, ImageParameters) {
 
 	// url to your proxy page, must be on same machine hosting you app. See proxy folder for readme.
 	esriConfig.defaults.io.proxyUrl = 'proxy/proxy.ashx';
@@ -17,31 +16,17 @@ define([
 	var imageParameters = new ImageParameters();
 	imageParameters.format = 'png32';
 
-    var panoInfoTemplate = new InfoTemplate();
-    panoInfoTemplate.setTitle( 'Panoramic Photo Location' );
-    panoInfoTemplate.setContent( '<a href="http://prod.gis.msu.edu/campusmap/pano.html?viewer=sphere&locationid=${LOCATIONID}" target="_blank">Open in new window</a>' );
-
-    var panoInfoTemplates = {
-        0: {infoTemplate: panoInfoTemplate}
-    };
-
 	return {
 		// used for debugging your app
 		isDebug: false,
-
-        titles: {
-            header: 'CMV',
-            subHeader: 'Make it your own right?',
-            pageTitle: 'CMV | Configurable Map Viewer'
-        },
 
 		//default mapClick mode, mapClickMode lets widgets know what mode the map is in to avoid multipult map click actions from taking place (ie identify while drawing).
 		defaultMapClickMode: 'identify',
 		// map options, passed to map constructor. see: https://developers.arcgis.com/javascript/jsapi/map-amd.html#map1
 		mapOptions: {
 			basemap: 'streets',
-			center: [-84.482278, 42.723222],
-			zoom: 18,
+			center: [-96.59179687497497, 39.09596293629694],
+			zoom: 5,
 			sliderStyle: 'small'
 		},
 		// panes: {
@@ -75,55 +60,14 @@ define([
 		// operationalLayers: Array of Layers to load on top of the basemap: valid 'type' options: 'dynamic', 'tiled', 'feature'.
 		// The 'options' object is passed as the layers options for constructor. Title will be used in the legend only. id's must be unique and have no spaces.
 		// 3 'mode' options: MODE_SNAPSHOT = 0, MODE_ONDEMAND = 1, MODE_SELECTION = 2
-		operationalLayers: [
-            {
-                type   : 'feature',
-                url    : 'http://prod.gis.msu.edu/arcgis/rest/services/features/gigapan_loc/MapServer/0',
-                title  : 'Panoramic Photos (feat. layer)',
-                slider: false,
-                noLegend: false,
-                collapsed: false,
-                options: {
-                    id     : 'panoFeatureLayer',
-                    opacity: 0.8,
-                    visible: true,
-                    minScale: 2500,
-                    infoTemplate: panoInfoTemplate,
-                    outFields: ['LOCATIONID']
-                },
-                controlOptions: {
-                    transparency: true, //include transparency plugin
-                    scales: true //include layer scale setting plugin
-                }
-            },
-            {
-                type   : 'dynamic',
-                url    : 'http://prod.gis.msu.edu/arcgis/rest/services/features/gigapan_loc/MapServer',
-                title  : 'Panoramic Photos (dyn. layer)',
-                slider: false,
-                noLegend: false,
-                collapsed: false,
-                options: {
-                    id     : 'panoDynamicLayer',
-                    opacity: 0.8,
-                    visible: false,
-                    minScale: 2500,
-                    infoTemplates: panoInfoTemplates,
-                    outFields: ['LOCATIONID']
-                },
-                controlOptions: {
-                    transparency: true, //include transparency plugin
-                    scales: true //include layer scale setting plugin
-                }
-            },
-            {
+		operationalLayers: [{
 			type: 'feature',
 			url: 'http://services1.arcgis.com/g2TonOxuRkIqSOFx/arcgis/rest/services/MeetUpHomeTowns/FeatureServer/0',
 			title: 'STLJS Meetup Home Towns',
 			options: {
 				id: 'meetupHometowns',
 				opacity: 1.0,
-				visible: false,
+				visible: true,
 				outFields: ['*'],
 				mode: 0
 			},
@@ -137,7 +81,7 @@ define([
 			options: {
 				id: 'sf311Incidents',
 				opacity: 1.0,
-				visible: false,
+				visible: true,
 				outFields: ['req_type', 'req_date', 'req_time', 'address', 'district'],
 				mode: 0
 			}
@@ -152,7 +96,7 @@ define([
 			options: {
 				id: 'louisvillePubSafety',
 				opacity: 1.0,
-				visible: false,
+				visible: true,
 				imageParameters: imageParameters
 			},
 			identifyLayerInfos: {
@@ -168,8 +112,11 @@ define([
 			options: {
 				id: 'DamageAssessment',
 				opacity: 1.0,
-				visible: false,
+				visible: true,
 				imageParameters: imageParameters
+			},
+			layerControlLayerInfos: {
+				swipe: true
 			}
 		}],
 		// set include:true to load. For titlePane type set position the the desired order in the sidebar
@@ -200,7 +147,7 @@ define([
 				}
 			},
 			identify: {
-				include: false,
+				include: true,
 				id: 'identify',
 				type: 'titlePane',
 				path: 'gis/dijit/Identify',
@@ -322,6 +269,7 @@ define([
 				options: {
 					map: true,
 					layerControlLayerInfos: true,
+					separated: true,
 					vectorReorder: true,
 					overlayReorder: true
 				}
