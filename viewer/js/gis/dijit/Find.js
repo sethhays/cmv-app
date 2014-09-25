@@ -3,15 +3,8 @@ define([
 	'dijit/_WidgetBase',
 	'dijit/_TemplatedMixin',
 	'dijit/_WidgetsInTemplateMixin',
-	'dijit/form/Form',
-	'dijit/form/FilteringSelect',
-	'dijit/form/ValidationTextBox',
-	'dijit/form/CheckBox',
-	'dojo/dom',
 	'dojo/dom-construct',
-	'dojo/dom-class',
 	'dojo/_base/lang',
-	'dojo/_base/Color',
 	'dojo/_base/array',
 	'dojo/on',
 	'dojo/keys',
@@ -25,15 +18,17 @@ define([
 	'esri/symbols/SimpleMarkerSymbol',
 	'esri/symbols/SimpleLineSymbol',
 	'esri/symbols/SimpleFillSymbol',
-	'esri/layers/FeatureLayer',
 	'esri/graphicsUtils',
 	'esri/tasks/FindTask',
 	'esri/tasks/FindParameters',
 	'esri/geometry/Extent',
 	'dojo/text!./Find/templates/Find.html',
+	'dijit/form/Form',
+	'dijit/form/FilteringSelect',
+	'dijit/form/ValidationTextBox',
+	'dijit/form/CheckBox',
 	'xstyle/css!./Find/css/Find.css'
-], function (declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Form, FilteringSelect, ValidationTextBox, CheckBox, dom, domConstruct, domClass, lang, Color, array, on, keys, Memory, OnDemandGrid, Selection, Keyboard, GraphicsLayer, Graphic, SimpleRenderer, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, FeatureLayer, graphicsUtils, FindTask, FindParameters, Extent, FindTemplate) {
-
+], function (declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, domConstruct, lang, array, on, keys, Memory, OnDemandGrid, Selection, Keyboard, GraphicsLayer, Graphic, SimpleRenderer, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, graphicsUtils, FindTask, FindParameters, Extent, FindTemplate) {
 	return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
 		widgetsInTemplate: true,
 		templateString: FindTemplate,
@@ -96,15 +91,50 @@ define([
 				}
 			}
 
-			var pointSymbol = null, polylineSymbol = null, polygonSymbol = null;
-			var pointRenderer = null, polylineRenderer = null, polygonRenderer = null;
+			this.createGraphicLayers();
+
+			// allow pressing enter key to initiate the search
+			this.own(on(this.searchTextDijit, 'keyup', lang.hitch(this, function (evt) {
+				if (evt.keyCode === keys.ENTER) {
+					this.search();
+				}
+			})));
+
+			this.queryIdx = 0;
+
+			// add an id so the queries becomes key/value pair store
+			var k = 0, queryLen = this.queries.length;
+			for (k = 0; k < queryLen; k++) {
+				this.queries[k].id = k;
+			}
+
+			// add the queries to the drop-down list
+			if (queryLen > 1) {
+				var queryStore = new Memory({
+					data: this.queries
+				});
+				this.querySelectDijit.set('store', queryStore);
+				this.querySelectDijit.set('value', this.queryIdx);
+			} else {
+				this.querySelectDom.style.display = 'none';
+			}
+
+		},
+
+		createGraphicLayers: function () {
+			var pointSymbol = null,
+				polylineSymbol = null,
+				polygonSymbol = null;
+			var pointRenderer = null,
+				polylineRenderer = null,
+				polygonRenderer = null;
 
 			var symbols = lang.mixin({}, this.symbols);
 			// handle each property to preserve as much of the object heirarchy as possible
 			symbols = {
 				point: lang.mixin(this.defaultSymbols.point, symbols.point),
 				polyline: lang.mixin(this.defaultSymbols.polyline, symbols.polyline),
-				polygon:  lang.mixin(this.defaultSymbols.polygon, symbols.polygon)
+				polygon: lang.mixin(this.defaultSymbols.polygon, symbols.polygon)
 			};
 
 			// points
@@ -152,29 +182,6 @@ define([
 			this.map.addLayer(this.polygonGraphics);
 			this.map.addLayer(this.polylineGraphics);
 			this.map.addLayer(this.pointGraphics);
-
-			this.own(on(this.searchTextDijit, 'keyup', lang.hitch(this, function (evt) {
-				if (evt.keyCode === keys.ENTER) {
-					this.search();
-				}
-			})));
-
-			var k = 0, queryLen = this.queries.length;
-
-			// add an id so it becomes key/value pair store
-			for (k = 0; k < queryLen; k++) {
-				this.queries[k].id = k;
-			}
-			this.queryIdx = 0;
-			if (queryLen > 1) {
-				var queryStore = new Memory({
-					data: this.queries
-				});
-				this.querySelectDijit.set('store', queryStore);
-				this.querySelectDijit.set('value', this.queryIdx);
-			} else {
-				this.querySelectDom.style.display = 'none';
-			}
 		},
 		search: function () {
 			var query = this.queries[this.queryIdx];
@@ -233,10 +240,10 @@ define([
 					cellNavigation: false,
 					showHeader: true,
 					store: this.resultsStore,
-					columns:{
-					  layerName: 'Layer',
-					  foundFieldName: 'Field',
-					  value: 'Result'
+					columns: {
+						layerName: 'Layer',
+						foundFieldName: 'Field',
+						value: 'Result'
 					},
 					sort: [{
 						attribute: 'value',
@@ -292,30 +299,30 @@ define([
 				unique++;
 				var graphic, feature = result.feature;
 				switch (feature.geometry.type) {
-					case 'point':
-						// only add points to the map that have an X/Y
-						if (feature.geometry.x && feature.geometry.y) {
-							graphic = new Graphic(feature.geometry);
-							this.pointGraphics.add(graphic);
-						}
-						break;
-					case 'polyline':
-						// only add polylines to the map that have paths
-						if (feature.geometry.paths && feature.geometry.paths.length > 0) {
-							graphic = new Graphic(feature.geometry);
-							this.polylineGraphics.add(graphic);
-						}
-						break;
-					case 'polygon':
-						// only add polygons to the map that have rings
-						if (feature.geometry.rings && feature.geometry.rings.length > 0) {
-							graphic = new Graphic(feature.geometry, null, {
-								ren: 1
-							});
-							this.polygonGraphics.add(graphic);
-						}
-						break;
-					default:
+				case 'point':
+					// only add points to the map that have an X/Y
+					if (feature.geometry.x && feature.geometry.y) {
+						graphic = new Graphic(feature.geometry);
+						this.pointGraphics.add(graphic);
+					}
+					break;
+				case 'polyline':
+					// only add polylines to the map that have paths
+					if (feature.geometry.paths && feature.geometry.paths.length > 0) {
+						graphic = new Graphic(feature.geometry);
+						this.polylineGraphics.add(graphic);
+					}
+					break;
+				case 'polygon':
+					// only add polygons to the map that have rings
+					if (feature.geometry.rings && feature.geometry.rings.length > 0) {
+						graphic = new Graphic(feature.geometry, null, {
+							ren: 1
+						});
+						this.polygonGraphics.add(graphic);
+					}
+					break;
+				default:
 				}
 			}, this);
 

@@ -1,6 +1,7 @@
 define([
     'dojo/_base/declare',
     'dojo/_base/lang',
+    'dojo/_base/array',
     'dojo/on',
     'dojo/dom-class',
     'dojo/dom-style',
@@ -9,9 +10,10 @@ define([
     'dijit/_WidgetBase',
     'dijit/_TemplatedMixin',
     'dojo/text!./templates/Sublayer.html'
-], function(
+], function (
     declare,
     lang,
+    array,
     on,
     domClass,
     domStyle,
@@ -21,18 +23,15 @@ define([
     TemplatedMixin,
     sublayerTemplate
 ) {
-    'use strict';
     return declare([WidgetBase, TemplatedMixin], {
-        templateString: sublayerTemplate,
         control: null,
         sublayerInfo: null,
+        // ^args
+        templateString: sublayerTemplate,
         _expandClickHandler: null,
-        constructor: function(options) {
-            options = options || {};
-            lang.mixin(this, options);
-        },
-        postCreate: function() {
-            if (this.sublayerInfo.defaultVisibility) {
+        postCreate: function () {
+            this.inherited(arguments);
+            if (array.indexOf(this.control.layer.visibleLayers, this.sublayerInfo.id) !== -1) {
                 domClass.remove(this.checkNode, 'fa-square-o');
                 domClass.add(this.checkNode, 'fa fa-check-square-o');
                 domAttr.set(this.checkNode, 'data-checked', 'checked');
@@ -41,7 +40,7 @@ define([
             }
             domAttr.set(this.checkNode, 'data-sublayer-id', this.sublayerInfo.id);
             domClass.add(this.checkNode, this.control.layer.id + '-layerControlSublayerCheck');
-            on(this.checkNode, 'click', lang.hitch(this, function() {
+            on(this.checkNode, 'click', lang.hitch(this, function () {
                 if (domAttr.get(this.checkNode, 'data-checked') === 'checked') {
                     domAttr.set(this.checkNode, 'data-checked', 'unchecked');
                     domClass.remove(this.checkNode, 'fa-check-square-o');
@@ -60,17 +59,10 @@ define([
                 this._checkboxScaleRange();
                 this.control.layer.getMap().on('zoom-end', lang.hitch(this, '_checkboxScaleRange'));
             }
-            //add custom menu items
-            var items = this.control.params.controlOptions.sublayerMenuItems;
-            if (items && items.length) {
-                this._sublayerMenu(items);
-            } else {
-                domClass.remove(this.labelNode, 'layerControlClick');
-            }
         },
-        //add on event to expandClickNode
+        // add on event to expandClickNode
         _expandClick: function () {
-            this._expandClickHandler = on(this.expandClickNode, 'click', lang.hitch(this, function() {
+            this._expandClickHandler = on(this.expandClickNode, 'click', lang.hitch(this, function () {
                 var expandNode = this.expandNode,
                     iconNode = this.expandIconNode;
                 if (domStyle.get(expandNode, 'display') === 'none') {
@@ -82,8 +74,8 @@ define([
                 }
             }));
         },
-        //check scales and add/remove disabled classes from checkbox
-        _checkboxScaleRange: function() {
+        // check scales and add/remove disabled classes from checkbox
+        _checkboxScaleRange: function () {
             var node = this.checkNode,
                 scale = this.control.layer.getMap().getScale(),
                 min = this.sublayerInfo.minScale,
