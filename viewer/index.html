@@ -42,8 +42,8 @@
                     name: 'config',
                     location: location.pathname.replace(/[^\/]+$/, '') + 'js/config'
                 },{
-                    name: 'gis',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/gis'
+                    name: 'widgets',
+                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/widgets'
                 },{
                     name: 'dbootstrap',
                     location: location.pathname.replace(/[^\/]+$/, '') + 'js/dbootstrap'
@@ -61,7 +61,7 @@
                 }
             }
             require(['dbootstrap','viewer/Controller', file], function(dbootstrap, Controller, config){
-                Controller.startup(config);
+                new Controller(config);
             });
         </script>
     </body>

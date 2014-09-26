@@ -3,20 +3,20 @@ define([
 	'dojo/_base/lang',
 	'dojo/has',
 	'dojo/topic',
-	'./mixins/Map',
-	'./mixins/UI',
-	'./mixins/Widgets',
+	'./core/_MapMixin',
+	'./core/_UIMixin',
+	'./core/_WidgetsMixin',
 	'esri/IdentityManager'
-], function (declare, lang, has, topic, _MapMixin, _UIMixin, _WidgetsMixin) {
+], function(declare, lang, has, topic, _MapMixin, _UIMixin, _WidgetsMixin) {
 
-	var Controller = declare([_MapMixin, _UIMixin, _WidgetsMixin], {
+	return declare([_MapMixin, _UIMixin, _WidgetsMixin], {
 		legendLayerInfos: [],
 		editorLayerInfos: [],
 		identifyLayerInfos: [],
 		tocLayerInfos: [],
 		layerControlLayerInfos: [],
 
-		startup: function (config) {
+		constructor: function(config) {
 			this.config = config;
 			this.mapClickMode = {
 				current: config.defaultMapClickMode,
@@ -47,29 +47,29 @@ define([
 		},
 
 		// add topics for subscribing and publishing
-		addTopics: function () {
+		addTopics: function() {
 			// setup error handler. centralize the debugging
 			if (this.config.isDebug) {
 				topic.subscribe('viewer/handleError', lang.hitch(this, 'handleError'));
 			}
 
 			// set the current mapClickMode
-			topic.subscribe('mapClickMode/setCurrent', lang.hitch(this, function (mode) {
+			topic.subscribe('mapClickMode/setCurrent', lang.hitch(this, function(mode) {
 				this.mapClickMode.current = mode;
 				topic.publish('mapClickMode/currentSet', mode);
 			}));
 
 			// set the current mapClickMode to the default mode
-			topic.subscribe('mapClickMode/setDefault', lang.hitch(this, function () {
+			topic.subscribe('mapClickMode/setDefault', lang.hitch(this, function() {
 				topic.publish('mapClickMode/setCurrent', this.mapClickMode.defaultMode);
 			}));
 
 		},
 
 		//centralized error handler
-		handleError: function (options) {
+		handleError: function(options) {
 			if (this.config.isDebug) {
-				if (typeof (console) === 'object') {
+				if (typeof(console) === 'object') {
 					for (var option in options) {
 						if (options.hasOwnProperty(option)) {
 							console.log(option, options[option]);
@@ -83,6 +83,4 @@ define([
 		}
 
 	});
-
-	return new Controller();
 });
