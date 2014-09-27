@@ -50,7 +50,7 @@ define ( [
 
                                                 this._defExpressions = [];
 
-                                                this.layerSelectDijit.set('disabled', true);
+                                                this.floorSelectDijit.set('disabled', true);
 
                                                 this.floorplanLayers = this._getFloorplanLayers();
                                                 on.once( this.floorplanLayers.map, 'load', lang.hitch( this, function () {
@@ -88,14 +88,9 @@ define ( [
 
                                                 var layerControl = new LayerControl( {
                                                     map: this.map,
-                                                    separated: false,
-                                                    noZoom: true,
-                                                    swipe: true,
-                                                    expand: true,
                                                     layerInfos: [ this._getFloorPlanLayerLayerInfo() ]
                                                 }, this.layerControlNode );
 
-                                                console.log( layerControl );
                                                 return layerControl;
 
                                             },
@@ -104,15 +99,17 @@ define ( [
 
                                                 var info = {
                                                     layer: this.floorplanLayers.map,
-                                                    title: 'Floor Info',
-                                                    noLegend: false,
-                                                    noZoom: true,
-                                                    noTransparency: false,
-                                                    sublayers: true,
-                                                    swipe: true,
-                                                    swipeScope: true,
+                                                    separated: false,
+                                                    title: 'Floor Layers',
                                                     type: 'dynamic',
-                                                    url: this.floorplanLayers.map.url
+                                                    controlOptions: {
+                                                        noLegend: false,
+                                                        noZoom: true,
+                                                        noTransparency: false,
+                                                        sublayers: true,
+                                                        swipe: true,
+                                                        swipeScope: true,
+                                                        expanded: true                                                     }
                                                 };
 
                                                 return info;
@@ -120,7 +117,6 @@ define ( [
 
                                             _getDefExpressions: function( layer ) {
 
-                                                console.log( 'getting def expressions' );
                                                 var token = layer.credential.token;
                                                 array.forEach( layer.layerInfos, function ( layerInfo ) {
 
@@ -131,6 +127,7 @@ define ( [
                                                         lang.hitch( this, function ( data ) {
 
                                                             this._defExpressions[ data.id ] = data.definitionExpression;
+                                                            this._updateDefinitionExpressions();
 
                                                         } )
                                                     )
@@ -225,7 +222,7 @@ define ( [
                                             _buildFloorList: function () {
 
                                                 this._floorList = [];
-                                                this._floorList.push( { id: -1, label:'None' } );
+                                                this._floorList.push( { id: -1, floor: 'XXX', label:'None' } );
 
                                                 var floorListUrl = this.floorplanLayers.map.url + '/33/query?token=' + this.floorplanLayers.map.credential.token + '&where=1=1&outFields=FLOOR%2CDESCRIPTION&f=JSON';
                                                 request( floorListUrl, { handleAs: 'json' } ).then( lang.hitch( this, function ( data ) {
@@ -238,12 +235,13 @@ define ( [
 
                                                     }, this );
 
+
                                                 } ) );
 
                                                 var layerStore = new Memory( { data: this._floorList } );
-                                                this.layerSelectDijit.set( 'store',layerStore );
-                                                this.layerSelectDijit.set( 'value',-1) ;
-                                                this.layerSelectDijit.set( 'disabled',false );
+                                                this.floorSelectDijit.set( 'store',layerStore );
+                                                this.floorSelectDijit.set( 'value',-1) ;
+                                                this.floorSelectDijit.set( 'disabled',false );
 
 
                                             },
@@ -256,10 +254,6 @@ define ( [
                                             },
 
                                             _updateDefinitionExpressions: function () {
-
-                                                if ( this._defExpressions.length === 0 ) {
-                                                    return;
-                                                }
 
                                                 var defExpressions = lang.clone( this._defExpressions );
 
@@ -281,6 +275,13 @@ define ( [
                                                 this.floorplanLayers.map.setLayerDefinitions( defExpressions );
                                                 this.floorplanLayers.map.show();
                                                 this.floorplanLayers.map.refresh();
+
+                                            },
+
+                                            reset: function () {
+
+                                                this.floorSelectDijit.set( 'value', -1 );
+                                                this.floorplanLayers.map.hide();
 
                                             }
 

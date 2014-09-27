@@ -607,7 +607,7 @@ define([
                 type: 'titlePane',
                 path: 'gis/dijit/LayerControl',
                 title: 'Layers',
-                open: true,
+                open: false,
                 placeAt: 'right',
                 position: 3,
                 options: {

@@ -2,9 +2,20 @@
     width: 100%;
 }
 
+.fisFloorplansDijit ul {
+    width: 100%;
+}
+
+.fisFloorplansDijit ul li {
+    margin-bottom: 1em;
+}
+
+.fisFloorplansDijit ul li:last-of-type {
+    text-align: right;
+}
+
 .fisFloorplansDijit .layerSelect, .fisFloorplansDijit .searchText {
     width: 100%;
-    margin-bottom: 10px;
 }
 
 .fisFloorplansDijit label {
@@ -15,4 +26,8 @@
 .fisFloorplansDijit .subLayerSelect label {
     font-size: smaller;
     font-weight: normal;
+}
+
+.fisFloorplansDijit .resetIcon {
+    color: #adadad;
 }
