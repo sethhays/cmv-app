@@ -22,7 +22,8 @@ define([
 
         titles: {
             header: 'Configurable Map Viewer',
-            subHeader: 'config: viewer-2'
+            subHeader: 'config: viewer-2',
+            pageTitle: 'CMV-APP-2'
         },
 
 		//default mapClick mode, mapClickMode lets widgets know what mode the map is in to avoid multipult map click actions from taking place (ie identify while drawing).
