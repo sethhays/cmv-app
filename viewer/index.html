@@ -52,10 +52,11 @@
         </script>
         <script type="text/javascript" src="//js.arcgis.com/3.10compact/"></script>
         <script type="text/javascript">
-            require(['dbootstrap','viewer/Controller', 'config/global'], function( dbootstrap, Controller, global ){
+            require(['dbootstrap','viewer/Controller', 'viewer/core/_RouterMixin', 'config/global'], function( dbootstrap, Controller, _RouterMixin, global ){
 
-                if ( global.router.use ) {
-                    new Controller();
+                var controller = new Controller();
+
+                if ( controller.isInstanceOf( _RouterMixin ) ) {
                     return;
                 }
 

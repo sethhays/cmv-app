@@ -11,7 +11,7 @@ define([
 	'esri/IdentityManager'
 ], function(declare, lang, has, topic, _MapMixin, _UIMixin, _WidgetsMixin, _RouterMixin, TopicRegistry) {
 
-	return declare([_MapMixin, _UIMixin, _WidgetsMixin, _RouterMixin /*exclue if not using router (see global.js)*/], {
+	return declare([_MapMixin, _UIMixin, _WidgetsMixin, _RouterMixin /*exclude if not using router - config loaded via url param*/], {
 		legendLayerInfos: [],
 		editorLayerInfos: [],
 		identifyLayerInfos: [],
