@@ -20,7 +20,7 @@ define([
 
         constructor: function(){
 
-            topic.subscribe( TopicRegistry.CMV_CONFIG_LOADED,  lang.hitch( this, this.startup ) );
+            topic.subscribe( TopicRegistry.get( 'CMV_CONFIG_LOADED' ),  lang.hitch( this, this.startup ) );
 
         },
 

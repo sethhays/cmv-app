@@ -27,7 +27,7 @@ define( [
                     this.eventHandles = [];
 
                     this._registerRoutes();
-                    topic.subscribe( TopicRegistry.MAP_INITIALIZED, lang.hitch( this, this.registerMapEventHandles ) );
+                    topic.subscribe( TopicRegistry.get( 'MAP_INITIALIZED' ), lang.hitch( this, 'registerMapEventHandles' ) );
 
                     if ( hash() !== '' ) {
                         router.go( hash() );
@@ -135,7 +135,7 @@ define( [
                         config.mapOptions.center = this._getDefaultMapCenter( config );
                         config.mapOptions.zoom = this._getDefaultMapZoomLevel( config );
 
-                        topic.publish( TopicRegistry.CMV_CONFIG_LOADED, config );
+                        topic.publish( TopicRegistry.get( 'CMV_CONFIG_LOADED' ), config );
 
                     } ) );
 
@@ -167,7 +167,7 @@ define( [
 
                     require( [ this.configPath ], lang.hitch( this, function( config ) {
 
-                        topic.publish( TopicRegistry.CMV_CONFIG_LOADED, config );
+                        topic.publish( TopicRegistry.get( 'CMV_CONFIG_LOADED' ), config );
 
                     } ) );
 

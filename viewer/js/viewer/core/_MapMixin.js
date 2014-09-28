@@ -43,7 +43,7 @@ define([
 				this.config.mapOptions.infoWindow = new PopupMobile(null, put('div'));
 			}
 			this.map = new Map('mapCenter', this.config.mapOptions);
-            topic.publish( TopicRegistry.MAP_INITIALIZED );
+            topic.publish( TopicRegistry.get( 'MAP_INITIALIZED' ) );
 			if (this.config.mapOptions.basemap) {
 				this.map.on('load', lang.hitch(this, 'initLayers'));
 			} else {
