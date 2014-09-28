@@ -7,7 +7,7 @@
                     <ul class="list-inline list-unstyled">
 
                         <li>
-                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'pointIcon',showLabel:true"
+                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'pointIcon',showLabel:false"
                                     data-dojo-attach-event="onClick:drawPoint"
                                     class="drawButton"
                                     title="Point">
@@ -16,7 +16,7 @@
                         </li>
 
                         <li>
-                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'circleDrawIcon',showLabel:true,drawType:'CIRCLE'"
+                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'circleDrawIcon',showLabel:false,drawType:'CIRCLE'"
                                     data-dojo-attach-event="onClick:drawCircle"
                                     class="drawButton"
                                     title="Circle">
@@ -25,7 +25,7 @@
                         </li>
 
                         <li>
-                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'lineIcon',showLabel:true"
+                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'lineIcon',showLabel:false"
                                     data-dojo-attach-event="onClick:drawLine"
                                     class="drawButton"
                                     title="Polyline">
@@ -34,7 +34,7 @@
                         </li>
 
                         <li>
-                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'freehandDrawIcon',showLabel:true"
+                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'freehandDrawIcon',showLabel:false"
                                     data-dojo-attach-event="onClick:drawFreehandLine"
                                     class="drawButton"
                                     title="Freehand Polyline">
@@ -43,7 +43,7 @@
                         </li>
 
                         <li>
-                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'polyIcon',showLabel:true"
+                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'polyIcon',showLabel:false"
                                     data-dojo-attach-event="onClick:drawPolygon"
                                     class="drawButton"
                                     title="Polygon">
@@ -52,7 +52,7 @@
                         </li>
 
                         <li>
-                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'freehandPolygonDrawIcon',showLabel:true"
+                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'freehandPolygonDrawIcon',showLabel:false"
                                     data-dojo-attach-event="onClick:drawFreehandPolygon"
                                     class="drawButton"
                                     title="Freehand Polygon">
@@ -61,14 +61,26 @@
                         </li>
 
                         <li>
-                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'clearIcon',showLabel:true"
-                                    data-dojo-attach-event="onClick:clearGraphics"
-                                    class="drawButton"
-                                    title="Clear Drawing">
-                                Clear Drawing
-                            </button>
+                            <div data-dojo-type="dijit/form/Button"
+                                 data-dojo-attach-point="stopDrawingButton"
+                                 data-dojo-props="showLabel:true,disabled:true"
+                                 data-dojo-attach-event="onClick:stopDrawing"
+                                 class="drawButton"
+                                 title="Stop Drawing">
+                                <i class="fa fa-ban stopIcon"></i>
+                            </div>
                         </li>
 
+                        <li>
+                            <div data-dojo-type="dijit/form/Button"
+                                 data-dojo-attach-point="eraseDrawingButton"
+                                 data-dojo-props="showLabel:true,disabled:true"
+                                 data-dojo-attach-event="onClick:clearGraphics"
+                                 class="drawButton"
+                                 title="Reset Drawing">
+                                <i class="fa fa-refresh stopIcon"></i>
+                            </div>
+                        </li>
 
                     </ul>
                 </li>

@@ -27,8 +27,12 @@
     width: 50px;
 }
 
+.gis_DrawDijit .stopIcon {
+    color: red;
+}
+
 .gis_DrawDijit .drawButton .dijitButtonText {
-    display: none;
+    /*display: none;*/
 }
 .gis_DrawDijit .polyIcon {
     background-image: url(../images/toolbar_icons.png);

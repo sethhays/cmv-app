@@ -26,7 +26,6 @@ define([
         widgetsInTemplate: true,
         templateString: drawTemplate,
         drawToolbar: null,
-        graphics: null,
         mapClickMode: null,
         postCreate: function () {
             this.inherited(arguments);
@@ -157,11 +156,13 @@ define([
         },
         disconnectMapClick: function () {
             topic.publish('mapClickMode/setCurrent', 'draw');
+            this.enableStopButtons();
             // dojo.disconnect(this.mapClickEventHandle);
             // this.mapClickEventHandle = null;
         },
         connectMapClick: function () {
             topic.publish('mapClickMode/setDefault');
+            this.disableStopButtons();
             // if (this.mapClickEventHandle === null) {
             //     this.mapClickEventHandle = dojo.connect(this.map, 'onClick', this.mapClickEventListener);
             // }
@@ -169,7 +170,6 @@ define([
         onDrawToolbarDrawEnd: function (evt) {
             this.drawToolbar.deactivate();
             this.drawModeTextNode.innerText = 'None';
-            this.connectMapClick();
             var graphic;
             switch (evt.geometry.type) {
             case 'point':
@@ -188,22 +188,51 @@ define([
                 break;
             default:
             }
+            this.connectMapClick();
         },
         clearGraphics: function () {
             this.endDrawing();
             this.connectMapClick();
             this.drawModeTextNode.innerText = 'None';
         },
+        stopDrawing: function () {
+            this.drawToolbar.deactivate();
+            this.drawModeTextNode.innerText = 'None';
+            this.connectMapClick();
+        },
         endDrawing: function () {
             this.pointGraphics.clear();
             this.polylineGraphics.clear();
             this.polygonGraphics.clear();
             this.drawToolbar.deactivate();
+            this.disableStopButtons();
+        },
+        disableStopButtons: function () {
+            this.stopDrawingButton.set( 'disabled', true );
+            this.eraseDrawingButton.set( 'disabled', !this.noGraphics() );
+        },
+        enableStopButtons: function () {
+            this.stopDrawingButton.set( 'disabled', false );
+            this.eraseDrawingButton.set( 'disabled', !this.noGraphics() );
+        },
+        noGraphics: function () {
+
+            if ( this.pointGraphics.graphics.length > 0 ) {
+                return true;
+            } else if ( this.polylineGraphics.graphics.length > 0 ) {
+                return true;
+            } else if ( this.polygonGraphics.graphics.length > 0 ) {
+                return true;
+            } else {
+                return false;
+            }
+            return false;
+
         },
         onLayoutChange: function (open) {
             // end drawing on close of title pane
             if (!open) {
-                this.endDrawing();
+                //this.endDrawing();
                 if (this.mapClickMode === 'draw') {
                     topic.publish('mapClickMode/setDefault');
                 }
