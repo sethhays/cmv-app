@@ -4,20 +4,22 @@ define([
 	'esri/dijit/PopupMobile',
 	'dojo/_base/lang',
 	'dojo/_base/array',
-	//'dojo/topic',
+	'dojo/topic',
 	'dojo/on',
 	'dojo/has',
-	'put-selector'
+	'put-selector',
+    'viewer/core/TopicRegistry'
 ], function (
 	declare,
 	Map,
 	PopupMobile,
 	lang,
 	array,
-	//topic,
+	topic,
 	on,
 	has,
-	put
+	put,
+    TopicRegistry
 ) {
 	return declare(null, {
 		layers: [],
@@ -41,6 +43,7 @@ define([
 				this.config.mapOptions.infoWindow = new PopupMobile(null, put('div'));
 			}
 			this.map = new Map('mapCenter', this.config.mapOptions);
+            topic.publish( TopicRegistry.MAP_INITIALIZED );
 			if (this.config.mapOptions.basemap) {
 				this.map.on('load', lang.hitch(this, 'initLayers'));
 			} else {

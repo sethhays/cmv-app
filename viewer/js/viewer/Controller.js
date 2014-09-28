@@ -6,18 +6,26 @@ define([
 	'./core/_MapMixin',
 	'./core/_UIMixin',
 	'./core/_WidgetsMixin',
+    'viewer/core/_RouterMixin',
+    'viewer/core/TopicRegistry',
 	'esri/IdentityManager'
-], function(declare, lang, has, topic, _MapMixin, _UIMixin, _WidgetsMixin) {
+], function(declare, lang, has, topic, _MapMixin, _UIMixin, _WidgetsMixin, _RouterMixin, TopicRegistry) {
 
-	return declare([_MapMixin, _UIMixin, _WidgetsMixin], {
+	return declare([_MapMixin, _UIMixin, _WidgetsMixin, _RouterMixin /*exclue if not using router (see global.js)*/], {
 		legendLayerInfos: [],
 		editorLayerInfos: [],
 		identifyLayerInfos: [],
 		tocLayerInfos: [],
 		layerControlLayerInfos: [],
 
-		constructor: function(config) {
-			this.config = config;
+        constructor: function(){
+
+            topic.subscribe( TopicRegistry.CMV_CONFIG_LOADED,  lang.hitch( this, this.startup ) );
+
+        },
+
+        startup: function(config) {
+            this.config = config;
 			this.mapClickMode = {
 				current: config.defaultMapClickMode,
 				defaultMode: config.defaultMapClickMode

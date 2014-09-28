@@ -52,16 +52,28 @@
         </script>
         <script type="text/javascript" src="//js.arcgis.com/3.10compact/"></script>
         <script type="text/javascript">
-            // get the config file from the url if present
-            var file = 'config/viewer', s = window.location.search, q = s.match(/config=([^&]*)/i);
-            if (q && q.length > 0) {
-                file = q[1];
-                if(file.indexOf('/') < 0) {
-                    file = 'config/' + file;
+            require(['dbootstrap','viewer/Controller', 'config/global'], function( dbootstrap, Controller, global ){
+
+                if ( global.router.use ) {
+                    new Controller();
+                    return;
                 }
-            }
-            require(['dbootstrap','viewer/Controller', file], function(dbootstrap, Controller, config){
-                new Controller(config);
+
+                // get the config file from the url if present
+                var file = 'config/viewer', s = window.location.search, q = s.match(/config=([^&]*)/i);
+                if (q && q.length > 0) {
+                    file = q[1];
+                    if(file.indexOf('/') < 0) {
+                        file = 'config/' + file;
+                    }
+                }
+                require(['dbootstrap','viewer/Controller', 'dojo/topic', 'viewer/core/TopicRegistry', file], function(dbootstrap, Controller, topic, TopicRegistry, config){
+
+                    new Controller();
+                    topic.publish( TopicRegistry.CMV_CONFIG_LOADED, config );
+
+                });
+
             });
         </script>
     </body>
