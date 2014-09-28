@@ -128,26 +128,32 @@ define([
         drawPoint: function () {
             this.disconnectMapClick();
             this.drawToolbar.activate(Draw.POINT);
+            this.drawModeTextNode.innerText = 'Point';
         },
         drawCircle: function () {
             this.disconnectMapClick();
             this.drawToolbar.activate(Draw.CIRCLE);
+            this.drawModeTextNode.innerText = 'Circle';
         },
         drawLine: function () {
             this.disconnectMapClick();
             this.drawToolbar.activate(Draw.POLYLINE);
+            this.drawModeTextNode.innerText = 'Polyliine';
         },
         drawFreehandLine: function () {
             this.disconnectMapClick();
             this.drawToolbar.activate(Draw.FREEHAND_POLYLINE);
+            this.drawModeTextNode.innerText = 'Freehand Polyline';
         },
         drawPolygon: function () {
             this.disconnectMapClick();
             this.drawToolbar.activate(Draw.POLYGON);
+            this.drawModeTextNode.innerText = 'Polygon';
         },
         drawFreehandPolygon: function () {
             this.disconnectMapClick();
             this.drawToolbar.activate(Draw.FREEHAND_POLYGON);
+            this.drawModeTextNode.innerText = 'Freehand Polygon';
         },
         disconnectMapClick: function () {
             topic.publish('mapClickMode/setCurrent', 'draw');
@@ -162,6 +168,7 @@ define([
         },
         onDrawToolbarDrawEnd: function (evt) {
             this.drawToolbar.deactivate();
+            this.drawModeTextNode.innerText = 'None';
             this.connectMapClick();
             var graphic;
             switch (evt.geometry.type) {
@@ -185,6 +192,7 @@ define([
         clearGraphics: function () {
             this.endDrawing();
             this.connectMapClick();
+            this.drawModeTextNode.innerText = 'None';
         },
         endDrawing: function () {
             this.pointGraphics.clear();

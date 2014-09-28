@@ -29,6 +29,12 @@ define([
 			zoom: 5,
 			sliderStyle: 'small'
 		},
+
+        panes: {
+            left: {
+                splitter: true
+            }
+        },
 		// panes: {
 		// 	left: {
 		// 		splitter: true
@@ -60,7 +66,8 @@ define([
 		// operationalLayers: Array of Layers to load on top of the basemap: valid 'type' options: 'dynamic', 'tiled', 'feature'.
 		// The 'options' object is passed as the layers options for constructor. Title will be used in the legend only. id's must be unique and have no spaces.
 		// 3 'mode' options: MODE_SNAPSHOT = 0, MODE_ONDEMAND = 1, MODE_SELECTION = 2
-		operationalLayers: [{
+		operationalLayers: [
+            {
 			type: 'feature',
 			url: 'http://services1.arcgis.com/g2TonOxuRkIqSOFx/arcgis/rest/services/MeetUpHomeTowns/FeatureServer/0',
 			title: 'STLJS Meetup Home Towns',
@@ -147,7 +154,7 @@ define([
 				}
 			},
 			identify: {
-				include: true,
+				include: false,
 				id: 'identify',
 				type: 'titlePane',
 				path: 'gis/dijit/Identify',
@@ -246,7 +253,7 @@ define([
 				}
 			},
 			legend: {
-				include: true,
+				include: false,
 				id: 'legend',
 				type: 'titlePane',
 				path: 'esri/dijit/Legend',
@@ -275,7 +282,7 @@ define([
 				}
 			},
 			bookmarks: {
-				include: true,
+				include: false,
 				id: 'bookmarks',
 				type: 'titlePane',
 				path: 'gis/dijit/Bookmarks',
@@ -285,7 +292,7 @@ define([
 				options: 'config/bookmarks'
 			},
 			find: {
-				include: true,
+				include: false,
 				id: 'find',
 				type: 'titlePane',
 				canFloat: true,
@@ -302,7 +309,7 @@ define([
 				canFloat: true,
 				path: 'gis/dijit/Draw',
 				title: 'Draw',
-				open: false,
+				open: true,
 				position: 4,
 				options: {
 					map: true,
@@ -326,7 +333,7 @@ define([
 				}
 			},
 			print: {
-				include: true,
+				include: false,
 				id: 'print',
 				type: 'titlePane',
 				canFloat: true,
@@ -345,7 +352,7 @@ define([
 				}
 			},
 			directions: {
-				include: true,
+				include: false,
 				id: 'directions',
 				type: 'titlePane',
 				path: 'gis/dijit/Directions',
@@ -365,7 +372,7 @@ define([
 				}
 			},
 			editor: {
-				include: true,
+				include: false,
 				id: 'editor',
 				type: 'titlePane',
 				path: 'gis/dijit/Editor',
@@ -392,7 +399,7 @@ define([
 				}
 			},
 			streetview: {
-				include: true,
+				include: false,
 				id: 'streetview',
 				type: 'titlePane',
 				canFloat: true,
@@ -407,7 +414,7 @@ define([
 				}
 			},
 			help: {
-				include: true,
+				include: false,
 				id: 'help',
 				type: 'floating',
 				path: 'gis/dijit/Help',

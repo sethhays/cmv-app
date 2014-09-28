@@ -1,50 +1,97 @@
 <div class="gis_DrawDijit">
     <div class="formContainer">
         <div style="padding:5px;">
-            <table>
-                <tr>
-                    <td>
-                        <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'pointIcon',showLabel:true"
-                        data-dojo-attach-event="onClick:drawPoint">
-                            Point
+            <ul class="list-unstyled outerList">
+
+                <li>
+                    <ul class="list-inline list-unstyled">
+
+                        <li>
+                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'pointIcon',showLabel:true"
+                                    data-dojo-attach-event="onClick:drawPoint"
+                                    class="drawButton"
+                                    title="Point">
+                                Point
+                            </button>
+                        </li>
+
+                        <li>
+                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'circleDrawIcon',showLabel:true,drawType:'CIRCLE'"
+                                    data-dojo-attach-event="onClick:drawCircle"
+                                    class="drawButton"
+                                    title="Circle">
+                                Circle
+                            </button>
+                        </li>
+
+                        <li>
+                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'lineIcon',showLabel:true"
+                                    data-dojo-attach-event="onClick:drawLine"
+                                    class="drawButton"
+                                    title="Polyline">
+                                Line
+                            </button>
+                        </li>
+
+                        <li>
+                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'freehandDrawIcon',showLabel:true"
+                                    data-dojo-attach-event="onClick:drawFreehandLine"
+                                    class="drawButton"
+                                    title="Freehand Polyline">
+                                Freehand Line
+                            </button>
+                        </li>
+
+                        <li>
+                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'polyIcon',showLabel:true"
+                                    data-dojo-attach-event="onClick:drawPolygon"
+                                    class="drawButton"
+                                    title="Polygon">
+                                Polygon
+                            </button>
+                        </li>
+
+                        <li>
+                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'freehandPolygonDrawIcon',showLabel:true"
+                                    data-dojo-attach-event="onClick:drawFreehandPolygon"
+                                    class="drawButton"
+                                    title="Freehand Polygon">
+                                Freehand Polygon
+                            </button>
+                        </li>
+
+                        <li>
+                            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'clearIcon',showLabel:true"
+                                    data-dojo-attach-event="onClick:clearGraphics"
+                                    class="drawButton"
+                                    title="Clear Drawing">
+                                Clear Drawing
+                            </button>
+                        </li>
+
+
+                    </ul>
+                </li>
+
+                <li>
+                   <div class="drawModeIndicatorNode">
+                       <span style="font-weight: bold">Current Draw Mode: </span>
+                       <span data-dojo-attach-point="drawModeTextNode">None</span>
+                   </div>
+                </li>
+
+                <!--<li>
+                    <div class="buttonActionBar">
+                        <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'clearIcon',showLabel:true"
+                                data-dojo-attach-event="onClick:clearGraphics">
+                            Clear Drawing
                         </button>
-                        <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'circleDrawIcon',showLabel:true,drawType:'CIRCLE'"
-                        data-dojo-attach-event="onClick:drawCircle">
-                            Circle
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'lineIcon',showLabel:true"
-                        data-dojo-attach-event="onClick:drawLine">
-                            Line
-                        </button>
-                        <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'freehandDrawIcon',showLabel:true"
-                        data-dojo-attach-event="onClick:drawFreehandLine">
-                            Freehand Line
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'polyIcon',showLabel:true"
-                        data-dojo-attach-event="onClick:drawPolygon">
-                            Polygon
-                        </button>
-                        <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'freehandDrawIcon',showLabel:true"
-                        data-dojo-attach-event="onClick:drawFreehandPolygon">
-                            Freehand Polygon
-                        </button>
-                    </td>
-                </tr>
-            </table>
+                    </div>
+                </li>-->
+
+            </ul>
+
         </div>
     </div>
-    <div class="buttonActionBar">
-        <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'clearIcon',showLabel:true"
-        data-dojo-attach-event="onClick:clearGraphics">
-            Clear Drawing
-        </button>
-    </div>
+
 </div>
